@@ -163,7 +163,7 @@
               <div class="dropdown-list-image mr-3">
                 <img
                   class="rounded-circle"
-                  src="img/undraw_profile_1.svg"
+                  src="assets/img/undraw_profile_1.svg"
                   alt="..."
                 />
                 <div class="status-indicator bg-success"></div>
@@ -257,7 +257,7 @@
             >
             <img
               class="img-profile rounded-circle"
-              src="img/undraw_profile.svg"
+              src="assets/img/undraw_profile.svg"
             />
           </a>
           <!-- Dropdown - User Information -->

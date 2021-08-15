@@ -15,12 +15,13 @@
                         <div class="text-center">
                           <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                         </div>
-                        <form class="user">
+                        <form @submit.prevent="login">
                           <div class="form-group">
                             <input
                               type="email"
                               class="form-control form-control-user"
                               id="exampleInputEmail"
+                              v-model="email"
                               aria-describedby="emailHelp"
                               placeholder="Enter Email Address..."
                             />
@@ -29,16 +30,17 @@
                             <input
                               type="password"
                               class="form-control form-control-user"
+                              v-model="password"
                               id="exampleInputPassword"
                               placeholder="Password"
                             />
                           </div>
-                          <a
-                            href="index.html"
+                          <button
                             class="btn btn-primary btn-user btn-block"
+                            type="submit"
                           >
                             Login
-                          </a>
+                          </button>
                         </form>
                         <hr />
                         <div class="text-center">
@@ -58,6 +60,48 @@
     </div>
   </div>
 </template>
+<script>
+import router from "@/router";
+export default {
+  data() {
+    return {
+      email: "",
+      password: "",
+    };
+  },
+  methods: {
+    login() {
+      let loading = this.$loading.show();
+      this.$store
+        .dispatch("login", {
+          email: this.email,
+          password: this.password,
+        })
+        .then(
+          () => {
+            loading.hide();
+            this.$router.push({
+              name: "Home",
+            });
+            router.go();
+          },
+          (error) => {
+            loading.hide();
+            this.$swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Invalid Email or password !",
+            });
+            this.message =
+              (error.response && error.response.data) ||
+              error.message ||
+              error.toString();
+          }
+        );
+    },
+  },
+};
+</script>
 <style scoped>
 .bg-gradient-primary {
   width: 100% !important;
