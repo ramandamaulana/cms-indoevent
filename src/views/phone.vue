@@ -34,31 +34,29 @@
                           <thead>
                             <tr>
                               <th scope="col">Nama</th>
-                              <th scope="col">Perusahaan</th>
-                              <th scope="col">Posisi</th>
-                              <th scope="col">Email</th>
-                              <th scope="col">Nomor Telepon</th>
+                              <th scope="col">No Handphone</th>
+
                               <th scope="col">Action</th>
                             </tr>
                           </thead>
                           <tbody>
-                            <tr v-for="member in members" :key="member.id">
-                              <th>{{ member.name }}</th>
-                              <td>{{ member.perusahaan }}</td>
-                              <td>{{ member.posisi }}</td>
-                              <td>{{ member.email }}</td>
-                              <td>{{ member.no_telp }}</td>
+                            <tr
+                              v-for="handphone in handphones"
+                              :key="handphone.id"
+                            >
+                              <th>{{ handphone.nama }}</th>
+                              <td>{{ handphone.no_telp }}</td>
                               <td>
                                 <button
                                   class="btn btn-universal"
-                                  @click.prevent="handleupdate(member.id)"
+                                  @click.prevent="handleupdate(handphone.id)"
                                 >
                                   <i class="far fa-edit text-primary"></i>
                                 </button>
                                 <button
                                   class="btn btn-universal"
                                   type="submit"
-                                  @click.prevent="handledelete(member.id)"
+                                  @click.prevent="handledelete(handphone.id)"
                                 >
                                   <i class="far fa-trash-alt text-primary"></i>
                                 </button>
@@ -106,7 +104,7 @@ import router from "@/router";
 import Navbar from "../components/layout/navbar.vue";
 import Sidebar from "../components/layout/sidebar.vue";
 import Footer from "../components/layout/footer";
-import Memberservice from "../service/member.service";
+import Phoneservice from "../service/phone.service";
 export default {
   components: {
     Sidebar,
@@ -115,13 +113,13 @@ export default {
   },
   data() {
     return {
-      members: [],
+      handphones: [],
     };
   },
   created() {
-    Memberservice.getAll()
+    Phoneservice.getAll()
       .then((response) => {
-        this.members = response.rows;
+        this.handphones = response.rows;
         console.log("Data Di Temukan", response.rows);
       })
       .catch((error) => {
@@ -130,15 +128,9 @@ export default {
   },
   methods: {
     handledelete(id) {
-      Memberservice.getDelete(id)
+      Phoneservice.getDelete(id)
         .then((response) => {
           console.log(response, "Berhasil Terhapus");
-          this.$swal.fire({
-            icon: "success",
-            title: "Success",
-            showDenyButton: true,
-            text: "Artikel Berhasil Dihapus!",
-          });
           router.go();
         })
         .catch((error) => {
@@ -146,7 +138,7 @@ export default {
         });
     },
     handleCreate() {
-      router.push("/member-create");
+      router.push("/phone-create");
     },
     handleupdate(id) {
       router.push("/member-update/" + id);
