@@ -142,6 +142,12 @@ const routes = [
     component: artikelkategoriupdate,
     meta:{requiresAuth:true}
   },
+  {
+    path: '/artikel-comment',
+    name: 'artikelcomment',
+    component: () => import('../views/artikelkomen.vue'),
+    meta:{requiresAuth:true}
+  },
 ]
 
 const router = new VueRouter({

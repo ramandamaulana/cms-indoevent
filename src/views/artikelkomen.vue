@@ -34,19 +34,16 @@
                           <thead>
                             <tr>
                               <th scope="col">No</th>
-                              <th scope="col">Title</th>
-                              <th scope="col">Slug</th>
+                              <th scope="col">Id Artikel</th>
                               <th scope="col">Konten</th>
-
                               <th scope="col">Action</th>
                             </tr>
                           </thead>
                           <tbody>
                             <tr v-for="comment in comments" :key="comment.id">
                               <th>{{ comment.id }}</th>
-                              <th>{{ comment.title }}</th>
-                              <td>{{ comment.slug }}</td>
-                              <td>{{ comment.content }}</td>
+                              <td>{{ comment.user_id }}</td>
+                              <th>{{ comment.comment }}</th>
                               <td>
                                 <button
                                   class="btn btn-universal"

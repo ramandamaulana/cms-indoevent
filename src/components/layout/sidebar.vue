@@ -97,8 +97,16 @@
         data-parent="#accordionSidebar"
       >
         <div class="bg-white py-2 collapse-inner rounded">
-        <router-link to="/artikel-kategori"> <a class="collapse-item" href="buttons.html">Artikel Kategori</a></router-link> 
-          <a class="collapse-item" href="buttons.html">Artikel Comment</a>
+          <router-link to="/artikel-kategori">
+            <a class="collapse-item" href="buttons.html"
+              >Artikel Kategori</a
+            ></router-link
+          >
+          <router-link to="/artikel-comment">
+            <a class="collapse-item" href="buttons.html"
+              >Artikel Komen</a
+            ></router-link
+          >
           <a class="collapse-item" href="cards.html">Artikel POST</a>
         </div>
       </div>
