@@ -35,28 +35,29 @@
                             <tr>
                               <th scope="col">Nama</th>
                               <th scope="col">No Handphone</th>
+                              <th scope="col">Kuota</th>
+                              <th scope="col">Harga</th>
 
                               <th scope="col">Action</th>
                             </tr>
                           </thead>
                           <tbody>
-                            <tr
-                              v-for="handphone in handphones"
-                              :key="handphone.id"
-                            >
-                              <th>{{ handphone.nama }}</th>
-                              <td>{{ handphone.no_telp }}</td>
+                            <tr v-for="tiket in tikets" :key="tiket.id">
+                              <th>{{ tiket.nama }}</th>
+                              <td>{{ tiket.keterangan }}</td>
+                              <td>{{ tiket.kuota }}</td>
+                              <td>{{ tiket.harga }}</td>
                               <td>
                                 <button
                                   class="btn btn-universal"
-                                  @click.prevent="handleupdate(handphone.id)"
+                                  @click.prevent="handleupdate(tiket.id)"
                                 >
                                   <i class="far fa-edit text-primary"></i>
                                 </button>
                                 <button
                                   class="btn btn-universal"
                                   type="submit"
-                                  @click.prevent="handledelete(handphone.id)"
+                                  @click.prevent="handledelete(tiket.id)"
                                 >
                                   <i class="far fa-trash-alt text-primary"></i>
                                 </button>
@@ -104,7 +105,7 @@ import router from "@/router";
 import Navbar from "../components/layout/navbar.vue";
 import Sidebar from "../components/layout/sidebar.vue";
 import Footer from "../components/layout/footer";
-import Phoneservice from "../service/phone.service";
+import Tiketservice from "../service/tiket.service";
 export default {
   components: {
     Sidebar,
@@ -113,13 +114,13 @@ export default {
   },
   data() {
     return {
-      handphones: [],
+      tikets: [],
     };
   },
   created() {
-    Phoneservice.getAll()
+    Tiketservice.getAll()
       .then((response) => {
-        this.handphones = response.rows;
+        this.tikets = response.rows;
         console.log("Data Di Temukan", response.rows);
       })
       .catch((error) => {
@@ -128,7 +129,7 @@ export default {
   },
   methods: {
     handledelete(id) {
-      Phoneservice.getDelete(id)
+      Tiketservice.getDelete(id)
         .then((response) => {
           console.log(response, "Berhasil Terhapus");
           router.go();
@@ -138,10 +139,10 @@ export default {
         });
     },
     handleCreate() {
-      router.push("/phone-create");
+      router.push("/tiket-create");
     },
     handleupdate(id) {
-      router.push("/phone-update/" + id);
+      router.push("/tiket-update/" + id);
     },
   },
 };

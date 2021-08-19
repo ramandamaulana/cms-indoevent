@@ -28,10 +28,53 @@
     </div>
 
     <li class="nav-item">
-      <a class="nav-link" href="charts.html">
-        <i class="far fa-user mr-2"></i>
-        <span>Member</span></a
-      >
+      <router-link to="/Dashboard">
+        <a class="nav-link" href="charts.html">
+          <i class="far fa-user mr-2"></i>
+          <span>Member</span></a
+        >
+      </router-link>
+    </li>
+
+    <li class="nav-item">
+      <router-link to="/phone">
+        <a class="nav-link" href="charts.html">
+          <i class="fas fa-phone mr-2"></i>
+          <span>Nomor Telepon</span></a
+        >
+      </router-link>
+    </li>
+    <li class="nav-item">
+      <router-link to="/tiket">
+        <a class="nav-link" href="charts.html">
+          <i class="fas fa-ticket-alt mr-2"></i>
+          <span>Tiket</span></a
+        >
+      </router-link>
+    </li>
+    <li class="nav-item">
+      <router-link to="/jadwal">
+        <a class="nav-link" href="charts.html">
+          <i class="far fa-calendar-alt mr-2"></i>
+          <span>Schedule</span></a
+        >
+      </router-link>
+    </li>
+    <li class="nav-item">
+      <router-link to="/faq">
+        <a class="nav-link" href="charts.html">
+          <i class="fas fa-question-circle mr-2"></i>
+          <span>Faq</span></a
+        >
+      </router-link>
+    </li>
+    <li class="nav-item">
+      <router-link to="/feedback">
+        <a class="nav-link" href="charts.html">
+          <i class="fas fa-comments mr-2"></i>
+          <span>Feedback</span></a
+        >
+      </router-link>
     </li>
 
     <!-- Nav Item - Pages Collapse Menu -->
@@ -54,30 +97,11 @@
         data-parent="#accordionSidebar"
       >
         <div class="bg-white py-2 collapse-inner rounded">
-          <a class="collapse-item" href="buttons.html">Artikel Kategori</a>
+        <router-link to="/artikel-kategori"> <a class="collapse-item" href="buttons.html">Artikel Kategori</a></router-link> 
           <a class="collapse-item" href="buttons.html">Artikel Comment</a>
           <a class="collapse-item" href="cards.html">Artikel POST</a>
         </div>
       </div>
-    </li>
-
-    <!-- Divider -->
-    <hr class="sidebar-divider" />
-
-    <!-- Nav Item - Charts -->
-    <li class="nav-item">
-      <a class="nav-link" href="charts.html">
-        <i class="fas fa-fw fa-chart-area"></i>
-        <span>Charts</span></a
-      >
-    </li>
-
-    <!-- Nav Item - Tables -->
-    <li class="nav-item">
-      <a class="nav-link" href="tables.html">
-        <i class="fas fa-fw fa-table"></i>
-        <span>Tables</span></a
-      >
     </li>
 
     <!-- Divider -->

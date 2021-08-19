@@ -3,7 +3,7 @@ const user = JSON.parse(localStorage.getItem("user"));
 export default {
     getAll() {
         return axios({method: 'get',
-        url:"http://127.0.0.1:8000/api/phone-number",
+        url:"http://127.0.0.1:8000/api/feedback",
         headers: {
             'Authorization': "Bearer " + user.data.access_token,
             'X_USER_ID': user.data.id,
@@ -19,7 +19,7 @@ export default {
       },       
    getDelete(id) {
     return axios.delete(
-      "http://127.0.0.1:8000/api/phone-number/"+id,
+      "http://127.0.0.1:8000/api/feedback/"+id,
         {   headers: {
             'Authorization': "Bearer " + user.data.access_token,
             'X_USER_ID': user.data.id,
@@ -33,9 +33,10 @@ export default {
           return error.response.data;
         });
   },
+  
   postCrated(data) {
     return axios({method: 'post',
-    url:"http://127.0.0.1:8000/api/phone-number",
+    url:"http://127.0.0.1:8000/api/feedback",
     headers: {
         'Authorization': "Bearer " + user.data.access_token,
         'X_USER_ID': user.data.id,
@@ -53,7 +54,7 @@ export default {
     
     getShow(id) {
       return axios.get(
-        "http://127.0.0.1:8000/api/phone-number/"+id,
+        "http://127.0.0.1:8000/api/feedback/"+id,
           {   headers: {
               'Authorization': "Bearer " + user.data.access_token,
               'X_USER_ID': user.data.id,
@@ -68,7 +69,7 @@ export default {
           });
     },
     postUpdate(id,params){
-      return axios.post("http://127.0.0.1:8000/api/phone-number/"+id ,params,{
+      return axios.post("http://127.0.0.1:8000/api/feedback/"+id ,params,{
           headers: {
               'Authorization': "Bearer " + user.data.access_token,
               'X_USER_ID': user.data.id,

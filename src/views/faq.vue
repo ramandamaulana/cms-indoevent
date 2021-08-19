@@ -33,30 +33,29 @@
                         <table class="table table-bordered ">
                           <thead>
                             <tr>
-                              <th scope="col">Nama</th>
-                              <th scope="col">No Handphone</th>
+                              <th scope="col">No</th>
+                              <th scope="col">Title</th>
+                              <th scope="col">Konten</th>
 
                               <th scope="col">Action</th>
                             </tr>
                           </thead>
                           <tbody>
-                            <tr
-                              v-for="handphone in handphones"
-                              :key="handphone.id"
-                            >
-                              <th>{{ handphone.nama }}</th>
-                              <td>{{ handphone.no_telp }}</td>
+                            <tr v-for="faq in faqs" :key="faq.id">
+                              <th>{{ faq.id }}</th>
+                              <th>{{ faq.title }}</th>
+                              <td>{{ faq.contents }}</td>
                               <td>
                                 <button
                                   class="btn btn-universal"
-                                  @click.prevent="handleupdate(handphone.id)"
+                                  @click.prevent="handleupdate(faq.id)"
                                 >
                                   <i class="far fa-edit text-primary"></i>
                                 </button>
                                 <button
                                   class="btn btn-universal"
                                   type="submit"
-                                  @click.prevent="handledelete(handphone.id)"
+                                  @click.prevent="handledelete(faq.id)"
                                 >
                                   <i class="far fa-trash-alt text-primary"></i>
                                 </button>
@@ -104,7 +103,7 @@ import router from "@/router";
 import Navbar from "../components/layout/navbar.vue";
 import Sidebar from "../components/layout/sidebar.vue";
 import Footer from "../components/layout/footer";
-import Phoneservice from "../service/phone.service";
+import Faqservice from "../service/faq.service";
 export default {
   components: {
     Sidebar,
@@ -113,13 +112,13 @@ export default {
   },
   data() {
     return {
-      handphones: [],
+      faqs: [],
     };
   },
   created() {
-    Phoneservice.getAll()
+    Faqservice.getAll()
       .then((response) => {
-        this.handphones = response.rows;
+        this.faqs = response.rows;
         console.log("Data Di Temukan", response.rows);
       })
       .catch((error) => {
@@ -128,7 +127,7 @@ export default {
   },
   methods: {
     handledelete(id) {
-      Phoneservice.getDelete(id)
+      Faqservice.getDelete(id)
         .then((response) => {
           console.log(response, "Berhasil Terhapus");
           router.go();
@@ -138,10 +137,10 @@ export default {
         });
     },
     handleCreate() {
-      router.push("/phone-create");
+      router.push("/faq-create");
     },
     handleupdate(id) {
-      router.push("/phone-update/" + id);
+      router.push("/faq-update/" + id);
     },
   },
 };

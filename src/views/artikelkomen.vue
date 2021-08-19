@@ -33,30 +33,31 @@
                         <table class="table table-bordered ">
                           <thead>
                             <tr>
-                              <th scope="col">Nama</th>
-                              <th scope="col">No Handphone</th>
+                              <th scope="col">No</th>
+                              <th scope="col">Title</th>
+                              <th scope="col">Slug</th>
+                              <th scope="col">Konten</th>
 
                               <th scope="col">Action</th>
                             </tr>
                           </thead>
                           <tbody>
-                            <tr
-                              v-for="handphone in handphones"
-                              :key="handphone.id"
-                            >
-                              <th>{{ handphone.nama }}</th>
-                              <td>{{ handphone.no_telp }}</td>
+                            <tr v-for="comment in comments" :key="comment.id">
+                              <th>{{ comment.id }}</th>
+                              <th>{{ comment.title }}</th>
+                              <td>{{ comment.slug }}</td>
+                              <td>{{ comment.content }}</td>
                               <td>
                                 <button
                                   class="btn btn-universal"
-                                  @click.prevent="handleupdate(handphone.id)"
+                                  @click.prevent="handleupdate(comment.id)"
                                 >
                                   <i class="far fa-edit text-primary"></i>
                                 </button>
                                 <button
                                   class="btn btn-universal"
                                   type="submit"
-                                  @click.prevent="handledelete(handphone.id)"
+                                  @click.prevent="handledelete(comment.id)"
                                 >
                                   <i class="far fa-trash-alt text-primary"></i>
                                 </button>
@@ -104,7 +105,7 @@ import router from "@/router";
 import Navbar from "../components/layout/navbar.vue";
 import Sidebar from "../components/layout/sidebar.vue";
 import Footer from "../components/layout/footer";
-import Phoneservice from "../service/phone.service";
+import Komenservice from "../service/artikel-comment.service";
 export default {
   components: {
     Sidebar,
@@ -113,13 +114,13 @@ export default {
   },
   data() {
     return {
-      handphones: [],
+      comments: [],
     };
   },
   created() {
-    Phoneservice.getAll()
+    Komenservice.getAll()
       .then((response) => {
-        this.handphones = response.rows;
+        this.comments = response.rows;
         console.log("Data Di Temukan", response.rows);
       })
       .catch((error) => {
@@ -128,7 +129,7 @@ export default {
   },
   methods: {
     handledelete(id) {
-      Phoneservice.getDelete(id)
+      Komenservice.getDelete(id)
         .then((response) => {
           console.log(response, "Berhasil Terhapus");
           router.go();
@@ -138,10 +139,10 @@ export default {
         });
     },
     handleCreate() {
-      router.push("/phone-create");
+      router.push("/artikelkategori-create");
     },
     handleupdate(id) {
-      router.push("/phone-update/" + id);
+      router.push("/artikelkategori-update/" + id);
     },
   },
 };
