@@ -148,6 +148,12 @@ const routes = [
     component: () => import('../views/artikelkomen.vue'),
     meta:{requiresAuth:true}
   },
+  {
+    path: '/artikel-post',
+    name: 'artikelpost',
+    component: () => import('../views/artikelpost.vue'),
+    meta:{requiresAuth:true}
+  },
 ]
 
 const router = new VueRouter({
