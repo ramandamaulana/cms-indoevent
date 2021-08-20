@@ -208,7 +208,6 @@ export default {
     submit(event) {
       event.preventDefault();
       var imageInput = document.getElementById("inputFile").files[0];
-
       var formData = new FormData();
       formData.append("name", this.members.name);
       formData.append("username", this.members.username);
@@ -220,7 +219,6 @@ export default {
       formData.append("no_telp", this.members.no_telp);
       formData.append("kota", this.members.kota);
       formData.append("image", imageInput);
-
       Memberservice.postCrated(formData)
         .then((response) => {
           console.log(response.data, "Berhasil Di tambahkan");
