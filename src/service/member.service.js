@@ -54,12 +54,12 @@ export default {
   postCrated(data) {
     return axios({method: 'post',
     url:"http://127.0.0.1:8000/api/member",
+    data:data,
     headers: {
         'Authorization': "Bearer " + user.data.access_token,
         'X_USER_ID': user.data.id,
-        'Content-Type': "application/json",
+        'Content-Type': 'multipart/form-data'
       }, 
-      data:data,
       
   },{
   })

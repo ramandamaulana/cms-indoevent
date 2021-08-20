@@ -59,7 +59,7 @@ export default {
               'X_USER_ID': user.data.id,
               'Content-Type': "application/json",
             }}  
-         )
+          )
           .then((response) => {
             return response.data;
           })

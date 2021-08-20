@@ -59,6 +59,7 @@
                                 accept="image/*"
                                 @change="onFileChange"
                                 class="form-control"
+                                id="inputFile"
                               />
                             </div>
                             <div class="col-lg-12 mt-2">
@@ -206,19 +207,21 @@ export default {
   methods: {
     submit(event) {
       event.preventDefault();
-      let params = {
-        name: this.members.name,
-        username: this.members.username,
-        email: this.members.email,
-        image: this.members.image,
-        password: this.members.password,
-        password_confirmation: this.members.password_confirmation,
-        perusahaan: this.members.perusahaan,
-        posisi: this.members.posisi,
-        no_telp: this.members.no_telp,
-        kota: this.members.kota,
-      };
-      Memberservice.postCrated(params)
+      var imageInput = document.getElementById("inputFile").files[0];
+
+      var formData = new FormData();
+      formData.append("name", this.members.name);
+      formData.append("username", this.members.username);
+      formData.append("email", this.members.email);
+      formData.append("password", this.members.password);
+      formData.append("password_confirmation", this.members.password_confirmation);
+      formData.append("perusahaan", this.members.perusahaan);
+      formData.append("posisi", this.members.posisi);
+      formData.append("no_telp", this.members.no_telp);
+      formData.append("kota", this.members.kota);
+      formData.append("image", imageInput);
+
+      Memberservice.postCrated(formData)
         .then((response) => {
           console.log(response.data, "Berhasil Di tambahkan");
         })
