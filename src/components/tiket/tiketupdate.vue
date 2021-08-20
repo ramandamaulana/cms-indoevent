@@ -127,6 +127,16 @@ export default {
     };
   },
   methods: {
+    getDetail() {
+      Tiketservice.getShow(this.$route.params.id).then((response) => {
+        if (response.code === 200) {
+          this.tiket.nama = response.rows.nama,
+          this.tiket.keterangan = response.rows.keterangan;
+          this.tiket.kuota = response.rows.kuota;
+          this.tiket.harga = response.rows.harga;
+        }
+      });
+    },
     submit(event) {
       event.preventDefault();
       let params = {
@@ -138,12 +148,15 @@ export default {
       Tiketservice.postUpdate(this.$route.params.id, params)
         .then((response) => {
           console.log(response.data, "Berhasil Di tambahkan");
-            router.back();
+          router.back();
         })
         .catch((error) => {
           console.log("Gagal Di tambahkan", error.response);
         });
     },
+  },
+  mounted() {
+    this.getDetail();
   },
 };
 </script>

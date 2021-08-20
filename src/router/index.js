@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import membercreate from '../components/member/membercreate.vue'
+import memberupdate from '../components/member/memberupdate.vue'
 import phonecreate from '../components/phone/phonecreate.vue'
 import phoneupdate from '../components/phone/phoneupdate.vue'
 import tiketcreate from '../components/tiket/tiketcreate.vue'
@@ -32,6 +33,12 @@ const routes = [
     path: '/member-create',
     name: 'membercreate',
     component: membercreate,
+    meta:{requiresAuth:true}
+  },
+  {
+    path: '/member-update/:id',
+    name: 'memberupdate',
+    component: memberupdate,
     meta:{requiresAuth:true}
   },
   {

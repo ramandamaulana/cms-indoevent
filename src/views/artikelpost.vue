@@ -48,13 +48,13 @@
                             >
                               <i class="far fa-edit text-primary"></i>
                             </button>
-                             <button
-                                  class="btn btn-universal"
-                                  type="submit"
-                                  @click.prevent="handledelete(props.row.id)"
-                                >
-                                  <i class="far fa-trash-alt text-primary"></i>
-                                </button>
+                            <button
+                              class="btn btn-universal"
+                              type="submit"
+                              @click.prevent="handledelete(props.row.id)"
+                            >
+                              <i class="far fa-trash-alt text-primary"></i>
+                            </button>
                           </span>
                           <span v-else>
                             {{ props.formattedRow[props.column.field] }}
@@ -124,6 +124,12 @@ export default {
       Kategoriservice.getDelete(id)
         .then((response) => {
           console.log(response, "Berhasil Terhapus");
+          this.$swal.fire({
+            icon: "success",
+            title: "Success",
+            showDenyButton: true,
+            text: "Berhasil Dihapus!",
+          });
           router.go();
         })
         .catch((error) => {

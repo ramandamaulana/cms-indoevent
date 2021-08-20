@@ -29,63 +29,38 @@
                           >
                         </div>
                       </div>
-                      <div class="table-responsive">
-                        <table class="table table-bordered ">
-                          <thead>
-                            <tr>
-                              <th scope="col">Nama</th>
-                              <th scope="col">No Handphone</th>
-
-                              <th scope="col">Action</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr
-                              v-for="handphone in handphones"
-                              :key="handphone.id"
+                      <vue-good-table
+                        :columns="columns"
+                        :rows="rows"
+                        :line-numbers="true"
+                        :search-options="{
+                          enabled: true,
+                        }"
+                        :pagination-options="{
+                          enabled: true,
+                        }"
+                      >
+                        <template slot="table-row" slot-scope="props">
+                          <span v-if="props.column.field == 'action'">
+                            <button
+                              class="btn btn-universal"
+                              @click.prevent="handleupdate(props.row.id)"
                             >
-                              <th>{{ handphone.nama }}</th>
-                              <td>{{ handphone.no_telp }}</td>
-                              <td>
-                                <button
-                                  class="btn btn-universal"
-                                  @click.prevent="handleupdate(handphone.id)"
-                                >
-                                  <i class="far fa-edit text-primary"></i>
-                                </button>
-                                <button
-                                  class="btn btn-universal"
-                                  type="submit"
-                                  @click.prevent="handledelete(handphone.id)"
-                                >
-                                  <i class="far fa-trash-alt text-primary"></i>
-                                </button>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                        <nav aria-label="Page navigation example">
-                          <ul class="pagination justify-content-end">
-                            <li class="page-item disabled">
-                              <a class="page-link" href="#" tabindex="-1"
-                                >Previous</a
-                              >
-                            </li>
-                            <li class="page-item">
-                              <a class="page-link" href="#">1</a>
-                            </li>
-                            <li class="page-item">
-                              <a class="page-link" href="#">2</a>
-                            </li>
-                            <li class="page-item">
-                              <a class="page-link" href="#">3</a>
-                            </li>
-                            <li class="page-item">
-                              <a class="page-link" href="#">Next</a>
-                            </li>
-                          </ul>
-                        </nav>
-                      </div>
+                              <i class="far fa-edit text-primary"></i>
+                            </button>
+                            <button
+                              class="btn btn-universal"
+                              type="submit"
+                              @click.prevent="handledelete(props.row.id)"
+                            >
+                              <i class="far fa-trash-alt text-primary"></i>
+                            </button>
+                          </span>
+                          <span v-else>
+                            {{ props.formattedRow[props.column.field] }}
+                          </span>
+                        </template>
+                      </vue-good-table>
                     </div>
                   </div>
                 </div>
@@ -113,13 +88,37 @@ export default {
   },
   data() {
     return {
-      handphones: [],
+      columns: [
+        {
+          label: "Nama",
+          field: "nama",
+        },
+        {
+          label: "No Handphone",
+          field: "no_telp",
+        },
+
+        {
+          label: "Action",
+          field: "action",
+        },
+      ],
+      rows: [
+        {
+          name: "",
+          perusahaan: "",
+          posisi: "",
+          email: "",
+          no_telp: "",
+          action: "",
+        },
+      ],
     };
   },
   created() {
     Phoneservice.getAll()
       .then((response) => {
-        this.handphones = response.rows;
+        this.rows = response.rows;
         console.log("Data Di Temukan", response.rows);
       })
       .catch((error) => {
@@ -131,6 +130,11 @@ export default {
       Phoneservice.getDelete(id)
         .then((response) => {
           console.log(response, "Berhasil Terhapus");
+          this.$swal.fire({
+            icon: "success",
+            title: "Success",
+            text: "Berhasil Dihapus!",
+          });
           router.go();
         })
         .catch((error) => {

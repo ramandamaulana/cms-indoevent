@@ -16,7 +16,7 @@
                   <div class="card">
                     <div class="card-header">
                       <h3 style="font-size:Nunito; font-size:18px;">
-                        Create Member
+                        Update Faq
                       </h3>
                     </div>
                     <div class="card-body">
@@ -97,13 +97,21 @@ export default {
     };
   },
   methods: {
+    getDetail() {
+      Faqservice.getShow(this.$route.params.id).then((response) => {
+        if (response.code === 200) {
+          (this.faq.title = response.rows.title),
+            (this.faq.contents = response.rows.contents);
+        }
+      });
+    },
     submit(event) {
       event.preventDefault();
       let params = {
         title: this.faq.title,
         contents: this.faq.contents,
       };
-      Faqservice.postUpdate(this.$route.params.id,params)
+      Faqservice.postUpdate(this.$route.params.id, params)
         .then((response) => {
           console.log(response.data, "Berhasil Di tambahkan");
           router.back();
@@ -112,6 +120,9 @@ export default {
           console.log("Gagal Di tambahkan", error.response);
         });
     },
+  },
+  mounted() {
+    this.getDetail();
   },
 };
 </script>

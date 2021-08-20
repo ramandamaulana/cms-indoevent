@@ -16,7 +16,7 @@
                   <div class="card">
                     <div class="card-header">
                       <h3 style="font-size:Nunito; font-size:18px;">
-                        Create Member
+                        Update Phone
                       </h3>
                     </div>
                     <div class="card-body">
@@ -53,10 +53,12 @@
                             </div>
                           </div>
                         </div>
-                        <div class="form-group text-center">
-                          <button type="submit" class="btn btn-primary">
-                            Submit
-                          </button>
+                       <div class="container">
+                          <div class="form-group text-right mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                              Submit
+                            </button>
+                          </div>
                         </div>
                       </form>
                     </div>
@@ -78,7 +80,7 @@
 }
 </style>
 <script>
-// import router from "@/router";
+import router from "@/router";
 import Navbar from "../layout/navbar.vue";
 import Sidebar from "../layout/sidebar.vue";
 import Footer from "../layout/footer";
@@ -103,7 +105,7 @@ export default {
       Phoneservice.getShow(this.$route.params.id).then((response) => {
         if (response.code === 200) {
           (this.handphone.nama = response.rows.nama),
-            (this.handphone.no_telp = response.rows.no_telp);
+          (this.handphone.no_telp = response.rows.no_telp);
         }
       });
     },
@@ -116,7 +118,7 @@ export default {
       Phoneservice.postUpdate(this.$route.params.id, params)
         .then((response) => {
           console.log(response.data, "Berhasil Di tambahkan");
-          //   router.back();
+            router.back();
         })
         .catch((error) => {
           console.log("Gagal Di tambahkan", error.response);

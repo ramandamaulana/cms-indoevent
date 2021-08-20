@@ -29,62 +29,38 @@
                           >
                         </div>
                       </div>
-                      <div class="table-responsive">
-                        <table class="table table-bordered ">
-                          <thead>
-                            <tr>
-                              <th scope="col">No</th>
-                              <th scope="col">Title</th>
-                              <th scope="col">Konten</th>
-
-                              <th scope="col">Action</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr v-for="faq in faqs" :key="faq.id">
-                              <th>{{ faq.id }}</th>
-                              <th>{{ faq.title }}</th>
-                              <td>{{ faq.contents }}</td>
-                              <td>
-                                <button
-                                  class="btn btn-universal"
-                                  @click.prevent="handleupdate(faq.id)"
-                                >
-                                  <i class="far fa-edit text-primary"></i>
-                                </button>
-                                <button
-                                  class="btn btn-universal"
-                                  type="submit"
-                                  @click.prevent="handledelete(faq.id)"
-                                >
-                                  <i class="far fa-trash-alt text-primary"></i>
-                                </button>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                        <nav aria-label="Page navigation example">
-                          <ul class="pagination justify-content-end">
-                            <li class="page-item disabled">
-                              <a class="page-link" href="#" tabindex="-1"
-                                >Previous</a
-                              >
-                            </li>
-                            <li class="page-item">
-                              <a class="page-link" href="#">1</a>
-                            </li>
-                            <li class="page-item">
-                              <a class="page-link" href="#">2</a>
-                            </li>
-                            <li class="page-item">
-                              <a class="page-link" href="#">3</a>
-                            </li>
-                            <li class="page-item">
-                              <a class="page-link" href="#">Next</a>
-                            </li>
-                          </ul>
-                        </nav>
-                      </div>
+                      <vue-good-table
+                        :columns="columns"
+                        :rows="rows"
+                        :line-numbers="true"
+                        :search-options="{
+                          enabled: true,
+                        }"
+                        :pagination-options="{
+                          enabled: true,
+                        }"
+                      >
+                        <template slot="table-row" slot-scope="props">
+                          <span v-if="props.column.field == 'action'">
+                            <button
+                              class="btn btn-universal"
+                              @click.prevent="handleupdate(props.row.id)"
+                            >
+                              <i class="far fa-edit text-primary"></i>
+                            </button>
+                            <button
+                              class="btn btn-universal"
+                              type="submit"
+                              @click.prevent="handledelete(props.row.id)"
+                            >
+                              <i class="far fa-trash-alt text-primary"></i>
+                            </button>
+                          </span>
+                          <span v-else>
+                            {{ props.formattedRow[props.column.field] }}
+                          </span>
+                        </template>
+                      </vue-good-table>
                     </div>
                   </div>
                 </div>
@@ -112,13 +88,34 @@ export default {
   },
   data() {
     return {
-      faqs: [],
+      columns: [
+        {
+          label: "Title",
+          field: "title",
+        },
+        {
+          label: "Konten",
+          field: "contents",
+        },
+
+        {
+          label: "Action",
+          field: "action",
+        },
+      ],
+      rows: [
+        {
+          title: "",
+          contents: "",
+          action: "",
+        },
+      ],
     };
   },
   created() {
     Faqservice.getAll()
       .then((response) => {
-        this.faqs = response.rows;
+        this.rows = response.rows;
         console.log("Data Di Temukan", response.rows);
       })
       .catch((error) => {

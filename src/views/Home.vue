@@ -29,65 +29,38 @@
                           >
                         </div>
                       </div>
-                      <div class="table-responsive">
-                        <table class="table table-bordered ">
-                          <thead>
-                            <tr>
-                              <th scope="col">Nama</th>
-                              <th scope="col">Perusahaan</th>
-                              <th scope="col">Posisi</th>
-                              <th scope="col">Email</th>
-                              <th scope="col">Nomor Telepon</th>
-                              <th scope="col">Action</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr v-for="member in members" :key="member.id">
-                              <th>{{ member.name }}</th>
-                              <td>{{ member.perusahaan }}</td>
-                              <td>{{ member.posisi }}</td>
-                              <td>{{ member.email }}</td>
-                              <td>{{ member.no_telp }}</td>
-                              <td>
-                                <button
-                                  class="btn btn-universal"
-                                  @click.prevent="handleupdate(member.id)"
-                                >
-                                  <i class="far fa-edit text-primary"></i>
-                                </button>
-                                <button
-                                  class="btn btn-universal"
-                                  type="submit"
-                                  @click.prevent="handledelete(member.id)"
-                                >
-                                  <i class="far fa-trash-alt text-primary"></i>
-                                </button>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                        <nav aria-label="Page navigation example">
-                          <ul class="pagination justify-content-end">
-                            <li class="page-item disabled">
-                              <a class="page-link" href="#" tabindex="-1"
-                                >Previous</a
-                              >
-                            </li>
-                            <li class="page-item">
-                              <a class="page-link" href="#">1</a>
-                            </li>
-                            <li class="page-item">
-                              <a class="page-link" href="#">2</a>
-                            </li>
-                            <li class="page-item">
-                              <a class="page-link" href="#">3</a>
-                            </li>
-                            <li class="page-item">
-                              <a class="page-link" href="#">Next</a>
-                            </li>
-                          </ul>
-                        </nav>
-                      </div>
+                      <vue-good-table
+                        :columns="columns"
+                        :rows="rows"
+                        :line-numbers="true"
+                        :search-options="{
+                          enabled: true,
+                        }"
+                        :pagination-options="{
+                          enabled: true,
+                        }"
+                      >
+                        <template slot="table-row" slot-scope="props">
+                          <span v-if="props.column.field == 'action'">
+                            <button
+                              class="btn btn-universal"
+                              @click.prevent="handleupdate(props.row.id)"
+                            >
+                              <i class="far fa-edit text-primary"></i>
+                            </button>
+                            <button
+                              class="btn btn-universal"
+                              type="submit"
+                              @click.prevent="handledelete(props.row.id)"
+                            >
+                              <i class="far fa-trash-alt text-primary"></i>
+                            </button>
+                          </span>
+                          <span v-else>
+                            {{ props.formattedRow[props.column.field] }}
+                          </span>
+                        </template>
+                      </vue-good-table>
                     </div>
                   </div>
                 </div>
@@ -115,13 +88,49 @@ export default {
   },
   data() {
     return {
-      members: [],
+      columns: [
+        {
+          label: "Nama",
+          field: "name",
+        },
+        {
+          label: "Perusahaan",
+          field: "perusahaan",
+        },
+        {
+          label: "Posisi",
+          field: "posisi",
+        },
+        {
+          label: "Email",
+          field: "email",
+        },
+        {
+          label: "No handphone",
+          field: "no_telp",
+        },
+        {
+          label: "Action",
+          field: "action",
+        },
+      ],
+      rows: [
+        {
+          name: "",
+          perusahaan: "",
+          posisi: "",
+          email: "",
+          no_telp: "",
+          action: "",
+        },
+      ],
+
     };
   },
   created() {
     Memberservice.getAll()
       .then((response) => {
-        this.members = response.rows;
+        this.rows = response.rows;
         console.log("Data Di Temukan", response.rows);
       })
       .catch((error) => {
@@ -136,8 +145,7 @@ export default {
           this.$swal.fire({
             icon: "success",
             title: "Success",
-            showDenyButton: true,
-            text: "Artikel Berhasil Dihapus!",
+            text: "Berhasil Dihapus!",
           });
           router.go();
         })

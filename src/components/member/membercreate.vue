@@ -136,6 +136,7 @@
                                   class="form-control"
                                   id="exampleInputEmail1"
                                   v-model="members.no_telp"
+                                  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
                                   aria-describedby="emailHelp"
                                 />
                               </div>
@@ -179,7 +180,7 @@
 }
 </style>
 <script>
-// import router from "@/router";
+import router from "@/router";
 import Navbar from "../layout/navbar.vue";
 import Sidebar from "../layout/sidebar.vue";
 import Footer from "../layout/footer";
@@ -213,7 +214,10 @@ export default {
       formData.append("username", this.members.username);
       formData.append("email", this.members.email);
       formData.append("password", this.members.password);
-      formData.append("password_confirmation", this.members.password_confirmation);
+      formData.append(
+        "password_confirmation",
+        this.members.password_confirmation
+      );
       formData.append("perusahaan", this.members.perusahaan);
       formData.append("posisi", this.members.posisi);
       formData.append("no_telp", this.members.no_telp);
@@ -222,6 +226,7 @@ export default {
       Memberservice.postCrated(formData)
         .then((response) => {
           console.log(response.data, "Berhasil Di tambahkan");
+          router.back();
         })
         .catch((error) => {
           console.log("Gagal Di tambahkan", error.response);

@@ -32,6 +32,7 @@
                                   id="exampleInputEmail1"
                                   aria-describedby="emailHelp"
                                   v-model="feedback.user_id"
+                                  disabled
                                   required
                                 />
                               </div>
@@ -111,6 +112,15 @@ export default {
     };
   },
   methods: {
+    getDetail() {
+      Feedbackservice.getShow(this.$route.params.id).then((response) => {
+        if (response.code === 200) {
+          (this.feedback.user_id = response.rows.user_id),
+            (this.feedback.stars = response.rows.stars),
+            (this.feedback.comment = response.rows.comment);
+        }
+      });
+    },
     submit(event) {
       event.preventDefault();
       let params = {
@@ -127,6 +137,9 @@ export default {
           console.log("Gagal Di tambahkan", error.response);
         });
     },
+  },
+  mounted() {
+    this.getDetail();
   },
 };
 </script>

@@ -89,7 +89,7 @@ export default {
   },
   data() {
     return {
-         CategoryId: this.$route.params.id,
+      CategoryId: this.$route.params.id,
       category: {
         title: "",
         content: "",
@@ -97,13 +97,21 @@ export default {
     };
   },
   methods: {
+    getDetail() {
+      Kategoriservice.getShow(this.$route.params.id).then((response) => {
+        if (response.code === 200) {
+          (this.category.title = response.rows.title),
+            (this.category.content = response.rows.content);
+        }
+      });
+    },
     submit(event) {
       event.preventDefault();
       let params = {
         title: this.category.title,
         content: this.category.content,
       };
-      Kategoriservice.postUpdate(this.$route.params.id,params)
+      Kategoriservice.postUpdate(this.$route.params.id, params)
         .then((response) => {
           console.log(response.data, "Berhasil Di tambahkan");
           router.back();
@@ -112,6 +120,9 @@ export default {
           console.log("Gagal Di tambahkan", error.response);
         });
     },
+  },
+  mounted() {
+    this.getDetail();
   },
 };
 </script>

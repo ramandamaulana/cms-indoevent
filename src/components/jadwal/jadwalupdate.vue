@@ -59,7 +59,7 @@
                                   >Jam Mulai</label
                                 >
                                 <input
-                                  type="text"
+                                  type="time"
                                   class="form-control"
                                   id="exampleInputEmail1"
                                   aria-describedby="emailHelp"
@@ -74,7 +74,7 @@
                                   >Jam Berakhir</label
                                 >
                                 <input
-                                  type="text"
+                                  type="time"
                                   class="form-control"
                                   id="exampleInputEmail1"
                                   aria-describedby="emailHelp"
@@ -147,6 +147,17 @@ export default {
     };
   },
   methods: {
+    getDetail() {
+      Scheduleservice.getShow(this.$route.params.id).then((response) => {
+        if (response.code === 200) {
+          (this.schedule.nama_kegiatan = response.rows.nama_kegiatan),
+            (this.schedule.tgl_kegiatan = response.rows.tgl_kegiatan),
+            (this.schedule.jam_mulai = response.rows.jam_mulai),
+            (this.schedule.jam_berakhir = response.rows.jam_berakhir),
+            (this.schedule.tempat = response.rows.tempat);
+        }
+      });
+    },
     submit(event) {
       event.preventDefault();
       let params = {
@@ -156,15 +167,23 @@ export default {
         jam_berakhir: this.schedule.jam_berakhir,
         tempat: this.schedule.tempat,
       };
-      Scheduleservice.postUpdate(this.$route.params.id,params)
+      Scheduleservice.postUpdate(this.$route.params.id, params)
         .then((response) => {
           console.log(response.data, "Berhasil Di tambahkan");
+          this.$swal.fire({
+            icon: "success",
+            title: "Success",
+            text: "Berhasil Di Update!",
+          });
           router.back();
         })
         .catch((error) => {
           console.log("Gagal Di tambahkan", error.response);
         });
     },
+  },
+  mounted() {
+    this.getDetail();
   },
 };
 </script>
