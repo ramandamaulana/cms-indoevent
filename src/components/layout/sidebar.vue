@@ -107,7 +107,11 @@
               >Artikel Komen</a
             ></router-link
           >
-          <a class="collapse-item" href="cards.html">Artikel POST</a>
+          <router-link to="/artikel-post">
+            <a class="collapse-item" href="buttons.html"
+              >Artikel POST</a
+            ></router-link
+          >
         </div>
       </div>
     </li>
