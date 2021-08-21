@@ -24,6 +24,28 @@
 
     <!-- Heading -->
     <div class="sidebar-heading mt-2">
+      Event
+    </div>
+
+    <li class="nav-item">
+      <router-link to="/tiket">
+        <a class="nav-link" href="charts.html">
+          <i class="fas fa-ticket-alt mr-2"></i>
+          <span>Tiket</span></a
+        >
+      </router-link>
+    </li>
+    <li class="nav-item">
+      <router-link to="/jadwal">
+        <a class="nav-link" href="charts.html">
+          <i class="far fa-calendar-alt mr-2"></i>
+          <span>Schedule</span></a
+        >
+      </router-link>
+    </li>
+
+    <!-- Heading -->
+    <div class="sidebar-heading mt-2">
       Menu
     </div>
 
@@ -31,7 +53,7 @@
       <router-link to="/admin">
         <a class="nav-link" href="charts.html">
           <i class="far fa-user mr-2"></i>
-          <span>admin</span></a
+          <span>Admin</span></a
         >
       </router-link>
     </li>
@@ -39,7 +61,7 @@
       <router-link to="/bank">
         <a class="nav-link" href="charts.html">
           <i class="fas fa-university mr-2"></i>
-          <span>bank</span></a
+          <span>Bank</span></a
         >
       </router-link>
     </li>
@@ -59,23 +81,7 @@
           <span>Nomor Telepon</span></a
         >
       </router-link>
-    </li>
-    <li class="nav-item">
-      <router-link to="/tiket">
-        <a class="nav-link" href="charts.html">
-          <i class="fas fa-ticket-alt mr-2"></i>
-          <span>Tiket</span></a
-        >
-      </router-link>
-    </li>
-    <li class="nav-item">
-      <router-link to="/jadwal">
-        <a class="nav-link" href="charts.html">
-          <i class="far fa-calendar-alt mr-2"></i>
-          <span>Schedule</span></a
-        >
-      </router-link>
-    </li>
+    </li>    
     <li class="nav-item">
       <router-link to="/faq">
         <a class="nav-link" href="charts.html">
@@ -125,7 +131,7 @@
           >
           <router-link to="/artikel-post">
             <a class="collapse-item" href="buttons.html"
-              >Artikel POST</a
+              >Artikel Post</a
             ></router-link
           >
         </div>
