@@ -16,6 +16,8 @@ import feedbackcreate from '../components/feedback/feedbackcreate.vue'
 import feedbackupdate from '../components/feedback/feedbackupdate.vue'
 import artikelkategoricreate from '../components/artikel-category/kategoricreate.vue'
 import artikelkategoriupdate from '../components/artikel-category/kategoriupdate.vue'
+import artikelcommentcreate from '../components/artikel-post/postcreate.vue'
+import artikelcommentupdate from '../components/artikel-post/postupdate.vue'
 Vue.use(VueRouter)
 const routes = [
   {
@@ -153,6 +155,18 @@ const routes = [
     path: '/artikel-comment',
     name: 'artikelcomment',
     component: () => import('../views/artikelkomen.vue'),
+    meta:{requiresAuth:true}
+  },
+  {
+    path: '/artikelkomen-create',
+    name: 'artikelkomencreate',
+    component: artikelcommentcreate,
+    meta:{requiresAuth:true}
+  },
+  {
+    path: '/artikelkomen-update/:id',
+    name: 'artikelkomentupdate',
+    component: artikelcommentupdate,
     meta:{requiresAuth:true}
   },
   {
