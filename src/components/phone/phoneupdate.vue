@@ -45,8 +45,10 @@
                                   type="text"
                                   class="form-control"
                                   id="exampleInputEmail1"
+                                      oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
                                   aria-describedby="emailHelp"
                                   v-model="handphone.no_telp"
+                                  min="10" max="13"
                                   required
                                 />
                               </div>

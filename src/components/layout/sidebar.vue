@@ -28,6 +28,22 @@
     </div>
 
     <li class="nav-item">
+      <router-link to="/admin">
+        <a class="nav-link" href="charts.html">
+          <i class="far fa-user mr-2"></i>
+          <span>admin</span></a
+        >
+      </router-link>
+    </li>
+    <li class="nav-item">
+      <router-link to="/bank">
+        <a class="nav-link" href="charts.html">
+          <i class="fas fa-university mr-2"></i>
+          <span>bank</span></a
+        >
+      </router-link>
+    </li>
+    <li class="nav-item">
       <router-link to="/Dashboard">
         <a class="nav-link" href="charts.html">
           <i class="far fa-user mr-2"></i>

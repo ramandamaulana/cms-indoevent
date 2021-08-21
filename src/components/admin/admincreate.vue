@@ -16,7 +16,7 @@
                   <div class="card">
                     <div class="card-header">
                       <h3 style="font-size:Nunito; font-size:18px;">
-                        Update Member
+                        Create Admin
                       </h3>
                     </div>
                     <div class="card-body">
@@ -31,7 +31,7 @@
                                   class="form-control"
                                   id="exampleInputEmail1"
                                   aria-describedby="emailHelp"
-                                  v-model="members.name"
+                                  v-model="admin.name"
                                   required
                                 />
                               </div>
@@ -43,7 +43,7 @@
                                 >
                                 <input
                                   type="text"
-                                  v-model="members.username"
+                                  v-model="admin.username"
                                   required
                                   class="form-control"
                                   id="exampleInputPassword1"
@@ -62,71 +62,63 @@
                                 id="inputFile"
                               />
                             </div>
-
-                            <div class="col-lg-6 mt-2">
+                            <div class="col-lg-12 mt-2">
                               <div class="form-group">
-                                <label for="exampleInputEmail1"
-                                  >Perusahaan</label
+                                <label for="exampleInputEmail1">Email</label>
+                                <input
+                                  type="email"
+                                  v-model="admin.email"
+                                  class="form-control"
+                                  id="exampleInputEmail1"
+                                  aria-describedby="emailHelp"
+                                />
+                              </div>
+                            </div>
+                            <div class="col-lg-6">
+                              <div class="form-group">
+                                <label for="exampleInputPassword1"
+                                  >Password</label
                                 >
                                 <input
-                                  type="text"
+                                  type="password"
+                                  v-model="admin.password"
                                   class="form-control"
-                                  v-model="members.perusahaan"
-                                  id="exampleInputEmail1"
-                                  aria-describedby="emailHelp"
+                                  id="exampleInputPassword1"
                                 />
                               </div>
                             </div>
-                            <div class="col-lg-6 mt-2">
+                            <div class="col-lg-6">
                               <div class="form-group">
-                                <label for="exampleInputEmail1">Posisi</label>
-                                <input
-                                  type="text"
-                                  class="form-control"
-                                  id="exampleInputEmail1"
-                                  v-model="members.posisi"
-                                  aria-describedby="emailHelp"
-                                />
-                              </div>
-                            </div>
-                            <div class="col-lg-6 mt-2">
-                              <div class="form-group">
-                                <label for="exampleInputEmail1"
-                                  >No Telepon</label
+                                <label for="exampleInputPassword1"
+                                  >Konfirmasi Password</label
                                 >
                                 <input
-                                  type="text"
+                                  type="password"
+                                  v-model="admin.password_confirmation"
                                   class="form-control"
-                                  id="exampleInputEmail1"
-                                  v-model="members.no_telp"
-                                  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
-                                  aria-describedby="emailHelp"
+                                  id="exampleInputPassword1"
                                 />
                               </div>
                             </div>
-                            <div class="col-lg-6 mt-2">
-                              <div class="form-group">
-                                <label for="exampleInputEmail1">Kota</label>
-                                <input
-                                  type="text"
-                                  class="form-control"
-                                  id="exampleInputEmail1"
-                                  aria-describedby="emailHelp"
-                                  v-model="members.kota"
-                                />
-                              </div>
+                            <div class="col-lg-12 mt-3  mb-4 text-left">
+                              <label for="NIK" style="text-align: left"
+                                >Status</label
+                              >
+                              <select
+                                class="form-control"
+                                v-model="admin.status"
+                              >
+                                <option value="" disabled>Pilih</option>
+                                <option value="0">No Active</option>
+                                <option value="1">Active</option>
+                              </select>
                             </div>
                           </div>
                         </div>
-                        <div class="container">
-                          <div class="form-group text-right mt-4">
-                            <button
-                              type="submit"
-                              class="btn btn-primary btn-lg"
-                            >
-                              Submit
-                            </button>
-                          </div>
+                        <div class="form-group text-center">
+                          <button type="submit" class="btn btn-primary">
+                            Submit
+                          </button>
                         </div>
                       </form>
                     </div>
@@ -152,7 +144,7 @@ import router from "@/router";
 import Navbar from "../layout/navbar.vue";
 import Sidebar from "../layout/sidebar.vue";
 import Footer from "../layout/footer";
-import Memberservice from "../../service/member.service";
+import Adminservice from "../../service/admin.service";
 export default {
   components: {
     Sidebar,
@@ -161,45 +153,32 @@ export default {
   },
   data() {
     return {
-      MemberId: this.$route.params.id,
-      members: {
+      admin: {
         name: "",
         username: "",
         image: "",
-
-        posisi: "",
-        no_telp: "",
-        kota: "",
+        password: "",
+        password_confirmation: "",
+        status: "",
       },
     };
   },
   methods: {
-    getDetail() {
-      Memberservice.getShow(this.$route.params.id).then((response) => {
-        if (response.code === 200) {
-          (this.members.name = response.rows.user.name),
-            (this.members.username = response.rows.user.username),
-            (this.members.image = response.rows.image);
-          this.members.posisi = response.rows.posisi;
-          this.members.perusahaan = response.rows.perusahaan;
-          this.members.no_telp = response.rows.no_telp;
-          this.members.kota = response.rows.kota;
-        }
-      });
-    },
     submit(event) {
       event.preventDefault();
       var imageInput = document.getElementById("inputFile").files[0];
       var formData = new FormData();
-      formData.append("name", this.members.name);
-      formData.append("username", this.members.username);
-
-      formData.append("perusahaan", this.members.perusahaan);
-      formData.append("posisi", this.members.posisi);
-      formData.append("no_telp", this.members.no_telp);
-      formData.append("kota", this.members.kota);
+      formData.append("name", this.admin.name);
+      formData.append("username", this.admin.username);
+      formData.append("email", this.admin.email);
+      formData.append("password", this.admin.password);
+      formData.append(
+        "password_confirmation",
+        this.admin.password_confirmation
+      );
+      formData.append("status", this.admin.status);
       formData.append("image", imageInput);
-      Memberservice.postUpdate(this.$route.params.id, formData)
+      Adminservice.postCrated(formData)
         .then((response) => {
           console.log(response.data, "Berhasil Di tambahkan");
           router.back();
@@ -216,13 +195,10 @@ export default {
     createImage(file) {
       let reader = new FileReader();
       reader.onload = (e) => {
-        this.members.image = e.target.result;
+        this.admin.image = e.target.result;
       };
       reader.readAsDataURL(file);
     },
-  },
-  mounted() {
-    this.getDetail();
   },
 };
 </script>
