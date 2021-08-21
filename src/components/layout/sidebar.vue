@@ -44,6 +44,14 @@
       </router-link>
     </li>
     <li class="nav-item">
+      <router-link to="/document">
+        <a class="nav-link" href="charts.html">
+          <i class="fas fa-file-upload mr-2"></i>
+          <span>Document</span></a
+        >
+      </router-link>
+    </li>
+    <li class="nav-item">
       <router-link to="/Dashboard">
         <a class="nav-link" href="charts.html">
           <i class="far fa-user mr-2"></i>

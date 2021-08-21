@@ -6,6 +6,8 @@ import admincreate from '../components/admin/admincreate.vue'
 import adminupdate from '../components/admin/adminupdate.vue'
 import bankcreate from '../components/bank/bankcreate.vue'
 import bankupdate from '../components/bank/bankupdate.vue'
+import dokumencreate from '../components/document/dokumencreate.vue'
+import dokumenupdate from '../components/document/dokumenupdate.vue'
 import membercreate from '../components/member/membercreate.vue'
 import memberupdate from '../components/member/memberupdate.vue'
 import phonecreate from '../components/phone/phonecreate.vue'
@@ -45,6 +47,24 @@ const routes = [
     path: '/admin-update/:id',
     name: 'adminupdate',
     component: adminupdate,
+    meta:{requiresAuth:true}
+  },
+  {
+    path: '/document',
+    name: 'document',
+    component: () => import('../views/document.vue'),
+    meta:{requiresAuth:true}
+  },
+  {
+    path: '/dokumen-create',
+    name: 'dokumencreate',
+    component: dokumencreate,
+    meta:{requiresAuth:true}
+  },
+  {
+    path: '/dokumen-update/:id',
+    name: 'dokumenupdate',
+    component: dokumenupdate,
     meta:{requiresAuth:true}
   },
   {
