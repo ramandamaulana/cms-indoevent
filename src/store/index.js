@@ -17,6 +17,9 @@ export default new Vuex.Store({
       localStorage.removeItem("user");
       location.reload();
     },
+    SET_PROFILE(state){
+      state.user = JSON.parse(localStorage.getItem("user"));
+    },
   },
   actions: { 
     login({ commit }, credentials) {
@@ -31,6 +34,9 @@ export default new Vuex.Store({
   getters: {
     loggedIn(state) {
       return !!state.user;
+    },
+    getusers(state){
+      return state.user;
     },
   }
 })

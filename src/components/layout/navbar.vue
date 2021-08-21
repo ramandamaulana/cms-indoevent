@@ -71,9 +71,6 @@
           </div>
         </li>
 
-    
-     
-
         <div class="topbar-divider d-none d-sm-block"></div>
 
         <!-- Nav Item - User Information -->
@@ -88,11 +85,11 @@
             aria-expanded="false"
           >
             <span class="mr-2 d-none d-lg-inline text-gray-600 small"
-              >Douglas McGee</span
+              > {{users.data.user.name}}</span
             >
             <img
               class="img-profile rounded-circle"
-              src="assets/img/undraw_profile.svg"
+             :src="users.data.user.image"
             />
           </a>
           <!-- Dropdown - User Information -->
@@ -104,17 +101,16 @@
               <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
               Profile
             </a>
-          
+
             <div class="dropdown-divider"></div>
-          <router-link to="/">
-            <a
-              class="dropdown-item"
-              href="/"
-        
+            <router-link to="/">
+              <a class="dropdown-item" @click="logout">
+                <i
+                  class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"
+                ></i>
+                Logout
+              </a></router-link
             >
-              <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-              Logout
-            </a></router-link>
           </div>
         </li>
       </ul>
@@ -122,3 +118,23 @@
     <!-- End of Topbar -->
   </div>
 </template>
+
+<script>
+import { authComputed } from "../../store/helper.js";
+export default {
+  computed: {
+    ...authComputed,
+    users() {
+      return this.$store.getters.getusers;
+    },
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch("logout");
+    },
+  },
+  mounted() {
+    this.$store.commit("SET_PROFILE");
+  },
+};
+</script>

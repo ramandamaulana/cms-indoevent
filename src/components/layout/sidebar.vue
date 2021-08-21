@@ -16,12 +16,8 @@
     </a>
     <!-- Divider -->
     <hr class="sidebar-divider my-0" />
-
     <!-- Divider -->
     <hr class="sidebar-divider" />
-
-    <!-- Heading -->
-
     <!-- Heading -->
     <div class="sidebar-heading mt-2">
       Event

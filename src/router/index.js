@@ -247,7 +247,7 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   const loggedIn = localStorage.getItem("user");
   if (to.matched.some(record => record.meta.requiresAuth) && !loggedIn) {
-      next("/Login")
+      next("/")
     }
   next();
 });
