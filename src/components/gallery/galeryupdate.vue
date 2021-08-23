@@ -16,7 +16,7 @@
                   <div class="card">
                     <div class="card-header">
                       <h3 style="font-size:Nunito; font-size:18px;">
-                        Gallery Create
+                        Edit Gallery
                       </h3>
                     </div>
                     <div class="card-body">
@@ -48,6 +48,10 @@
                                 class="form-control"
                                 id="inputFile"
                               />
+                              <img :src="gallery.image" 
+                                class="img-thumbnail mt-3" 
+                                style="max-width: 200px;"
+                                :alt="gallery.name">
                             </div>
                           </div>
                         </div>
@@ -97,6 +101,14 @@ export default {
     };
   },
   methods: {
+    getDetail() {
+      Galleryservice.getShow(this.$route.params.id).then((response) => {
+        if (response.code === 200) {
+          this.gallery.nama = response.rows.nama;
+          this.gallery.image = response.rows.image.url;
+        }
+      });
+    },
     submit(event) {
       event.preventDefault();
       var imageInput = document.getElementById("inputFile").files[0];
@@ -125,5 +137,8 @@ export default {
       reader.readAsDataURL(file);
     },
   },
+  mounted() {
+    this.getDetail();
+  }
 };
 </script>

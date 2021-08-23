@@ -61,6 +61,11 @@
                                 class="form-control"
                                 id="inputFile"
                               />
+
+                              <img :src="members.image" 
+                                class="img-thumbnail mt-3" 
+                                style="max-width: 200px;"
+                                :alt="members.name">
                             </div>
 
                             <div class="col-lg-6 mt-2">
@@ -179,7 +184,7 @@ export default {
         if (response.code === 200) {
           (this.members.name = response.rows.user.name),
             (this.members.username = response.rows.user.username),
-            (this.members.image = response.rows.image);
+            (this.members.image = response.rows.user.image.url);
           this.members.posisi = response.rows.posisi;
           this.members.perusahaan = response.rows.perusahaan;
           this.members.no_telp = response.rows.no_telp;
