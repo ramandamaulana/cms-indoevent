@@ -16,7 +16,7 @@
                   <div class="card">
                     <div class="card-header">
                       <h3 style="font-size:Nunito; font-size:18px;">
-                        Gallery Create
+                        Tambah Team
                       </h3>
                     </div>
                     <div class="card-body">
@@ -51,7 +51,7 @@
                             </div>
                             <div class="col-lg-12">
                               <div class="form-group">
-                                <label for="exampleInputEmail1">tentang</label>
+                                <label for="exampleInputEmail1">Tentang</label>
                                 <input
                                   type="text"
                                   class="form-control"

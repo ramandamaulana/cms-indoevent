@@ -16,7 +16,7 @@
                   <div class="card">
                     <div class="card-header">
                       <h3 style="font-size:Nunito; font-size:18px;">
-                        Create Member
+                        Tambah Tiket
                       </h3>
                     </div>
                     <div class="card-body">
@@ -25,7 +25,7 @@
                           <div class="row">
                             <div class="col-lg-12">
                               <div class="form-group">
-                                <label for="exampleInputEmail1">Name</label>
+                                <label for="exampleInputEmail1">Nama Tiket</label>
                                 <input
                                   type="text"
                                   class="form-control"
@@ -39,7 +39,7 @@
                             <div class="col-lg-12">
                               <div class="form-group">
                                 <label for="exampleInputEmail1"
-                                  >keterangan</label
+                                  >Keterangan</label
                                 >
                                 <input
                                   type="text"
@@ -53,7 +53,7 @@
                             </div>
                             <div class="col-lg-12">
                               <div class="form-group">
-                                <label for="exampleInputEmail1">kuota</label>
+                                <label for="exampleInputEmail1">Kuota</label>
                                 <input
                                   type="text"
                                   class="form-control"
@@ -66,7 +66,7 @@
                             </div>
                             <div class="col-lg-12">
                               <div class="form-group">
-                                <label for="exampleInputEmail1">harga</label>
+                                <label for="exampleInputEmail1">Harga</label>
                                 <input
                                   type="text"
                                   class="form-control"

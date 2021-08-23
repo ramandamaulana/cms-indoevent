@@ -39,10 +39,26 @@
         >
       </router-link>
     </li>
+    <li class="nav-item">
+      <router-link to="/document">
+        <a class="nav-link" href="charts.html">
+          <i class="fas fa-file-upload mr-2"></i>
+          <span>Document</span></a
+        >
+      </router-link>
+    </li>
+    <li class="nav-item">
+      <router-link to="/feedback">
+        <a class="nav-link" href="charts.html">
+          <i class="fas fa-comments mr-2"></i>
+          <span>Feedback</span></a
+        >
+      </router-link>
+    </li>
 
     <!-- Heading -->
     <div class="sidebar-heading mt-2">
-      Menu
+      Website
     </div>
 
     <li class="nav-item">
@@ -58,14 +74,6 @@
         <a class="nav-link" href="charts.html">
           <i class="fas fa-university mr-2"></i>
           <span>Bank</span></a
-        >
-      </router-link>
-    </li>
-    <li class="nav-item">
-      <router-link to="/document">
-        <a class="nav-link" href="charts.html">
-          <i class="fas fa-file-upload mr-2"></i>
-          <span>Document</span></a
         >
       </router-link>
     </li>
@@ -122,14 +130,6 @@
         <a class="nav-link" href="charts.html">
           <i class="fas fa-question-circle mr-2"></i>
           <span>Faq</span></a
-        >
-      </router-link>
-    </li>
-    <li class="nav-item">
-      <router-link to="/feedback">
-        <a class="nav-link" href="charts.html">
-          <i class="fas fa-comments mr-2"></i>
-          <span>Feedback</span></a
         >
       </router-link>
     </li>
