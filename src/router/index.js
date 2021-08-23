@@ -236,6 +236,42 @@ const routes = [
     component: () => import('../views/artikelpost.vue'),
     meta:{requiresAuth:true}
   },
+  {
+    path: '/gallery',
+    name: 'gallery',
+    component: () => import('../views/gallery.vue'),
+    meta:{requiresAuth:true}
+  },
+  {
+    path: '/gallery-create',
+    name: 'gallerycreate',
+    component: () => import('../components/gallery/gallerycreate.vue'),
+    meta:{requiresAuth:true}
+  },
+  {
+    path: '/gallery-update/:id',
+    name: 'galleryupdate',
+    component: () => import('../components/gallery/galeryupdate.vue'),
+    meta:{requiresAuth:true}
+  },
+  {
+    path: '/Team',
+    name: 'Team',
+    component: () => import('../views/team.vue'),
+    meta:{requiresAuth:true}
+  },
+  {
+    path: '/team-create',
+    name: 'teamcreate',
+    component: () => import('../components/team/teamcreate.vue'),
+    meta:{requiresAuth:true}
+  },
+  {
+    path: '/team-update/:id',
+    name: 'Team',
+    component: () => import('../components/team/teamupdate.vue'),
+    meta:{requiresAuth:true}
+  },
 ]
 
 const router = new VueRouter({

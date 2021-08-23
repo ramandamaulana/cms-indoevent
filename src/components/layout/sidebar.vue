@@ -77,7 +77,22 @@
         >
       </router-link>
     </li>
-
+    <li class="nav-item">
+      <router-link to="/Team">
+        <a class="nav-link" href="charts.html">
+         <i class="fas fa-user-friends mr-2"></i>
+          <span>Team</span></a
+        >
+      </router-link>
+    </li>
+    <li class="nav-item">
+      <router-link to="/gallery">
+        <a class="nav-link" href="charts.html">
+          <i class="fab fa-envira mr-2"></i>
+          <span>Galery</span></a
+        >
+      </router-link>
+    </li>
     <li class="nav-item">
       <router-link to="/phone">
         <a class="nav-link" href="charts.html">
@@ -85,7 +100,7 @@
           <span>Nomor Telepon</span></a
         >
       </router-link>
-    </li>    
+    </li>
     <li class="nav-item">
       <router-link to="/faq">
         <a class="nav-link" href="charts.html">
