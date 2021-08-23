@@ -88,8 +88,24 @@
     <li class="nav-item">
       <router-link to="/Team">
         <a class="nav-link" href="charts.html">
-         <i class="fas fa-user-friends mr-2"></i>
+          <i class="fas fa-user-friends mr-2"></i>
           <span>Team</span></a
+        >
+      </router-link>
+    </li>
+    <li class="nav-item">
+      <router-link to="/landing">
+        <a class="nav-link" href="charts.html">
+          <i class="fas fa-pager mr-2"></i>
+          <span>Landing Page</span></a
+        >
+      </router-link>
+    </li>
+    <li class="nav-item">
+      <router-link to="/landing">
+        <a class="nav-link" href="charts.html">
+          <i class="fas fa-info mr-2"></i>
+          <span>Info</span></a
         >
       </router-link>
     </li>

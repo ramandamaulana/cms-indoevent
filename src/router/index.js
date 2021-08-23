@@ -268,8 +268,14 @@ const routes = [
   },
   {
     path: '/team-update/:id',
-    name: 'Team',
+    name: 'Teamupdate',
     component: () => import('../components/team/teamupdate.vue'),
+    meta:{requiresAuth:true}
+  },
+  {
+    path: '/landing',
+    name: 'landing',
+    component: () => import('../views/landingpage.vue'),
     meta:{requiresAuth:true}
   },
 ]
