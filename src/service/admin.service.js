@@ -53,7 +53,7 @@ export default {
     
     getShow(id) {
       return axios.get(
-        "http://127.0.0.1:8000/api/article/comment/"+id,
+        "http://127.0.0.1:8000/api/admin/admin/"+id,
           {   headers: {
               'Authorization': "Bearer " + user.data.access_token,
               'X_USER_ID': user.data.id,
