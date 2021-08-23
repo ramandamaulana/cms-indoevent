@@ -16,7 +16,7 @@
                   <div class="card">
                     <div class="card-header">
                       <h3 style="font-size:Nunito; font-size:18px;">
-                        Update Member
+                        Edit Member
                       </h3>
                     </div>
                     <div class="card-body">

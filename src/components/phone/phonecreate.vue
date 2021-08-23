@@ -16,7 +16,7 @@
                   <div class="card">
                     <div class="card-header">
                       <h3 style="font-size:Nunito; font-size:18px;">
-                        Create Member
+                        Tambah Nomor
                       </h3>
                     </div>
                     <div class="card-body">
@@ -39,7 +39,7 @@
                             <div class="col-lg-12">
                               <div class="form-group">
                                 <label for="exampleInputEmail1"
-                                  >No.handphone</label
+                                  >No. Handphone</label
                                 >
                                 <input
                                   type="text"

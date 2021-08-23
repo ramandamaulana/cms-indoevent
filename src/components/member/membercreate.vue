@@ -16,7 +16,7 @@
                   <div class="card">
                     <div class="card-header">
                       <h3 style="font-size:Nunito; font-size:18px;">
-                        Create Member
+                        Tambah Member
                       </h3>
                     </div>
                     <div class="card-body">
