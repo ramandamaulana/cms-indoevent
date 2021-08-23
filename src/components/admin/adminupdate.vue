@@ -61,44 +61,10 @@
                                 class="form-control"
                                 id="inputFile"
                               />
-                            </div>
-                            <div class="col-lg-12 mt-2">
-                              <div class="form-group">
-                                <label for="exampleInputEmail1">Email</label>
-                                <input
-                                  type="email"
-                                  v-model="admin.email"
-                                  class="form-control"
-                                  id="exampleInputEmail1"
-                                  aria-describedby="emailHelp"
-                                />
-                              </div>
-                            </div>
-                            <div class="col-lg-6">
-                              <div class="form-group">
-                                <label for="exampleInputPassword1"
-                                  >Password</label
-                                >
-                                <input
-                                  type="password"
-                                  v-model="admin.password"
-                                  class="form-control"
-                                  id="exampleInputPassword1"
-                                />
-                              </div>
-                            </div>
-                            <div class="col-lg-6">
-                              <div class="form-group">
-                                <label for="exampleInputPassword1"
-                                  >Konfirmasi Password</label
-                                >
-                                <input
-                                  type="password"
-                                  v-model="admin.password_confirmation"
-                                  class="form-control"
-                                  id="exampleInputPassword1"
-                                />
-                              </div>
+                              <img :src="admin.image" 
+                                class="img-thumbnail mt-3" 
+                                style="max-width: 200px;"
+                                :alt="admin.name">
                             </div>
                             <div class="col-lg-12 mt-3  mb-4 text-left">
                               <label for="NIK" style="text-align: left"
@@ -165,6 +131,19 @@ export default {
     };
   },
   methods: {
+    getDetail() {
+      Adminservice.getShow(this.$route.params.id).then((response) => {
+        if (response.code === 200) {
+          (this.admin.name = response.rows.user.name),
+            (this.admin.username = response.rows.user.username),
+            (this.admin.image = response.rows.user.image.url);
+          this.admin.posisi = response.rows.posisi;
+          this.admin.perusahaan = response.rows.perusahaan;
+          this.admin.no_telp = response.rows.no_telp;
+          this.admin.kota = response.rows.kota;
+        }
+      });
+    },
     submit(event) {
       event.preventDefault();
       var imageInput = document.getElementById("inputFile").files[0];
@@ -201,5 +180,8 @@ export default {
       reader.readAsDataURL(file);
     },
   },
+  mounted() {
+    this.getDetail();
+  }
 };
 </script>

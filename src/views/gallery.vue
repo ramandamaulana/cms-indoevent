@@ -41,6 +41,12 @@
                         }"
                       >
                         <template slot="table-row" slot-scope="props">
+                          <span v-if="props.column.field == 'gambar'">
+                            <img :src="props.row.image.url" 
+                                class="img-thumbnail mt-3" 
+                                style="max-width: 200px;"
+                                :alt="props.row.image.name">
+                          </span>
                           <span v-if="props.column.field == 'action'">
                             <button
                               class="btn btn-universal"
@@ -92,14 +98,16 @@ export default {
         {
           label: "nama",
           field: "nama",
+          tdClass: "align-middle"
         },
         {
           label: "image",
-          field: "image.url",
+          field: "gambar",
         },
         {
           label: "Action",
           field: "action",
+          tdClass: "align-middle"
         },
       ],
       rows: [
