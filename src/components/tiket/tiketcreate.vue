@@ -25,15 +25,26 @@
                           <div class="row">
                             <div class="col-lg-12">
                               <div class="form-group">
-                                <label for="exampleInputEmail1">Nama Tiket</label>
+                                <label for="exampleInputEmail1"
+                                  >Nama Tiket</label
+                                >
                                 <input
                                   type="text"
                                   class="form-control"
                                   id="exampleInputEmail1"
-                                  aria-describedby="emailHelp"
+                                  aria-described
+                                  by="emailHelp"
                                   v-model="tiket.nama"
-                                  required
+                                  @blur="$v.tiket.nama.$touch()"
                                 />
+                                <div v-if="$v.tiket.nama.$error">
+                                  <p
+                                    v-if="!$v.tiket.nama.required"
+                                    class="text-danger mt-1"
+                                  >
+                                    Nama Harus Di Isi
+                                  </p>
+                                </div>
                               </div>
                             </div>
                             <div class="col-lg-12">
@@ -47,8 +58,16 @@
                                   id="exampleInputEmail1"
                                   aria-describedby="emailHelp"
                                   v-model="tiket.keterangan"
-                                  required
+                                  @blur="$v.tiket.keterangan.$touch()"
                                 />
+                                <div v-if="$v.tiket.keterangan.$error">
+                                  <p
+                                    v-if="!$v.tiket.keterangan.required"
+                                    class="text-danger mt-1"
+                                  >
+                                    Keterangan Harus Di Isi
+                                  </p>
+                                </div>
                               </div>
                             </div>
                             <div class="col-lg-12">
@@ -58,10 +77,19 @@
                                   type="text"
                                   class="form-control"
                                   id="exampleInputEmail1"
+                                  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
                                   aria-describedby="emailHelp"
                                   v-model="tiket.kuota"
-                                  required
+                                  @blur="$v.tiket.kuota.$touch()"
                                 />
+                                <div v-if="$v.tiket.kuota.$error">
+                                  <p
+                                    v-if="!$v.tiket.kuota.required"
+                                    class="text-danger mt-1"
+                                  >
+                                    Kuoata Harus Di Isi
+                                  </p>
+                                </div>
                               </div>
                             </div>
                             <div class="col-lg-12">
@@ -71,18 +99,33 @@
                                   type="text"
                                   class="form-control"
                                   id="exampleInputEmail1"
+                                  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
                                   aria-describedby="emailHelp"
                                   v-model="tiket.harga"
-                                  required
+                                  @blur="$v.tiket.harga.$touch()"
                                 />
+                              </div>
+                              <div v-if="$v.tiket.harga.$error">
+                                <p
+                                  v-if="!$v.tiket.harga.required"
+                                  class="text-danger mt-1"
+                                >
+                                  Harga Harus Di Isi
+                                </p>
                               </div>
                             </div>
                           </div>
                         </div>
                         <div class="form-group text-center">
-                          <button type="submit" class="btn btn-primary">
+                          <button
+                            class="btn btn-primary"
+                            :disabled="$v.$anyError"
+                          >
                             Submit
                           </button>
+                          <p v-if="$v.$anyError" class="text-danger mt-3">
+                            Tolong isi fill yang kosong
+                          </p>
                         </div>
                       </form>
                     </div>
@@ -109,6 +152,7 @@ import Navbar from "../layout/navbar.vue";
 import Sidebar from "../layout/sidebar.vue";
 import Footer from "../layout/footer";
 import Tiketservice from "../../service/tiket.service";
+import { required } from "vuelidate/lib/validators";
 export default {
   components: {
     Sidebar,
@@ -125,6 +169,14 @@ export default {
       },
     };
   },
+  validations: {
+    tiket: {
+      nama: { required },
+      keterangan: { required },
+      kuota: { required },
+      harga: { required },
+    },
+  },
   methods: {
     submit(event) {
       event.preventDefault();
@@ -134,14 +186,17 @@ export default {
         kuota: this.tiket.kuota,
         harga: this.tiket.harga,
       };
-      Tiketservice.postCrated(params)
-        .then((response) => {
-          console.log(response.data, "Berhasil Di tambahkan");
-          router.back();
-        })
-        .catch((error) => {
-          console.log("Gagal Di tambahkan", error.response);
-        });
+      this.$v.$touch();
+      if (!this.$v.$invalid) {
+        Tiketservice.postCrated(params)
+          .then((response) => {
+            console.log(response.data, "Berhasil Di tambahkan");
+            router.back();
+          })
+          .catch((error) => {
+            console.log("Gagal Di tambahkan", error.response);
+          });
+      }
     },
   },
 };
