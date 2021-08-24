@@ -70,22 +70,22 @@ export default {
     return {
       columns: [
         {
-          label: "Header",
-          field: "row.header_title",
+          label: "Information",
+          field: "id",
         },
-      ],
-      rows: [
         {
-          action: "",
+          label: "Action",
+          field: "action",
         },
       ],
+      header: [],
     };
   },
   created() {
     Landingservice.getAll()
       .then((response) => {
-        this.rows = response.row;
-        console.log("Data Di Temukan", response.row);
+        this.rows = response.rows;
+        console.log(response.rows);
       })
       .catch((error) => {
         console.log("Eror Data Tidak Di Temukan", error.response);
@@ -103,10 +103,10 @@ export default {
         });
     },
     handleCreate() {
-      router.push("/admin-create");
+      router.push("/info-create");
     },
     handleupdate(id) {
-      router.push("/admin-update/" + id);
+      router.push("/info-update/" + id);
     },
   },
 };

@@ -56,9 +56,6 @@
                               <i class="far fa-trash-alt text-primary"></i>
                             </button>
                           </span>
-                          <span v-else>
-                            {{ props.formattedRow[props.column.field] }}
-                          </span>
                         </template>
                       </vue-good-table>
                     </div>
@@ -79,7 +76,7 @@ import router from "@/router";
 import Navbar from "../components/layout/navbar.vue";
 import Sidebar from "../components/layout/sidebar.vue";
 import Footer from "../components/layout/footer";
-import Postservice from "../service/artikel-post.service";
+import Informationservice from "../service/info.service";
 export default {
   components: {
     Sidebar,
@@ -90,16 +87,8 @@ export default {
     return {
       columns: [
         {
-          label: "Title",
-          field: "title",
-        },
-        {
-          label: "Konten",
-          field: "content",
-        },
-        {
-          label: "Slug",
-          field: "slug",
+          label: "Information",
+          field: "information",
         },
         {
           label: "Action",
@@ -109,8 +98,9 @@ export default {
       rows: [],
     };
   },
+
   created() {
-    Postservice.getAll()
+    Informationservice.getAll()
       .then((response) => {
         this.rows = response.rows;
         console.log("Data Di Temukan", response.rows);
@@ -121,14 +111,9 @@ export default {
   },
   methods: {
     handledelete(id) {
-     Postservice.getDelete(id)
+      Informationservice.getDelete(id)
         .then((response) => {
           console.log(response, "Berhasil Terhapus");
-          this.$swal.fire({
-            icon: "success",
-            title: "Success",
-            text: "Berhasil Dihapus!",
-          });
           router.go();
         })
         .catch((error) => {
@@ -136,10 +121,10 @@ export default {
         });
     },
     handleCreate() {
-      router.push("/artikel-post-create");
+      router.push("/info-create");
     },
     handleupdate(id) {
-      router.push("/artikel-post-update/" + id);
+      router.push("/info-update/" + id);
     },
   },
 };

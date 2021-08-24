@@ -102,12 +102,41 @@
       </router-link>
     </li>
     <li class="nav-item">
-      <router-link to="/landing">
-        <a class="nav-link" href="charts.html">
-          <i class="fas fa-info mr-2"></i>
-          <span>Info</span></a
-        >
-      </router-link>
+      <a
+        class="nav-link collapsed"
+        href="#"
+        data-toggle="collapse"
+        data-target="#collapseTwo2"
+        aria-expanded="true"
+        aria-controls="collapseTwo2"
+      >
+        <i class="fa fa-info-circle mr-2" aria-hidden="true"></i>
+        <span>Info Setting</span>
+      </a>
+      <div
+        id="collapseTwo2"
+        class="collapse"
+        aria-labelledby="headingTwo"
+        data-parent="#accordionSidebar"
+      >
+        <div class="bg-white py-2 collapse-inner rounded">
+          <router-link to="/Information">
+            <a class="collapse-item" 
+              >Information</a
+            ></router-link
+          >
+          <router-link to="/Information-Detail">
+            <a class="collapse-item" 
+              >Information Detail</a
+            ></router-link
+          >
+          <router-link to="/Information-user">
+            <a class="collapse-item"
+              >Information User</a
+            ></router-link
+          >
+        </div>
+      </div>
     </li>
     <li class="nav-item">
       <router-link to="/gallery">

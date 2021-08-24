@@ -16,46 +16,32 @@
                   <div class="card">
                     <div class="card-header">
                       <h3 style="font-size:Nunito; font-size:18px;">
-                        Update Artikel Comment
+                        Update Information
                       </h3>
                     </div>
                     <div class="card-body">
                       <form @submit.prevent="submit($event)">
                         <div class="container">
                           <div class="row">
-                            <div class="col-lg-12 mb-3 text-left">
-                              <label for="exampleFormControlSelect1"
-                                >Artikel Kategori ID</label
-                              >
-                              <select
-                                class="form-control"
-                                id="exampleFormControlSelect1"
-                                v-model="komenartikel.article_post_id"
-                                @click="changeProductID()"
-                              >
-                                <option
-                                  v-for="komenartikel in komenartikeld"
-                                  :key="komenartikel.article_post_id"
-                                  >{{ komenartikel.id }}</option
-                                >
-                              </select>
-                            </div>
                             <div class="col-lg-12">
                               <div class="form-group">
-                                <label for="exampleInputPassword1">Title</label>
+                                <label for="exampleInputEmail1"
+                                  >Information</label
+                                >
                                 <input
                                   type="text"
-                                  v-model="komenartikel.comment"
                                   class="form-control"
-                                  id="exampleInputPassword1"
-                                  @blur="$v.komenartikel.comment.$touch()"
+                                  id="exampleInputEmail1"
+                                  aria-describedby="emailHelp"
+                                  v-model="info.information"
+                                  @blur="$v.info.information.$touch()"
                                 />
-                                <div v-if="$v.komenartikel.comment.$error">
+                                <div v-if="$v.info.information.$error">
                                   <p
-                                    v-if="!$v.komenartikel.comment.required"
+                                    v-if="!$v.info.information.required"
                                     class="text-danger mt-1"
                                   >
-                                    Title Harus Di Isi
+                                    Information Harus Di Isi
                                   </p>
                                 </div>
                               </div>
@@ -98,8 +84,7 @@ import router from "@/router";
 import Navbar from "../layout/navbar.vue";
 import Sidebar from "../layout/sidebar.vue";
 import Footer from "../layout/footer";
-import Postservice from "../../service/artikel-post.service";
-import Komenservice from "../../service/artikel-comment.service";
+import Infoservice from "../../service/info.service";
 import { required } from "vuelidate/lib/validators";
 export default {
   components: {
@@ -109,37 +94,32 @@ export default {
   },
   data() {
     return {
-      komenartikelId: this.$route.params.id,
-      komenartikel: {
-        article_post_id: "",
-        comment: "",
+      InfoId: this.$route.params.id,
+      info: {
+        information: "",
       },
-      komenartikeld: [],
     };
   },
   validations: {
-    komenartikel: {
-      article_post_id: { required },
-      comment: { required },
+    info: {
+      information: { required },
     },
   },
   methods: {
     getDetail() {
-      Komenservice.getShow(this.$route.params.id).then((response) => {
+      Infoservice.getShow(this.$route.params.id).then((response) => {
         if (response.code === 200) {
-          (this.komenartikel.article_post_id = response.rows.article_post_id),
-            (this.komenartikel.comment = response.rows.comment);
+          this.info.information = response.rows.information;
         }
       });
     },
     submit(event) {
       event.preventDefault();
       var formData = new FormData();
-      formData.append("article_post_id", this.komenartikel.article_post_id);
-      formData.append("comment", this.komenartikel.comment);
+      formData.append("information", this.info.information);
       this.$v.$touch();
       if (!this.$v.$invalid) {
-        Komenservice.postUpdate(this.$route.params.id, formData)
+        Infoservice.postUpdate(this.$route.params.id, formData)
           .then((response) => {
             console.log(response.data, "Berhasil Di tambahkan");
             router.back();
@@ -148,11 +128,6 @@ export default {
             console.log("Gagal Di tambahkan", error.response);
           });
       }
-    },
-    changeProductID() {
-      Postservice.getAll().then((response) => {
-        this.komenartikeld = response.rows;
-      });
     },
   },
   mounted() {
