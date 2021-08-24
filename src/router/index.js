@@ -309,6 +309,24 @@ const routes = [
     component: () => import('../components/info/infoupdate.vue'),
     meta:{requiresAuth:true}
   },
+  {
+    path: '/Information-Detail',
+    name: 'Information-Detail',
+    component: () => import('../views/Informationdetail.vue'),
+    meta:{requiresAuth:true}
+  },
+  {
+    path: '/Information-Detail-create',
+    name: 'InformationDetailcreate',
+    component: () => import('../components/info-detail/infodetailcreate.vue'),
+    meta:{requiresAuth:true}
+  },
+  {
+    path: '/information-Detail-update/:id',
+    name: 'InformationDetailupdate',
+    component: () => import('../components/info-detail/infodetailupdate.vue'),
+    meta:{requiresAuth:true}
+  },
 ]
 
 const router = new VueRouter({
