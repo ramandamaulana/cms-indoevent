@@ -32,8 +32,16 @@
                                   id="exampleInputEmail1"
                                   aria-describedby="emailHelp"
                                   v-model="feedback.user_id"
-                                  required
+                                  @blur="$v.feedback.user_id.$touch()"
                                 />
+                                <div v-if="$v.feedback.user_id.$error">
+                                  <p
+                                    v-if="!$v.feedback.user_id.required"
+                                    class="text-danger mt-1"
+                                  >
+                                    User Id Harus Di Isi
+                                  </p>
+                                </div>
                               </div>
                             </div>
                             <div class="col-lg-12">
@@ -44,9 +52,18 @@
                                   class="form-control"
                                   id="exampleInputEmail1"
                                   aria-describedby="emailHelp"
+                                  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
                                   v-model="feedback.stars"
-                                  required
+                                  @blur="$v.feedback.stars.$touch()"
                                 />
+                                <div v-if="$v.feedback.stars.$error">
+                                  <p
+                                    v-if="!$v.feedback.stars.required"
+                                    class="text-danger mt-1"
+                                  >
+                                    Stars Harus Di Isi Angka 1 - 5
+                                  </p>
+                                </div>
                               </div>
                             </div>
                             <div class="col-lg-12">
@@ -58,16 +75,32 @@
                                   id="exampleInputEmail1"
                                   aria-describedby="emailHelp"
                                   v-model="feedback.comment"
-                                  required
+                                  @blur="$v.feedback.comment.$touch()"
+                        
                                 />
+                                <div v-if="$v.feedback.comment.$error">
+                                  <p
+                                    v-if="!$v.feedback.comment.required"
+                                    class="text-danger mt-1"
+                                  >
+                                    Komentar Harus Di Isi
+                                  </p>
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
                         <div class="form-group text-center">
-                          <button type="submit" class="btn btn-primary">
+                          <button
+                            type="submit"
+                            :disabled="$v.$anyError"
+                            class="btn btn-primary"
+                          >
                             Submit
                           </button>
+                          <p v-if="$v.$anyError" class="text-danger mt-3">
+                            Tolong isi fill yang kosong
+                          </p>
                         </div>
                       </form>
                     </div>
@@ -94,6 +127,7 @@ import Navbar from "../layout/navbar.vue";
 import Sidebar from "../layout/sidebar.vue";
 import Footer from "../layout/footer";
 import Feedbackservice from "../../service/feedback.service";
+import { required } from "vuelidate/lib/validators";
 export default {
   components: {
     Sidebar,
@@ -109,6 +143,13 @@ export default {
       },
     };
   },
+  validations: {
+    feedback: {
+      user_id: { required },
+      stars: { required },
+      comment: { required },
+    },
+  },
   methods: {
     submit(event) {
       event.preventDefault();
@@ -117,14 +158,17 @@ export default {
         stars: this.feedback.stars,
         comment: this.feedback.comment,
       };
-      Feedbackservice.postCrated(params)
-        .then((response) => {
-          console.log(response.data, "Berhasil Di tambahkan");
-          router.back();
-        })
-        .catch((error) => {
-          console.log("Gagal Di tambahkan", error.response);
-        });
+      this.$v.$touch();
+      if (!this.$v.$invalid) {
+        Feedbackservice.postCrated(params)
+          .then((response) => {
+            console.log(response.data, "Berhasil Di tambahkan");
+            router.back();
+          })
+          .catch((error) => {
+            console.log("Gagal Di tambahkan", error.response);
+          });
+      }
     },
   },
 };

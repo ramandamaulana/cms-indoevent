@@ -32,8 +32,16 @@
                                   id="exampleInputEmail1"
                                   aria-describedby="emailHelp"
                                   v-model="bank.nama_pemilik"
-                                  required
+                                  @blur="$v.bank.nama_pemilik.$touch()"
                                 />
+                                <div v-if="$v.bank.nama_pemilik.$error">
+                                  <p
+                                    v-if="!$v.bank.nama_pemilik.required"
+                                    class="text-danger mt-1"
+                                  >
+                                    Nama Pemilik Harus Di Isi
+                                  </p>
+                                </div>
                               </div>
                             </div>
                             <div class="col-lg-12  mb-3">
@@ -46,40 +54,77 @@
                                 @change="onFileChange"
                                 class="form-control"
                                 id="inputFile"
+                                @blur="$v.bank.image.$touch()"
                               />
+                              <div v-if="$v.bank.image.$error">
+                                <p
+                                  v-if="!$v.bank.image.required"
+                                  class="text-danger mt-1"
+                                >
+                                  File Upload Wajib Di isi
+                                </p>
+                              </div>
                             </div>
                             <div class="col-lg-12">
                               <div class="form-group">
-                                <label for="exampleInputEmail1">Nomor Rekening</label>
+                                <label for="exampleInputEmail1"
+                                  >Nomor Rekening</label
+                                >
                                 <input
                                   type="text"
                                   class="form-control"
                                   id="exampleInputEmail1"
                                   aria-describedby="emailHelp"
+                                  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
                                   v-model="bank.no_rekening"
-                                  required
+                                  @blur="$v.bank.no_rekening.$touch()"
                                 />
+                                <div v-if="$v.bank.no_rekening.$error">
+                                  <p
+                                    v-if="!$v.bank.no_rekening.required"
+                                    class="text-danger mt-1"
+                                  >
+                                    No Rekening Wajib Disi
+                                  </p>
+                                </div>
                               </div>
                             </div>
                             <div class="col-lg-12">
                               <div class="form-group">
-                                <label for="exampleInputEmail1">Akun Bank</label>
+                                <label for="exampleInputEmail1"
+                                  >Akun Bank</label
+                                >
                                 <input
                                   type="text"
                                   class="form-control"
                                   id="exampleInputEmail1"
                                   aria-describedby="emailHelp"
                                   v-model="bank.akun_bank"
-                                  required
+                                  @blur="$v.bank.akun_bank.$touch()"
                                 />
+                                <div v-if="$v.bank.akun_bank.$error">
+                                  <p
+                                    v-if="!$v.bank.akun_bank.required"
+                                    class="text-danger mt-1"
+                                  >
+                                    Akun Bank Wajib Di isi
+                                  </p>
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
                         <div class="form-group text-center">
-                          <button type="submit" class="btn btn-primary">
+                          <button
+                            type="submit"
+                            :disabled="$v.$anyError"
+                            class="btn btn-primary"
+                          >
                             Submit
                           </button>
+                          <p v-if="$v.$anyError" class="text-danger mt-3">
+                            Tolong isi fill yang kosong
+                          </p>
                         </div>
                       </form>
                     </div>
@@ -106,6 +151,7 @@ import Navbar from "../layout/navbar.vue";
 import Sidebar from "../layout/sidebar.vue";
 import Footer from "../layout/footer";
 import Bankservice from "../../service/bank.service";
+import { required } from "vuelidate/lib/validators";
 export default {
   components: {
     Sidebar,
@@ -113,7 +159,7 @@ export default {
     Footer,
   },
   data() {
-    return {    
+    return {
       bank: {
         nama_pemilik: "",
         image: "",
@@ -121,6 +167,14 @@ export default {
         akun_bank: "",
       },
     };
+  },
+  validations: {
+    bank: {
+      nama_pemilik: { required },
+      image: { required },
+      no_rekening: { required },
+      akun_bank: { required },
+    },
   },
   methods: {
     submit(event) {
@@ -131,14 +185,17 @@ export default {
       formData.append("image", imageInput);
       formData.append("no_rekening", this.bank.no_rekening);
       formData.append("akun_bank", this.bank.akun_bank);
-      Bankservice.postCrated(formData)
-        .then((response) => {
-          console.log(response.data, "Berhasil Di tambahkan");
-          router.back();
-        })
-        .catch((error) => {
-          console.log("Gagal Di tambahkan", error.response);
-        });
+      this.$v.$touch();
+      if (!this.$v.$invalid) {
+        Bankservice.postCrated(formData)
+          .then((response) => {
+            console.log(response.data, "Berhasil Di tambahkan");
+            router.back();
+          })
+          .catch((error) => {
+            console.log("Gagal Di tambahkan", error.response);
+          });
+      }
     },
     onFileChange(e) {
       let files = e.target.files || e.dataTransfer.files;

@@ -32,8 +32,16 @@
                                   id="exampleInputEmail1"
                                   aria-describedby="emailHelp"
                                   v-model="team.nama"
-                                  required
+                                  @blur="$v.team.nama.$touch()"
                                 />
+                                <div v-if="$v.team.nama.$error">
+                                  <p
+                                    v-if="!$v.team.nama.required"
+                                    class="text-danger mt-1"
+                                  >
+                                    Nama Wajib Di isi
+                                  </p>
+                                </div>
                               </div>
                             </div>
                             <div class="col-lg-12">
@@ -45,8 +53,16 @@
                                   id="exampleInputEmail1"
                                   aria-describedby="emailHelp"
                                   v-model="team.jabatan"
-                                  required
+                                  @blur="$v.team.jabatan.$touch()"
                                 />
+                                <div v-if="$v.team.jabatan.$error">
+                                  <p
+                                    v-if="!$v.team.jabatan.required"
+                                    class="text-danger mt-1"
+                                  >
+                                    Jabatan Wajib Di isi
+                                  </p>
+                                </div>
                               </div>
                             </div>
                             <div class="col-lg-12">
@@ -58,8 +74,16 @@
                                   id="exampleInputEmail1"
                                   aria-describedby="emailHelp"
                                   v-model="team.tentang"
-                                  required
+                                  @blur="$v.team.tentang.$touch()"
                                 />
+                                <div v-if="$v.team.tentang.$error">
+                                  <p
+                                    v-if="!$v.team.tentang.required"
+                                    class="text-danger mt-1"
+                                  >
+                                    Tentang Wajib Di isi
+                                  </p>
+                                </div>
                               </div>
                             </div>
                             <div class="col-lg-12  mb-3">
@@ -72,16 +96,30 @@
                                 @change="onFileChange"
                                 class="form-control"
                                 id="inputFile"
+                                @blur="$v.team.image.$touch()"
                               />
+                              <div v-if="$v.team.image.$error">
+                                <p
+                                  v-if="!$v.team.image.required"
+                                  class="text-danger mt-1"
+                                >
+                                  Image Wajib Di isi
+                                </p>
+                              </div>
                             </div>
-                    
-            
                           </div>
                         </div>
                         <div class="form-group text-center">
-                          <button type="submit" class="btn btn-primary">
+                          <button
+                            type="submit"
+                            :disabled="$v.$anyError"
+                            class="btn btn-primary"
+                          >
                             Submit
                           </button>
+                          <p v-if="$v.$anyError" class="text-danger mt-3">
+                            Tolong isi fill yang kosong
+                          </p>
                         </div>
                       </form>
                     </div>
@@ -108,6 +146,7 @@ import Navbar from "../layout/navbar.vue";
 import Sidebar from "../layout/sidebar.vue";
 import Footer from "../layout/footer";
 import Teamservice from "../../service/team.service";
+import { required } from "vuelidate/lib/validators";
 export default {
   components: {
     Sidebar,
@@ -124,6 +163,14 @@ export default {
       },
     };
   },
+  validations: {
+    team: {
+      nama: { required },
+      jabatan: { required },
+      tentang: { required },
+      image: { required },
+    },
+  },
   methods: {
     submit(event) {
       event.preventDefault();
@@ -133,14 +180,17 @@ export default {
       formData.append("jabatan", this.team.jabatan);
       formData.append("tentang", this.team.tentang);
       formData.append("image", imageInput);
-      Teamservice.postCrated(formData)
-        .then((response) => {
-          console.log(response.data, "Berhasil Di tambahkan");
-          router.back();
-        })
-        .catch((error) => {
-          console.log("Gagal Di tambahkan", error.response);
-        });
+      this.$v.$touch();
+      if (!this.$v.$invalid) {
+        Teamservice.postCrated(formData)
+          .then((response) => {
+            console.log(response.data, "Berhasil Di tambahkan");
+            router.back();
+          })
+          .catch((error) => {
+            console.log("Gagal Di tambahkan", error.response);
+          });
+      }
     },
     onFileChange(e) {
       let files = e.target.files || e.dataTransfer.files;

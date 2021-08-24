@@ -32,8 +32,16 @@
                                   id="exampleInputEmail1"
                                   aria-describedby="emailHelp"
                                   v-model="dokumen.nama"
-                                  required
+                                  @blur="$v.dokumen.nama.$touch()"
                                 />
+                                <div v-if="$v.dokumen.nama.$error">
+                                  <p
+                                    v-if="!$v.dokumen.nama.required"
+                                    class="text-danger mt-1"
+                                  >
+                                    Nama Dokumen Harus Di Isi
+                                  </p>
+                                </div>
                               </div>
                             </div>
                             <div class="col-lg-12  mb-3">
@@ -45,7 +53,16 @@
                                 @change="onFileChange"
                                 class="form-control"
                                 id="inputFile"
+                                @blur="$v.dokumen.document.$touch()"
                               />
+                              <div v-if="$v.dokumen.document.$error">
+                                <p
+                                  v-if="!$v.dokumen.document.required"
+                                  class="text-danger mt-1"
+                                >
+                                  Dokumen Ber isi PDF Atau Image
+                                </p>
+                              </div>
                             </div>
                             <div class="col-lg-12 mt-3  mb-4 text-left">
                               <label for="NIK" style="text-align: left"
@@ -54,18 +71,30 @@
                               <select
                                 class="form-control"
                                 v-model="dokumen.tipe"
+                                @blur="$v.dokumen.tipe.$touch()"
                               >
                                 <option value="1">PDF</option>
                                 <option value="2">Excel</option>
                                 <option value="3">Word</option>
                               </select>
+                              <div v-if="$v.dokumen.tipe.$error">
+                                <p
+                                  v-if="!$v.dokumen.tipe.required"
+                                  class="text-danger mt-1"
+                                >
+                                  Silahkan Pilih Tipe File
+                                </p>
+                              </div>
                             </div>
                           </div>
                         </div>
                         <div class="form-group text-center">
-                          <button type="submit" class="btn btn-primary">
+                          <button type="submit"  :disabled="$v.$anyError" class="btn btn-primary">
                             Submit
                           </button>
+                            <p v-if="$v.$anyError" class="text-danger mt-3">
+                            Tolong isi fill yang kosong
+                          </p>
                         </div>
                       </form>
                     </div>
@@ -92,6 +121,7 @@ import Navbar from "../layout/navbar.vue";
 import Sidebar from "../layout/sidebar.vue";
 import Footer from "../layout/footer";
 import Dokumenservice from "../../service/document.service";
+import { required } from "vuelidate/lib/validators";
 export default {
   components: {
     Sidebar,
@@ -107,6 +137,13 @@ export default {
       },
     };
   },
+  validations: {
+    dokumen: {
+      nama: { required },
+      document: { required },
+      tipe: { required },
+    },
+  },
   methods: {
     submit(event) {
       event.preventDefault();
@@ -115,14 +152,17 @@ export default {
       formData.append("nama", this.dokumen.nama);
       formData.append("document", imageInput);
       formData.append("tipe", this.dokumen.tipe);
-      Dokumenservice.postCrated(formData)
-        .then((response) => {
-          console.log(response.data, "Berhasil Di tambahkan");
-          router.back();
-        })
-        .catch((error) => {
-          console.log("Gagal Di tambahkan", error.response);
-        });
+      this.$v.$touch();
+      if (!this.$v.$invalid) {
+        Dokumenservice.postCrated(formData)
+          .then((response) => {
+            console.log(response.data, "Berhasil Di tambahkan");
+            router.back();
+          })
+          .catch((error) => {
+            console.log("Gagal Di tambahkan", error.response);
+          });
+      }
     },
     onFileChange(e) {
       let files = e.target.files || e.dataTransfer.files;

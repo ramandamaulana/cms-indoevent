@@ -32,11 +32,18 @@
                                   id="exampleInputEmail1"
                                   aria-describedby="emailHelp"
                                   v-model="gallery.nama"
-                                  required
+                                  @blur="$v.gallery.nama.$touch()"
                                 />
+                                <div v-if="$v.gallery.nama.$error">
+                                  <p
+                                    v-if="!$v.gallery.nama.required"
+                                    class="text-danger mt-1"
+                                  >
+                                    Nama Wajib Di isi
+                                  </p>
+                                </div>
                               </div>
                             </div>
-
                             <div class="col-lg-12  mb-3">
                               <label for="exampleInputEmail1"
                                 >Upload Image</label
@@ -47,16 +54,30 @@
                                 @change="onFileChange"
                                 class="form-control"
                                 id="inputFile"
+                                @blur="$v.gallery.image.$touch()"
                               />
+                              <div v-if="$v.gallery.image.$error">
+                                <p
+                                  v-if="!$v.gallery.image.required"
+                                  class="text-danger mt-1"
+                                >
+                                  Image Wajib Di isi
+                                </p>
+                              </div>
                             </div>
-                    
-            
                           </div>
                         </div>
                         <div class="form-group text-center">
-                          <button type="submit" class="btn btn-primary">
+                          <button
+                            type="submit"
+                            :disabled="$v.$anyError"
+                            class="btn btn-primary"
+                          >
                             Submit
                           </button>
+                          <p v-if="$v.$anyError" class="text-danger mt-3">
+                            Tolong isi fill yang kosong
+                          </p>
                         </div>
                       </form>
                     </div>
@@ -83,6 +104,7 @@ import Navbar from "../layout/navbar.vue";
 import Sidebar from "../layout/sidebar.vue";
 import Footer from "../layout/footer";
 import Galleryservice from "../../service/gallery.service";
+import { required } from "vuelidate/lib/validators";
 export default {
   components: {
     Sidebar,
@@ -97,6 +119,12 @@ export default {
       },
     };
   },
+  validations: {
+    gallery: {
+      nama: { required },
+      image: { required },
+    },
+  },
   methods: {
     submit(event) {
       event.preventDefault();
@@ -104,14 +132,17 @@ export default {
       var formData = new FormData();
       formData.append("nama", this.gallery.nama);
       formData.append("image", imageInput);
-      Galleryservice.postCrated(formData)
-        .then((response) => {
-          console.log(response.data, "Berhasil Di tambahkan");
-          router.back();
-        })
-        .catch((error) => {
-          console.log("Gagal Di tambahkan", error.response);
-        });
+      this.$v.$touch();
+      if (!this.$v.$invalid) {
+        Galleryservice.postCrated(formData)
+          .then((response) => {
+            console.log(response.data, "Berhasil Di tambahkan");
+            router.back();
+          })
+          .catch((error) => {
+            console.log("Gagal Di tambahkan", error.response);
+          });
+      }
     },
     onFileChange(e) {
       let files = e.target.files || e.dataTransfer.files;

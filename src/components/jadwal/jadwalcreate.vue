@@ -34,8 +34,16 @@
                                   id="exampleInputEmail1"
                                   aria-describedby="emailHelp"
                                   v-model="schedule.nama_kegiatan"
-                                  required
+                                  @blur="$v.schedule.nama_kegiatan.$touch()"
                                 />
+                                <div v-if="$v.schedule.nama_kegiatan.$error">
+                                  <p
+                                    v-if="!$v.schedule.nama_kegiatan.required"
+                                    class="text-danger mt-1"
+                                  >
+                                    Nama Kegiatan Harus Di Isi
+                                  </p>
+                                </div>
                               </div>
                             </div>
                             <div class="col-lg-12">
@@ -49,8 +57,16 @@
                                   id="exampleInputEmail1"
                                   aria-describedby="emailHelp"
                                   v-model="schedule.tgl_kegiatan"
-                                  required
+                                  @blur="$v.schedule.tgl_kegiatan.$touch()"
                                 />
+                              </div>
+                              <div v-if="$v.schedule.tgl_kegiatan.$error">
+                                <p
+                                  v-if="!$v.schedule.tgl_kegiatan.required"
+                                  class="text-danger mt-1"
+                                >
+                                  Tanggal Kegiatan Harus Di Isi
+                                </p>
                               </div>
                             </div>
                             <div class="col-lg-12">
@@ -59,13 +75,21 @@
                                   >Jam Mulai</label
                                 >
                                 <input
-                                  type="text"
+                                  type="time"
                                   class="form-control"
                                   id="exampleInputEmail1"
                                   aria-describedby="emailHelp"
                                   v-model="schedule.jam_mulai"
-                                  required
+                                  @blur="$v.schedule.jam_mulai.$touch()"
                                 />
+                                <div v-if="$v.schedule.jam_mulai.$error">
+                                  <p
+                                    v-if="!$v.schedule.jam_mulai.required"
+                                    class="text-danger mt-1"
+                                  >
+                                    Jam Mulai Harus Di Isi
+                                  </p>
+                                </div>
                               </div>
                             </div>
                             <div class="col-lg-12">
@@ -74,13 +98,21 @@
                                   >Jam Berakhir</label
                                 >
                                 <input
-                                  type="text"
+                                  type="time"
                                   class="form-control"
                                   id="exampleInputEmail1"
                                   aria-describedby="emailHelp"
                                   v-model="schedule.jam_berakhir"
-                                  required
+                                  @blur="$v.schedule.jam_berakhir.$touch()"
                                 />
+                                <div v-if="$v.schedule.jam_berakhir.$error">
+                                  <p
+                                    v-if="!$v.schedule.jam_berakhir.required"
+                                    class="text-danger mt-1"
+                                  >
+                                    Jam Berakhir Harus Di Isi
+                                  </p>
+                                </div>
                               </div>
                             </div>
                             <div class="col-lg-12">
@@ -92,16 +124,31 @@
                                   id="exampleInputEmail1"
                                   aria-describedby="emailHelp"
                                   v-model="schedule.tempat"
-                                  required
+                                  @blur="$v.schedule.tempat.$touch()"
                                 />
+                                <div v-if="$v.schedule.tempat.$error">
+                                  <p
+                                    v-if="!$v.schedule.tempat.required"
+                                    class="text-danger mt-1"
+                                  >
+                                    Tempat Harus Di Isi
+                                  </p>
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
                         <div class="form-group text-center">
-                          <button type="submit" class="btn btn-primary">
+                          <button
+                            type="submit"
+                            :disabled="$v.$anyError"
+                            class="btn btn-primary"
+                          >
                             Submit
                           </button>
+                          <p v-if="$v.$anyError" class="text-danger mt-3">
+                            Tolong isi fill yang kosong
+                          </p>
                         </div>
                       </form>
                     </div>
@@ -128,6 +175,7 @@ import Navbar from "../layout/navbar.vue";
 import Sidebar from "../layout/sidebar.vue";
 import Footer from "../layout/footer";
 import Scheduleservice from "../../service/jadwal.service";
+import { required } from "vuelidate/lib/validators";
 export default {
   components: {
     Sidebar,
@@ -145,6 +193,15 @@ export default {
       },
     };
   },
+  validations: {
+    schedule: {
+      nama_kegiatan: { required },
+      tgl_kegiatan: { required },
+      jam_mulai: { required },
+      jam_berakhir: { required },
+      tempat: { required },
+    },
+  },
   methods: {
     submit(event) {
       event.preventDefault();
@@ -155,14 +212,17 @@ export default {
         jam_berakhir: this.schedule.jam_berakhir,
         tempat: this.schedule.tempat,
       };
-      Scheduleservice.postCrated(params)
-        .then((response) => {
-          console.log(response.data, "Berhasil Di tambahkan");
-          router.back();
-        })
-        .catch((error) => {
-          console.log("Gagal Di tambahkan", error.response);
-        });
+      this.$v.$touch();
+      if (!this.$v.$invalid) {
+        Scheduleservice.postCrated(params)
+          .then((response) => {
+            console.log(response.data, "Berhasil Di tambahkan");
+            router.back();
+          })
+          .catch((error) => {
+            console.log("Gagal Di tambahkan", error.response);
+          });
+      }
     },
   },
 };
