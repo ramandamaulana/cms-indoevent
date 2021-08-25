@@ -22,8 +22,8 @@ import feedbackcreate from '../components/feedback/feedbackcreate.vue'
 import feedbackupdate from '../components/feedback/feedbackupdate.vue'
 import artikelkategoricreate from '../components/artikel-category/kategoricreate.vue'
 import artikelkategoriupdate from '../components/artikel-category/kategoriupdate.vue'
-import artikelcommentcreate from '../components/artikel-post/postcreate.vue'
-import artikelcommentupdate from '../components/artikel-post/postupdate.vue'
+import artikelcommentcreate from '../components/artikel-comment/komencreate.vue'
+import artikelcommentupdate from '../components/artikel-comment/komenupdate.vue'
 Vue.use(VueRouter)
 const routes = [
   {
@@ -236,6 +236,18 @@ const routes = [
     component: () => import('../views/artikelpost.vue'),
     meta:{requiresAuth:true}
   },
+    {
+      path: '/artikel-post-create',
+      name: 'artikelpostcreate',
+      component: () => import('../components/artikel-post/postcreate.vue'),
+      meta:{requiresAuth:true}
+    },
+    {
+      path: '/artikel-post-update/:id',
+      name: 'artikel-post-update',
+      component: () => import('../components/artikel-post/postupdate.vue'),
+      meta:{requiresAuth:true}
+    },
   {
     path: '/gallery',
     name: 'gallery',
@@ -260,6 +272,7 @@ const routes = [
     component: () => import('../views/team.vue'),
     meta:{requiresAuth:true}
   },
+
   {
     path: '/team-create',
     name: 'teamcreate',
@@ -276,6 +289,42 @@ const routes = [
     path: '/landing',
     name: 'landing',
     component: () => import('../views/landingpage.vue'),
+    meta:{requiresAuth:true}
+  },
+  {
+    path: '/Information',
+    name: 'Information',
+    component: () => import('../views/Information.vue'),
+    meta:{requiresAuth:true}
+  },
+  {
+    path: '/info-create',
+    name: 'Informationcreate',
+    component: () => import('../components/info/infocreate.vue'),
+    meta:{requiresAuth:true}
+  },
+  {
+    path: '/info-update/:id',
+    name: 'Informationupdate',
+    component: () => import('../components/info/infoupdate.vue'),
+    meta:{requiresAuth:true}
+  },
+  {
+    path: '/Information-Detail',
+    name: 'Information-Detail',
+    component: () => import('../views/Informationdetail.vue'),
+    meta:{requiresAuth:true}
+  },
+  {
+    path: '/Information-Detail-create',
+    name: 'InformationDetailcreate',
+    component: () => import('../components/info-detail/infodetailcreate.vue'),
+    meta:{requiresAuth:true}
+  },
+  {
+    path: '/information-Detail-update/:id',
+    name: 'InformationDetailupdate',
+    component: () => import('../components/info-detail/infodetailupdate.vue'),
     meta:{requiresAuth:true}
   },
 ]

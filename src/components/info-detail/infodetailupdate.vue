@@ -16,7 +16,7 @@
                   <div class="card">
                     <div class="card-header">
                       <h3 style="font-size:Nunito; font-size:18px;">
-                        Update Artikel Comment
+                        Tambah Information Details
                       </h3>
                     </div>
                     <div class="card-body">
@@ -25,37 +25,62 @@
                           <div class="row">
                             <div class="col-lg-12 mb-3 text-left">
                               <label for="exampleFormControlSelect1"
-                                >Artikel Kategori ID</label
+                                >Information ID</label
                               >
                               <select
                                 class="form-control"
                                 id="exampleFormControlSelect1"
-                                v-model="komenartikel.article_post_id"
+                                v-model="Infodetail.information_id"
                                 @click="changeProductID()"
                               >
                                 <option
-                                  v-for="komenartikel in komenartikeld"
-                                  :key="komenartikel.article_post_id"
-                                  >{{ komenartikel.id }}</option
+                                  v-for="Infodetail in Infodetails"
+                                  :key="Infodetail.information_id"
+                                  >{{ Infodetail.id }}</option
                                 >
                               </select>
                             </div>
                             <div class="col-lg-12">
                               <div class="form-group">
-                                <label for="exampleInputPassword1">Title</label>
+                                <label for="exampleInputPassword1"
+                                  >Detail</label
+                                >
                                 <input
                                   type="text"
-                                  v-model="komenartikel.comment"
+                                  v-model="Infodetail.detail"
                                   class="form-control"
                                   id="exampleInputPassword1"
-                                  @blur="$v.komenartikel.comment.$touch()"
+                                  @blur="$v.Infodetail.detail.$touch()"
                                 />
-                                <div v-if="$v.komenartikel.comment.$error">
+                                <div v-if="$v.Infodetail.detail.$error">
                                   <p
-                                    v-if="!$v.komenartikel.comment.required"
+                                    v-if="!$v.Infodetail.detail.required"
                                     class="text-danger mt-1"
                                   >
                                     Title Harus Di Isi
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-lg-12">
+                              <div class="form-group">
+                                <label for="exampleInputPassword1"
+                                  >Quantity</label
+                                >
+                                <input
+                                  type="text"
+                                  v-model="Infodetail.qty"
+                                  class="form-control"
+                                  id="exampleInputPassword1"
+                                  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                                  @blur="$v.Infodetail.qty.$touch()"
+                                />
+                                <div v-if="$v.Infodetail.qty.$error">
+                                  <p
+                                    v-if="!$v.Infodetail.qty.required"
+                                    class="text-danger mt-1"
+                                  >
+                                    Quantity Harus di isi
                                   </p>
                                 </div>
                               </div>
@@ -98,8 +123,8 @@ import router from "@/router";
 import Navbar from "../layout/navbar.vue";
 import Sidebar from "../layout/sidebar.vue";
 import Footer from "../layout/footer";
-import Postservice from "../../service/artikel-post.service";
-import Komenservice from "../../service/artikel-comment.service";
+import Infoservice from "../../service/info.service";
+import InfoDetailservice from "../../service/info-detail.service";
 import { required } from "vuelidate/lib/validators";
 export default {
   components: {
@@ -109,37 +134,31 @@ export default {
   },
   data() {
     return {
-      komenartikelId: this.$route.params.id,
-      komenartikel: {
-        article_post_id: "",
-        comment: "",
+      Infodetail: {
+        information_id: "",
+        detail: "",
+        qty: "",
       },
-      komenartikeld: [],
+      Infodetails: [],
     };
   },
   validations: {
-    komenartikel: {
-      article_post_id: { required },
-      comment: { required },
+    Infodetail: {
+      information_id: { required },
+      detail: { required },
+      qty: { required },
     },
   },
   methods: {
-    getDetail() {
-      Komenservice.getShow(this.$route.params.id).then((response) => {
-        if (response.code === 200) {
-          (this.komenartikel.article_post_id = response.rows.article_post_id),
-            (this.komenartikel.comment = response.rows.comment);
-        }
-      });
-    },
     submit(event) {
       event.preventDefault();
       var formData = new FormData();
-      formData.append("article_post_id", this.komenartikel.article_post_id);
-      formData.append("comment", this.komenartikel.comment);
+      formData.append("information_id", this.Infodetail.information_id);
+      formData.append("detail", this.Infodetail.detail);
+      formData.append("qty", this.Infodetail.qty);
       this.$v.$touch();
       if (!this.$v.$invalid) {
-        Komenservice.postUpdate(this.$route.params.id, formData)
+        InfoDetailservice.postCrated(formData)
           .then((response) => {
             console.log(response.data, "Berhasil Di tambahkan");
             router.back();
@@ -150,13 +169,10 @@ export default {
       }
     },
     changeProductID() {
-      Postservice.getAll().then((response) => {
-        this.komenartikeld = response.rows;
+      Infoservice.getAll().then((response) => {
+        this.Infodetails = response.rows;
       });
     },
-  },
-  mounted() {
-    this.getDetail();
   },
 };
 </script>
