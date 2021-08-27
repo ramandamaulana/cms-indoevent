@@ -44,17 +44,22 @@
                           <div class="col-lg-12">
                             <div class="form-group row">
                               <div class="col-sm-12">
-                                <div class="form-check">
+                                <div
+                                  class="form-check"
+                                  v-for="document in documentD"
+                                  :key="document.id"
+                                >
                                   <input
                                     class="form-check-input"
                                     type="checkbox"
                                     id="gridCheck1"
+                                    v-model="schedule.documents"
                                   />
                                   <label
                                     class="form-check-label"
                                     for="gridCheck1"
                                   >
-                                    Example checkbox
+                                    {{ document.id }}
                                   </label>
                                 </div>
                               </div>
@@ -93,13 +98,13 @@
 }
 </style>
 <script>
-import router from "@/router";
+// import router from "@/router";
 import Navbar from "../layout/navbar.vue";
 import Sidebar from "../layout/sidebar.vue";
 import Footer from "../layout/footer";
 import Scheduleservice from "../../service/tiket-schedule.service";
-import Dokumenservice from "../../service/tiket-dokumen.service";
-// import Jadwalservice from "../../service/jadwal.service";
+import Tiketservice from "../../service/tiket-dokumen.service";
+import AllDocumentservice from "../../service/document.service";
 import { required } from "vuelidate/lib/validators";
 export default {
   components: {
@@ -114,6 +119,7 @@ export default {
         documents: "",
       },
       schedules: [],
+      documentD: [],
     };
   },
   validations: {
@@ -121,6 +127,16 @@ export default {
       ticket_id: { required },
       documents: { required },
     },
+  },
+  created() {
+    AllDocumentservice.getAll()
+      .then((response) => {
+        this.documentD = response.rows;
+        console.log("Data Di Temukan", response.rows);
+      })
+      .catch((error) => {
+        console.log("Eror Data Tidak Di Temukan", error.response);
+      });
   },
   methods: {
     submit(event) {
@@ -130,10 +146,10 @@ export default {
       formData.append("documents", this.schedule.documents);
       this.$v.$touch();
       if (!this.$v.$invalid) {
-        Dokumenservice.postCrated(formData)
+        Tiketservice.postCrated(formData)
           .then((response) => {
             console.log(response.data, "Berhasil Di tambahkan");
-            router.back();
+            // router.back();
           })
           .catch((error) => {
             console.log("Gagal Di tambahkan", error.response);
