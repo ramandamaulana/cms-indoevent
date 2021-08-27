@@ -36,7 +36,8 @@
                                 <option
                                   v-for="postartikel in categorys"
                                   :key="postartikel.article_category_id"
-                                  >{{ postartikel.id }}</option
+                                  :value="postartikel.id"
+                                  >{{ postartikel.title }}</option
                                 >
                               </select>
                             </div>
@@ -159,7 +160,7 @@
 }
 </style>
 <script>
-import router from "@/router";
+// import router from "@/router";
 import Navbar from "../layout/navbar.vue";
 import Sidebar from "../layout/sidebar.vue";
 import Footer from "../layout/footer";
@@ -210,7 +211,7 @@ export default {
         Postservice.postCrated(formData)
           .then((response) => {
             console.log(response.data, "Berhasil Di tambahkan");
-            router.back();
+            // router.back();
           })
           .catch((error) => {
             console.log("Gagal Di tambahkan", error.response);

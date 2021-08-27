@@ -122,6 +122,7 @@ const routes = [
     component: phoneupdate,
     meta:{requiresAuth:true}
   },
+
   {
     path: '/tiket',
     name: 'tiket',
@@ -138,6 +139,36 @@ const routes = [
     path: '/tiket-update/:id',
     name: 'tiketupdate',
     component: tiketupdate,
+    meta:{requiresAuth:true}
+  },
+  {
+    path: '/tiket-document',
+    name: 'tiket',
+    component: () => import('../views/tiket-document.vue'),
+    meta:{requiresAuth:true}
+  },
+  {
+    path: '/tiket-document/create',
+    name: 'tiketdokumencreate',
+    component: () => import('../components/tiket-dokumen/create.vue'),
+    meta:{requiresAuth:true}
+  },
+  {
+    path: '/tiket-document/update/:id',
+    name: 'tiketdokumen',
+    component: () => import('../components/tiket-dokumen/update.vue'),
+    meta:{requiresAuth:true}
+  },
+  {
+    path: '/tiket-schedule',
+    name: 'tiketschedule',
+    component: () => import('../views/tiket-schedule.vue'),
+    meta:{requiresAuth:true}
+  },
+  {
+    path: '/tiket-schedule/create',
+    name: 'tiketschedulecreate',
+    component: () => import('../components/tiket-schedule/create.vue'),
     meta:{requiresAuth:true}
   },
   {
@@ -174,6 +205,12 @@ const routes = [
     path: '/faq-update/:id',
     name: 'faqupdate',
     component: faqupdate,
+    meta:{requiresAuth:true}
+  },
+  {
+    path: '/Transaction',
+    name: 'Transaction',
+    component: () => import('../views/transaction.vue'),
     meta:{requiresAuth:true}
   },
   {
@@ -325,6 +362,12 @@ const routes = [
     path: '/information-Detail-update/:id',
     name: 'InformationDetailupdate',
     component: () => import('../components/info-detail/infodetailupdate.vue'),
+    meta:{requiresAuth:true}
+  },
+  {
+    path: '/Information-user',
+    name: 'Information-user',
+    component: () => import('../views/Informationuser.vue'),
     meta:{requiresAuth:true}
   },
 ]

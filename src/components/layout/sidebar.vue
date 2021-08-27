@@ -23,14 +23,7 @@
       Event
     </div>
 
-    <li class="nav-item">
-      <router-link to="/tiket">
-        <a class="nav-link" href="charts.html">
-          <i class="fas fa-ticket-alt mr-2"></i>
-          <span>Tiket</span></a
-        >
-      </router-link>
-    </li>
+  
     <li class="nav-item">
       <router-link to="/jadwal">
         <a class="nav-link" href="charts.html">
@@ -56,6 +49,38 @@
       </router-link>
     </li>
 
+    <li class="nav-item">
+      <a
+        class="nav-link collapsed"
+        href="#"
+        data-toggle="collapse"
+        data-target="#collapseTwo3"
+        aria-expanded="true"
+        aria-controls="collapseTwo3"
+      >
+        <i class="fas fa-ticket-alt mr-2"></i>
+        <span>Tiket</span>
+      </a>
+      <div
+        id="collapseTwo3"
+        class="collapse"
+        aria-labelledby="headingTwo"
+        data-parent="#accordionSidebar"
+      >
+        <div class="bg-white py-2 collapse-inner rounded">
+          <router-link to="/tiket">
+            <a class="collapse-item"><span>Tiket</span></a>
+          </router-link>
+          <router-link to="/tiket-document">
+            <a class="collapse-item">Tiket Document</a></router-link
+          >
+          <router-link to="/tiket-schedule">
+            <a class="collapse-item">Tiket Schedule</a></router-link
+          >
+        </div>
+      </div>
+    </li>
+
     <!-- Heading -->
     <div class="sidebar-heading mt-2">
       Website
@@ -74,6 +99,14 @@
         <a class="nav-link" href="charts.html">
           <i class="fas fa-university mr-2"></i>
           <span>Bank</span></a
+        >
+      </router-link>
+    </li>
+    <li class="nav-item">
+      <router-link to="/Transaction">
+        <a class="nav-link" href="charts.html">
+          <i class="fas fa-coins mr-2"></i>
+          <span>Transaction</span></a
         >
       </router-link>
     </li>
@@ -121,19 +154,13 @@
       >
         <div class="bg-white py-2 collapse-inner rounded">
           <router-link to="/Information">
-            <a class="collapse-item" 
-              >Information</a
-            ></router-link
+            <a class="collapse-item">Information</a></router-link
           >
           <router-link to="/Information-Detail">
-            <a class="collapse-item" 
-              >Information Detail</a
-            ></router-link
+            <a class="collapse-item">Information Detail</a></router-link
           >
           <router-link to="/Information-user">
-            <a class="collapse-item"
-              >Information User</a
-            ></router-link
+            <a class="collapse-item">Information User</a></router-link
           >
         </div>
       </div>
