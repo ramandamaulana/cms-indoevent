@@ -41,6 +41,25 @@
                               </select>
                             </div>
                           </div>
+                          <div class="col-lg-12">
+                            <div class="form-group row">
+                              <div class="col-sm-12">
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="gridCheck1"
+                                  />
+                                  <label
+                                    class="form-check-label"
+                                    for="gridCheck1"
+                                  >
+                                    Example checkbox
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                         <div class="form-group text-center">
                           <button
@@ -80,6 +99,7 @@ import Sidebar from "../layout/sidebar.vue";
 import Footer from "../layout/footer";
 import Scheduleservice from "../../service/tiket-schedule.service";
 import Dokumenservice from "../../service/tiket-dokumen.service";
+// import Jadwalservice from "../../service/jadwal.service";
 import { required } from "vuelidate/lib/validators";
 export default {
   components: {
