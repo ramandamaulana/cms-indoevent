@@ -153,12 +153,7 @@ const routes = [
     component: () => import('../components/tiket-dokumen/create.vue'),
     meta:{requiresAuth:true}
   },
-  {
-    path: '/tiket-document/update/:id',
-    name: 'tiketdokumen',
-    component: () => import('../components/tiket-dokumen/update.vue'),
-    meta:{requiresAuth:true}
-  },
+ 
   {
     path: '/tiket-schedule',
     name: 'tiketschedule',

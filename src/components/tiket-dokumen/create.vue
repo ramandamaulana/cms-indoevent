@@ -30,29 +30,45 @@
                               <select
                                 class="form-control"
                                 id="exampleFormControlSelect1"
-                                v-model="schedule.ticket_id"
+                                v-model="tiketdokumen.ticket_id"
                                 @click="changeProductID()"
                               >
                                 <option
-                                  v-for="schedule in schedules"
-                                  :key="schedule.ticket_id"
-                                  >{{ schedule.ticket_id }}</option
+                                  v-for="tiketdokumen in DokumenID"
+                                  :key="tiketdokumen.id"
+                                  >{{ tiketdokumen.id }}</option
                                 >
                               </select>
+                            </div>
+                            <div class="col-lg-12">
+                              <div class="form-group row">
+                                <div class="col-sm-12">
+                                  <div class="form-check">
+                                    <div
+                                      v-for="(dokumen, index) in Dokumens"
+                                      v-bind:index="index"
+                                      :key="dokumen.id"
+                                    >
+                                      <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        v-model="tiketdokumen.documents"
+                                        :value="dokumen.id"
+                                      />
+                                      <label class="form-check-label">
+                                        {{ dokumen.document.name }}
+                                      </label>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
                         <div class="form-group text-center">
-                          <button
-                            type="submit"
-                            :disabled="$v.$anyError"
-                            class="btn btn-primary"
-                          >
+                          <button type="submit" class="btn btn-primary">
                             Submit
                           </button>
-                          <p v-if="$v.$anyError" class="text-danger mt-3">
-                            Tolong isi fill yang kosong
-                          </p>
                         </div>
                       </form>
                     </div>
@@ -78,9 +94,9 @@ import router from "@/router";
 import Navbar from "../layout/navbar.vue";
 import Sidebar from "../layout/sidebar.vue";
 import Footer from "../layout/footer";
-import Scheduleservice from "../../service/tiket-schedule.service";
-import Dokumenservice from "../../service/tiket-dokumen.service";
-import { required } from "vuelidate/lib/validators";
+import Tiketservice from "../../service/tiket.service";
+import Dokumen from "../../service/document.service";
+import Tiketdokumenservice from "../../service/tiket-dokumen.service";
 export default {
   components: {
     Sidebar,
@@ -89,40 +105,42 @@ export default {
   },
   data() {
     return {
-      schedule: {
+      tiketdokumen: {
         ticket_id: "",
         documents: "",
       },
-      schedules: [],
+      DokumenID: [],
+      Dokumens: [],
     };
   },
-  validations: {
-    schedule: {
-      ticket_id: { required },
-      documents: { required },
-    },
+  created() {
+    Dokumen.getAll()
+      .then((response) => {
+        this.Dokumens = response.rows;
+        console.log("Data Di Temukan", response.rows);
+      })
+      .catch((error) => {
+        console.log("Eror Data Tidak Di Temukan", error.response);
+      });
   },
   methods: {
     submit(event) {
       event.preventDefault();
       var formData = new FormData();
-      formData.append("ticket_id", this.schedule.ticket_id);
-      formData.append("documents", this.schedule.documents);
-      this.$v.$touch();
-      if (!this.$v.$invalid) {
-        Dokumenservice.postCrated(formData)
-          .then((response) => {
-            console.log(response.data, "Berhasil Di tambahkan");
-            router.back();
-          })
-          .catch((error) => {
-            console.log("Gagal Di tambahkan", error.response);
-          });
-      }
+      formData.append("ticket_id", this.tiketdokumen.ticket_id);
+      formData.append("documents", this.tiketdokumen.documents);
+      Tiketdokumenservice.postCrated(formData)
+        .then((response) => {
+          console.log(response.data, "Berhasil Di tambahkan");
+          router.back();
+        })
+        .catch((error) => {
+          console.log("Gagal Di tambahkan", error.response);
+        });
     },
     changeProductID() {
-      Scheduleservice.getAll().then((response) => {
-        this.schedules = response.rows;
+      Tiketservice.getAll().then((response) => {
+        this.DokumenID = response.rows;
       });
     },
   },
