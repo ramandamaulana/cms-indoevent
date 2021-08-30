@@ -23,7 +23,14 @@
       Event
     </div>
 
-  
+    <li class="nav-item">
+      <router-link to="/User-attendance">
+        <a class="nav-link" href="charts.html">
+         <i class="fas fa-user-tie mr-2"></i>
+          <span>User attendance</span></a
+        >
+      </router-link>
+    </li>
     <li class="nav-item">
       <router-link to="/jadwal">
         <a class="nav-link" href="charts.html">

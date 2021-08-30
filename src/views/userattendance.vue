@@ -21,13 +21,6 @@
                             style="font-family: 'Poppins'; font-size: 14px; font-weight: bold;"
                           ></h6>
                         </div>
-                        <div class="col-lg-6 text-right mb-3">
-                          <a
-                            class="btn btn-primary text-left"
-                            @click.prevent="handleCreate"
-                            ><i class="fa fa-plus mr-3"></i> Tambah</a
-                          >
-                        </div>
                       </div>
                       <vue-good-table
                         :columns="columns"

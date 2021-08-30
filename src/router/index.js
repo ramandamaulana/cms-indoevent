@@ -365,6 +365,18 @@ const routes = [
     component: () => import('../views/Informationuser.vue'),
     meta:{requiresAuth:true}
   },
+  {
+    path: '/User-attendance',
+    name: 'userattendance',
+    component: () => import('../views/userattendance.vue'),
+    meta:{requiresAuth:true}
+  },
+  {
+    path: '/Page-create',
+    name: 'Page-create',
+    component: () => import('../components/landing/create.vue'),
+    meta:{requiresAuth:true}
+  },
 ]
 
 const router = new VueRouter({

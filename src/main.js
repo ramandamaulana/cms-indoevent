@@ -9,8 +9,6 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 Vue.use(VueSweetalert2);
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
-
-// Helpers
 import helpers from "./helpers/helper";
 const plugin = {
   install() {
