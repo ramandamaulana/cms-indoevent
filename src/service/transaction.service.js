@@ -68,13 +68,31 @@ export default {
           });
     },
     
-    postUpdate(id,params){
-      return axios.post("http://127.0.0.1:8000/api/admin/information/"+id ,params,{
+    postSuccess(data){
+      return axios.post("http://127.0.0.1:8000/api/admin/transaction/success",{
           headers: {
               'Authorization': "Bearer " + user.data.access_token,
               'X_USER_ID': user.data.id,
               'Content-Type': "application/json",
-            }
+            },
+            data:data
+        }
+      ).then((response) => {
+            return response.data;
+          })
+          .catch((error) => {
+            return error.response.data;
+          });
+    },
+
+    postFailed(data){
+      return axios.post("http://127.0.0.1:8000/api/admin/transaction/failed",{
+          headers: {
+              'Authorization': "Bearer " + user.data.access_token,
+              'X_USER_ID': user.data.id,
+              'Content-Type': "application/json",
+            },
+            data:data
         }
       ).then((response) => {
             return response.data;

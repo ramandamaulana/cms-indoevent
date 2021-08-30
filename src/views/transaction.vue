@@ -43,17 +43,17 @@
                         <template slot="table-row" slot-scope="props">
                           <span v-if="props.column.field == 'action'">
                             <button
-                              class="btn btn-universal"
-                              @click.prevent="handleupdate(props.row.id)"
+                              class="btn btn-success mr-2"
+                              @click.prevent="handleSuccess(props.row.id)"
                             >
-                              <i class="far fa-edit text-primary"></i>
+                              Success
                             </button>
                             <button
-                              class="btn btn-universal"
+                              class="btn btn-danger"
                               type="submit"
-                              @click.prevent="handledelete(props.row.id)"
+                              @click.prevent="handleFailed(props.row.id)"
                             >
-                              <i class="far fa-trash-alt text-primary"></i>
+                              Failed
                             </button>
                           </span>
                         </template>
@@ -72,7 +72,7 @@
   </div>
 </template>
 <script>
-import router from "@/router";
+// import router from "@/router";
 import Navbar from "../components/layout/navbar.vue";
 import Sidebar from "../components/layout/sidebar.vue";
 import Footer from "../components/layout/footer";
@@ -125,22 +125,30 @@ export default {
       });
   },
   methods: {
-    handledelete(id) {
-      Transcationservice.getDelete(id)
+    handleSuccess(id) {
+      let params = {
+        id: id
+      };
+      Transcationservice.postSuccess(params)
         .then((response) => {
-          console.log(response, "Berhasil Terhapus");
-          router.go();
+          console.log(response, "Berhasil");
         })
         .catch((error) => {
-          console.log("Gagal Terhapus", error.response);
+          console.log("Gagal", error.response);
         });
     },
-    handleCreate() {
-      router.push("/Information-Detail-create");
-    },
-    handleupdate(id) {
-      router.push("/information-Detail-update/" + id);
-    },
+    handleFailed(id) {
+      let params = {
+        id: id
+      };
+      Transcationservice.postFailed(params)
+        .then((response) => {
+          console.log(response, "Berhasil");
+        })
+        .catch((error) => {
+          console.log("Gagal", error.response);
+        });
+    }
   },
 };
 </script>
