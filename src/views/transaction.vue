@@ -43,17 +43,18 @@
                         <template slot="table-row" slot-scope="props">
                           <span v-if="props.column.field == 'action'">
                             <button
-                              class="btn btn-universal"
-                              @click.prevent="handleupdate(props.row.id)"
+                              class="btn btn-success mr-2"
+                              type="submit"
+                              @click.prevent="handlesuccess(props.row.id)"
                             >
-                              <i class="far fa-edit text-primary"></i>
+                              Success
                             </button>
                             <button
-                              class="btn btn-universal"
+                              class="btn btn-danger"
                               type="submit"
-                              @click.prevent="handledelete(props.row.id)"
+                              @click.prevent="handleFailed(props.row.id)"
                             >
-                              <i class="far fa-trash-alt text-primary"></i>
+                              Failed
                             </button>
                           </span>
                         </template>
@@ -125,21 +126,25 @@ export default {
       });
   },
   methods: {
-    handledelete(id) {
-      Transcationservice.getDelete(id)
+    handlesuccess(id) {
+      Transcationservice.postSuccess(id)
         .then((response) => {
-          console.log(response, "Berhasil Terhapus");
+          console.log(response, "Berhasil Status");
           router.go();
         })
         .catch((error) => {
           console.log("Gagal Terhapus", error.response);
         });
     },
-    handleCreate() {
-      router.push("/Information-Detail-create");
-    },
-    handleupdate(id) {
-      router.push("/information-Detail-update/" + id);
+    handleFailed(id) {
+      Transcationservice.postFailed(id)
+        .then((response) => {
+          console.log(response, "Berhasil Status");
+          router.go();
+        })
+        .catch((error) => {
+          console.log("Gagal Terhapus", error.response);
+        });
     },
   },
 };
