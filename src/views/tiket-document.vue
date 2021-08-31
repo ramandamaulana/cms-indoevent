@@ -43,6 +43,7 @@
                         <template slot="table-row" slot-scope="props">
                           <span v-if="props.column.field == 'dokumen'">
                             <a :href="props.row.document.document.url"
+                                target="_blank"
                               >view dokumen</a
                             >
                           </span>

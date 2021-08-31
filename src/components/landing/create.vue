@@ -33,6 +33,16 @@
                                 />
                               </div>
                             </div>
+                            <div class="col-lg-12">
+                              <div class="form-group">
+                                <label>Landing Time</label>
+                                <input
+                                  type="time"
+                                  class="form-control"
+                                  v-model="landing.launching_time"
+                                />
+                              </div>
+                            </div>
                             <div class="col-lg-12  mb-3">
                               <label for="exampleInputEmail1"
                                 >Upload Banner Image</label
@@ -130,16 +140,16 @@
                                 v-model="landing.footer_desc"
                               ></ckeditor>
                             </div>
-                          </div>
-                        </div>
-                        <div class="col-lg-12">
-                          <div class="form-group">
-                            <label>Google Maps Url</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              v-model="landing.google_map"
-                            />
+                            <div class="col-lg-12">
+                              <div class="form-group">
+                                <label>Google Maps Url</label>
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  v-model="landing.google_map"
+                                />
+                              </div>
+                            </div>
                           </div>
                         </div>
                         <div class="form-group text-center">
@@ -186,6 +196,7 @@ export default {
       editorConfig: {},
       landing: {
         launching_date: "",
+        launching_time: "",
         banner_img: "",
         header_title: "",
         header_desc: "",
@@ -207,7 +218,7 @@ export default {
       event.preventDefault();
       var imageInput = document.getElementById("inputFile").files[0];
       var formData = new FormData();
-      formData.append("launching_date", this.landing.launching_date);
+      formData.append("launching_date", this.landing.launching_date +' '+ this.landing.launching_time+':00');
       formData.append("banner_img", imageInput);
       formData.append("header_title", this.landing.header_title);
       formData.append("header_desc", this.landing.header_desc);

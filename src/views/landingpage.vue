@@ -175,12 +175,8 @@
                               </div>
                               <div class="col-lg-12">
                                 <div class="form-group">
-                                  <label>Footer Title</label>
-                                  <input
-                                    v-model="google_map"
-                                    class="form-control"
-                                    disabled
-                                  />
+                                  <label>Google Map</label>
+                                  <div v-html="google_map"></div>
                                 </div>
                               </div>
                             </div>

@@ -41,6 +41,11 @@
                         }"
                       >
                         <template slot="table-row" slot-scope="props">
+                          <span v-if="props.column.field == 'dokumen'">
+                            <a :href="props.row.document.url" target="_blank"
+                              >view dokumen</a
+                            >
+                          </span>
                           <span v-if="props.column.field == 'action'">
                             <button
                               class="btn btn-universal"
@@ -95,7 +100,7 @@ export default {
         },
         {
           label: "Dokumen",
-          field: "document.url",
+          field: "dokumen",
         },
         {
           label: "Action",

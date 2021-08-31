@@ -18,7 +18,7 @@ export default {
         }); 
       },  
       
-      postCrate(data) {
+      postCrated(data) {
         return axios({
           method: 'post',
           url:"http://127.0.0.1:8000/api/admin/landing-page",

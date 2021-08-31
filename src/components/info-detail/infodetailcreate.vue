@@ -36,7 +36,8 @@
                                 <option
                                   v-for="Infodetail in Infodetails"
                                   :key="Infodetail.information_id"
-                                  >{{ Infodetail.id }}</option
+                                  :value="Infodetail.id"
+                                  >{{ Infodetail.id }} - {{ Infodetail.information }}</option
                                 >
                               </select>
                             </div>

@@ -33,15 +33,19 @@
                       >
                         <template slot="table-row" slot-scope="props">
                           <span v-if="props.column.field == 'gambar'">
-                            <img 
-                                v-if="props.row.image != null"
-                                :src="props.row.image.url" 
-                                class="img-thumbnail mt-3" 
-                                style="max-width: 200px;"
-                                :alt="props.row.image.name">
+                            <a :href="props.row.image.url"
+                                target="_blank">
+                              <img 
+                                  v-if="props.row.image != null"
+                                  :src="props.row.image.url" 
+                                  class="img-thumbnail mt-3" 
+                                  style="max-width: 200px;"
+                                  :alt="props.row.image.name"
+                                  >
+                            </a>
                           </span>
                           <span v-if="props.column.field == 'status_transaksi'">
-                            <span v-html="props.row.status"></span>
+                            <span v-html="props.row.col_status"></span>
                           </span>
                           <span v-if="props.column.field == 'total_transaksi'">
                             {{ $helpers.formattingRupiah(props.row.total) }}

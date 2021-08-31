@@ -38,7 +38,7 @@ export default {
   postSuccess(data) {
     return axios({
       method: 'post',
-      url:"http://127.0.0.1:8000/api/admin/transaction/failed",
+      url:"http://127.0.0.1:8000/api/admin/transaction/success",
       headers: {
           'Authorization': "Bearer " + user.data.access_token,
           'X_USER_ID': user.data.id,
