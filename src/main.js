@@ -1,4 +1,3 @@
-console.log(process.env);
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
@@ -11,6 +10,7 @@ Vue.use(VueSweetalert2);
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import helpers from "./helpers/helper";
+console.log(process.env.VUE_APP_URL);
 const plugin = {
   install() {
     Vue.prototype.$helpers = helpers;
