@@ -3,7 +3,7 @@ const user = JSON.parse(localStorage.getItem("user"));
 export default {
     getAll() {
         return axios({method: 'get',
-        url:"http://127.0.0.1:8000/api/admin/article/post",
+        url:"http://devapi.indoevent.id/api/admin/article/post",
         headers: {
             'Authorization': "Bearer " + user.data.access_token,
             'X_USER_ID': user.data.id,
@@ -19,7 +19,7 @@ export default {
       },       
    getDelete(id) {
     return axios.delete(
-      "http://127.0.0.1:8000/api/admin/article/post/"+id,
+      "http://devapi.indoevent.id/api/admin/article/post/"+id,
         {   headers: {
             'Authorization': "Bearer " + user.data.access_token,
             'X_USER_ID': user.data.id,
@@ -35,7 +35,7 @@ export default {
   },
   postCrated(data) {
     return axios({method: 'post',
-    url:"http://127.0.0.1:8000/api/admin/article/post",
+    url:"http://devapi.indoevent.id/api/admin/article/post",
     headers: {
         'Authorization': "Bearer " + user.data.access_token,
         'X_USER_ID': user.data.id,
@@ -52,7 +52,7 @@ export default {
 
     getShow(id) {
       return axios.get(
-        "http://127.0.0.1:8000/api/admin/article/post/"+id,
+        "http://devapi.indoevent.id/api/admin/article/post/"+id,
           {   headers: {
               'Authorization': "Bearer " + user.data.access_token,
               'X_USER_ID': user.data.id,
@@ -68,7 +68,7 @@ export default {
     },
     
     postUpdate(id,params){
-      return axios.post("http://127.0.0.1:8000/api/article/post/"+id ,params,{
+      return axios.post("http://devapi.indoevent.id/api/article/post/"+id ,params,{
           headers: {
               'Authorization': "Bearer " + user.data.access_token,
               'X_USER_ID': user.data.id,
