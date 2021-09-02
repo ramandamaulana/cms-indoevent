@@ -23,7 +23,7 @@ export default new Vuex.Store({
   },
   actions: { 
     login({ commit }, credentials) {
-      return axios.post("http://127.0.0.1:8000/api/login", credentials).then(({ data }) => {
+      return axios.post("${process.env.VUE_APP_URL}/api/login", credentials).then(({ data }) => {
         commit("SET_USER_DATA", data);
       });
     },

@@ -3,7 +3,7 @@ const user = JSON.parse(localStorage.getItem("user"));
 export default {
     getAll() {
         return axios({method: 'get',
-        url:"http://127.0.0.1:8000/api/admin/transaction",
+        url:`${process.env.VUE_APP_URL}/api/admin/transaction`,
         headers: {
             'Authorization': "Bearer " + user.data.access_token,
             'X_USER_ID': user.data.id,
@@ -20,7 +20,7 @@ export default {
 
    getDelete(id) {
     return axios.delete(
-      "http://127.0.0.1:8000/api/admin/transaction/"+id,
+      `${process.env.VUE_APP_URL}/api/admin/transaction/`+id,
         {   headers: {
             'Authorization': "Bearer " + user.data.access_token,
             'X_USER_ID': user.data.id,
@@ -38,7 +38,7 @@ export default {
   postSuccess(data) {
     return axios({
       method: 'post',
-      url:"http://127.0.0.1:8000/api/admin/transaction/success",
+      url:`${process.env.VUE_APP_URL}/api/admin/transaction/success`,
       headers: {
           'Authorization': "Bearer " + user.data.access_token,
           'X_USER_ID': user.data.id,
@@ -56,7 +56,7 @@ export default {
   postFailed(data) {
     return axios({
       method: 'post',
-      url:"http://127.0.0.1:8000/api/admin/transaction/failed",
+      url:`${process.env.VUE_APP_URL}/api/admin/transaction/failed`,
       headers: {
           'Authorization': "Bearer " + user.data.access_token,
           'X_USER_ID': user.data.id,
