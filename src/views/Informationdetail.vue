@@ -17,9 +17,7 @@
                     <div class="card-body">
                       <div class="row ">
                         <div class="col-lg-6 text-left">
-                          <h6
-                            style="font-family: 'Poppins'; font-size: 14px; font-weight: bold;"
-                          ></h6>
+                          <h4 class="mb-3">Tabel Detail Informasi</h4>
                         </div>
                         <div class="col-lg-6 text-right mb-3">
                           <a
