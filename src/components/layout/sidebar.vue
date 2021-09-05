@@ -19,42 +19,10 @@
     <!-- Divider -->
     <hr class="sidebar-divider" />
     <!-- Heading -->
+    
     <div class="sidebar-heading mt-2">
       Event
     </div>
-
-    <li class="nav-item">
-      <router-link to="/User-attendance">
-        <a class="nav-link" href="charts.html">
-         <i class="fas fa-user-tie mr-2"></i>
-          <span>User attendance</span></a
-        >
-      </router-link>
-    </li>
-    <li class="nav-item">
-      <router-link to="/jadwal">
-        <a class="nav-link" href="charts.html">
-          <i class="far fa-calendar-alt mr-2"></i>
-          <span>Schedule</span></a
-        >
-      </router-link>
-    </li>
-    <li class="nav-item">
-      <router-link to="/document">
-        <a class="nav-link" href="charts.html">
-          <i class="fas fa-file-upload mr-2"></i>
-          <span>Document</span></a
-        >
-      </router-link>
-    </li>
-    <li class="nav-item">
-      <router-link to="/feedback">
-        <a class="nav-link" href="charts.html">
-          <i class="fas fa-comments mr-2"></i>
-          <span>Feedback</span></a
-        >
-      </router-link>
-    </li>
 
     <li class="nav-item">
       <a
@@ -87,6 +55,39 @@
         </div>
       </div>
     </li>
+    <li class="nav-item">
+      <router-link to="/jadwal">
+        <a class="nav-link" href="charts.html">
+          <i class="far fa-calendar-alt mr-2"></i>
+          <span>Schedule</span></a
+        >
+      </router-link>
+    </li>
+    <li class="nav-item">
+      <router-link to="/User-attendance">
+        <a class="nav-link" href="charts.html">
+         <i class="fas fa-user-tie mr-2"></i>
+          <span>User Attendance</span></a
+        >
+      </router-link>
+    </li>    
+    <li class="nav-item">
+      <router-link to="/document">
+        <a class="nav-link" href="charts.html">
+          <i class="fas fa-file-upload mr-2"></i>
+          <span>Document</span></a
+        >
+      </router-link>
+    </li>
+    <li class="nav-item">
+      <router-link to="/feedback">
+        <a class="nav-link" href="charts.html">
+          <i class="fas fa-comments mr-2"></i>
+          <span>Feedback</span></a
+        >
+      </router-link>
+    </li>
+
 
     <!-- Heading -->
     <div class="sidebar-heading mt-2">

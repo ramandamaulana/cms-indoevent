@@ -17,7 +17,7 @@
                     <div class="card-body">
                       <div class="row ">
                         <div class="col-lg-6 text-left">
-                          <h2 class="mb-3">Tabel Transaksi</h2>
+                          <h4 class="mb-3">Tabel Transaksi</h4>
                         </div>
                       </div>
                       <vue-good-table
