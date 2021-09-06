@@ -60,7 +60,7 @@
                             <a class="btn btn-warning mr-3" @click="$router.go(-1)">
                               Batal
                             </a>
-                            <button type="submit" class="btn btn-primary btn-lg">
+                            <button type="submit" class="btn btn-primary">
                               Submit
                             </button>
                           </div>

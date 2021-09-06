@@ -17,9 +17,20 @@
     <!-- Divider -->
     <hr class="sidebar-divider my-0" />
     <!-- Divider -->
+
+
     <hr class="sidebar-divider" />
     <!-- Heading -->
-    
+
+    <li class="nav-item">
+      <router-link to="/dashboard" class="nav-item">
+        <div class="nav-link">
+            <i class="far fa-calendar-alt mr-2"></i>
+            <span>Dashboard</span>
+        </div>       
+      </router-link>
+    </li>
+
     <div class="sidebar-heading mt-2">
       Event
     </div>

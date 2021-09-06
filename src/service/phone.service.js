@@ -19,7 +19,7 @@ export default {
       },       
    getDelete(id) {
     return axios.delete(
-      "${process.env.VUE_APP_URL}/api/admin/phone-number/"+id,
+      `${process.env.VUE_APP_URL}/api/admin/phone-number/`+id,
         {   headers: {
             'Authorization': "Bearer " + user.data.access_token,
             'X_USER_ID': user.data.id,
@@ -53,7 +53,7 @@ export default {
     
     getShow(id) {
       return axios.get(
-        "${process.env.VUE_APP_URL}/api/admin/phone-number/"+id,
+        `${process.env.VUE_APP_URL}/api/admin/phone-number/`+id,
           {   headers: {
               'Authorization': "Bearer " + user.data.access_token,
               'X_USER_ID': user.data.id,
@@ -68,7 +68,7 @@ export default {
           });
     },
     postUpdate(id,params){
-      return axios.post("${process.env.VUE_APP_URL}/api/admin/phone-number/"+id ,params,{
+      return axios.post(`${process.env.VUE_APP_URL}/api/admin/phone-number/`+id ,params,{
           headers: {
               'Authorization': "Bearer " + user.data.access_token,
               'X_USER_ID': user.data.id,

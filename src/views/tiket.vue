@@ -54,6 +54,9 @@
                               <i class="far fa-trash-alt text-primary"></i>
                             </button>
                           </span>
+                          <span v-if="props.column.field == 'rp_harga'">
+                            {{ $helpers.formattingRupiah(props.row.harga) }}
+                          </span>
                           <span v-else>
                             {{ props.formattedRow[props.column.field] }}
                           </span>
@@ -101,7 +104,7 @@ export default {
         },
         {
           label: "Harga",
-          field: "harga",
+          field: "rp_harga",
         },
       
         {

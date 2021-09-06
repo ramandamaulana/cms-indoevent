@@ -26,4 +26,14 @@
   </div>
 </template>
 <script>
+import Navbar from "../components/layout/navbar.vue";
+import Sidebar from "../components/layout/sidebar.vue";
+import Footer from "../components/layout/footer";
+export default {
+  components: {
+    Sidebar,
+    Navbar,
+    Footer,
+  }
+}
 </script>

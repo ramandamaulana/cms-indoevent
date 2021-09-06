@@ -57,7 +57,7 @@
                                   class="form-control"
                                   id="exampleInputEmail1"
                                   aria-describedby="emailHelp"
-                                  v-model="team.tentang"
+                                  v-model="team.keterangan"
                                   required
                                 />
                               </div>
@@ -73,6 +73,10 @@
                                 class="form-control"
                                 id="inputFile"
                               />
+                              <img :src="team.image" 
+                                class="img-thumbnail mt-3" 
+                                style="max-width: 200px;"
+                                :alt="team.name">
                             </div>
                           </div>
                         </div>
@@ -127,6 +131,18 @@ export default {
     };
   },
   methods: {
+    getDetail() {
+      console.log(this.$route.params.id);
+      Teamservice.getDetail(this.$route.params.id).then((response) => {
+        if (response.code === 200) {
+          console.log(response);
+          this.team.nama = response.rows.nama,
+          this.team.jabatan = response.rows.jabatan;
+          this.team.keterangan = response.rows.keterangan;
+          this.team.image = response.rows.image.url;
+        }
+      });
+    },
     submit(event) {
       event.preventDefault();
       let loading = this.$loading.show();
@@ -160,5 +176,8 @@ export default {
       reader.readAsDataURL(file);
     },
   },
+  mounted(){
+    this.getDetail();
+  }
 };
 </script>

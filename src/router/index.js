@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Dashboard from '../views/Dashboard.vue'
 import Login from '../views/Login.vue'
 import admincreate from '../components/admin/admincreate.vue'
 import adminupdate from '../components/admin/adminupdate.vue'
@@ -91,8 +91,8 @@ const routes = [
   {
     
     path: '/dashboard',
-    name: 'Home',
-    component: Home,
+    name: 'Dashboard',
+    component: Dashboard,
     meta:{requiresAuth:true}
   },
   {

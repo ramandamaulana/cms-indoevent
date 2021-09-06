@@ -183,7 +183,7 @@ export default {
   },
   methods: {
     getDetail() {
-      Memberservice.getShow(this.$route.params.id).then((response) => {
+      Memberservice.getDetail(this.$route.params.id).then((response) => {
         if (response.code === 200) {
           (this.members.name = response.rows.user.name),
             (this.members.username = response.rows.user.username),
@@ -231,9 +231,9 @@ export default {
       };
       reader.readAsDataURL(file);
     },
-  },
-  mounted() {
-    this.getDetail();
+    mounted() {
+      this.getDetail();
+    },
   },
 };
 </script>

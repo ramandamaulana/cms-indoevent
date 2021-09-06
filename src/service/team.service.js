@@ -49,38 +49,39 @@ export default {
     })
     .catch((error) => {
       return error.response.data;
-    }); },
+    }); 
+  },
     
-    getShow(id) {
-      return axios.get(
-        "${process.env.VUE_APP_URL}/api/article/team/"+id,
-          {   headers: {
-              'Authorization': "Bearer " + user.data.access_token,
-              'X_USER_ID': user.data.id,
-              'Content-Type': "application/json",
-            }}  
-         )
-          .then((response) => {
-            return response.data;
-          })
-          .catch((error) => {
-            return error.response.data;
-          });
-    },
-    
-    postUpdate(id,params){
-      return axios.post(`${process.env.VUE_APP_URL}/api/admin/team/`+id ,params,{
-          headers: {
-              'Authorization': "Bearer " + user.data.access_token,
-              'X_USER_ID': user.data.id,
-              'Content-Type': "application/json",
-            }
-        }
-      ).then((response) => {
-            return response.data;
-          })
-          .catch((error) => {
-            return error.response.data;
-          });
-    }
+  getDetail(id) {
+    return axios.get(
+      `${process.env.VUE_APP_URL}/api/admin/team/`+id,
+        {   headers: {
+            'Authorization': "Bearer " + user.data.access_token,
+            'X_USER_ID': user.data.id,
+            'Content-Type': "application/json",
+          }}  
+        )
+        .then((response) => {
+          return response.data;
+        })
+        .catch((error) => {
+          return error.response.data;
+        });
+  },
+  
+  postUpdate(id,params){
+    return axios.post(`${process.env.VUE_APP_URL}/api/admin/team/`+id ,params,{
+        headers: {
+            'Authorization': "Bearer " + user.data.access_token,
+            'X_USER_ID': user.data.id,
+            'Content-Type': "application/json",
+          }
+      }
+    ).then((response) => {
+          return response.data;
+        })
+        .catch((error) => {
+          return error.response.data;
+        });
+  }
 };
