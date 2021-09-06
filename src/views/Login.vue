@@ -81,7 +81,7 @@ export default {
           () => {
             loading.hide();
             this.$router.push({
-              name: "Home",
+              name: "Dashboard",
             });
             router.go();
           },

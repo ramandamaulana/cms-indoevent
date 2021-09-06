@@ -29,10 +29,7 @@ const routes = [
   {
     path: '/',
     name: 'login',
-    component: Login,
-    meta: {
-      hideForAuth: true
-    }
+    component: Login
   },
   {
     path: '/admin',
@@ -403,10 +400,15 @@ router.beforeEach((to, from, next) => {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
     if (!loggedIn) {
-      next({ name: 'Login' })
+      next({ 
+        name: 'Login',
+        query: { redirect: to.fullPath }
+      })
+      
     } else {
       next() // go to wherever I'm going
     }
+    
   } else {
     next() // does not require auth, make sure to always call next()!
   }
