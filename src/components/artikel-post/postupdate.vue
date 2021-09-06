@@ -35,8 +35,9 @@
                               >
                                 <option
                                   v-for="postartikel in categorys"
-                                  :key="postartikel.article_category_id"
-                                  >{{ postartikel.id }}</option
+                                  :key="postartikel.id"
+                                  :value="postartikel.id"
+                                  >{{ postartikel.title }}</option
                                 >
                               </select>
                             </div>
@@ -84,7 +85,7 @@
                                 :src="postartikel.image.url"
                                 class="img-thumbnail mt-3"
                                 style="max-width: 200px;"
-                                :alt="postartikel.image"
+                                
                               />
                             </div>
                             <div class="col-lg-12 mt-3">
@@ -134,8 +135,11 @@
                           </div>
                         </div>
                         <div class="form-group text-center">
-                          <a class="btn btn-warning mr-3" @click="$router.go(-1)">
-                              Batal
+                          <a
+                            class="btn btn-warning mr-3"
+                            @click="$router.go(-1)"
+                          >
+                            Batal
                           </a>
                           <button
                             type="submit"
@@ -204,7 +208,7 @@ export default {
   },
   methods: {
     getDetail() {
-      Kategoryservice.getShow(this.$route.params.id).then((response) => {
+      Postservice.getShow(this.$route.params.id).then((response) => {
         if (response.code === 200) {
           (this.postartikel.article_post_id =
             response.rows.article_category_id),

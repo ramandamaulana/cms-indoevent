@@ -95,15 +95,12 @@
                             <div class="col-lg-12">
                               <div class="form-group">
                                 <label for="exampleInputEmail1">Harga</label>
-                                <input
-                                  type="text"
-                                  class="form-control"
-                                  id="exampleInputEmail1"
-                                  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
-                                  aria-describedby="emailHelp"
+                                <money
                                   v-model="tiket.harga"
+                                  v-bind="money"
                                   @blur="$v.tiket.harga.$touch()"
-                                />
+                                  class="form-control"
+                                ></money>
                               </div>
                               <div v-if="$v.tiket.harga.$error">
                                 <p
@@ -117,8 +114,11 @@
                           </div>
                         </div>
                         <div class="form-group text-center">
-                          <a class="btn btn-warning mr-3" @click="$router.go(-1)">
-                              Batal
+                          <a
+                            class="btn btn-warning mr-3"
+                            @click="$router.go(-1)"
+                          >
+                            Batal
                           </a>
                           <button
                             class="btn btn-primary"
@@ -156,11 +156,14 @@ import Sidebar from "../layout/sidebar.vue";
 import Footer from "../layout/footer";
 import Tiketservice from "../../service/tiket.service";
 import { required } from "vuelidate/lib/validators";
+import Utils from "../../Utils/index";
+import { Money } from "v-money";
 export default {
   components: {
     Sidebar,
     Navbar,
     Footer,
+    Money,
   },
   data() {
     return {
@@ -169,6 +172,13 @@ export default {
         keterangan: "",
         kuota: "",
         harga: "",
+      },
+      money: {
+        decimal: ",",
+        thousands: ".",
+        prefix: "Rp. ", 
+        precision: 0,
+        masked: false,
       },
     };
   },
@@ -203,6 +213,9 @@ export default {
             console.log("Gagal Di tambahkan", error.response);
           });
       }
+    },
+    currency(nominal) {
+      return Utils.currencyRp(nominal);
     },
   },
 };

@@ -36,7 +36,7 @@
                                 <option
                                   v-for="tiketschedule in tiketscheduleID"
                                   :key="tiketschedule.id"
-                                  >{{ tiketschedule.id }}</option
+                                  >{{ tiketschedule.nama }}</option
                                 >
                               </select>
                             </div>

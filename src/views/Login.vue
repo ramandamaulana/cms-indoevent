@@ -61,7 +61,6 @@
   </div>
 </template>
 <script>
-import router from "@/router";
 export default {
   data() {
     return {
@@ -81,9 +80,9 @@ export default {
           () => {
             loading.hide();
             this.$router.push({
-              name: "Home",
+              name: "Dashboard",
             });
-            router.go();
+    
           },
           (error) => {
             loading.hide();

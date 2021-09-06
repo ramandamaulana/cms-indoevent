@@ -87,13 +87,18 @@
                                 <label for="exampleInputPassword1"
                                   >Content</label
                                 >
-                                <input
+                                   <ckeditor
+                                :editor="editor"
+                                v-model="postartikel.content"
+                                   @blur="$v.postartikel.content.$touch()"
+                              ></ckeditor>
+                                <!-- <input
                                   type="text"
                                   v-model="postartikel.content"
                                   class="form-control"
                                   id="exampleInputPassword1"
                                   @blur="$v.postartikel.content.$touch()"
-                                />
+                                /> -->
                                 <div v-if="$v.postartikel.content.$error">
                                   <p
                                     v-if="!$v.postartikel.content.required"
@@ -170,6 +175,7 @@ import Footer from "../layout/footer";
 import Postservice from "../../service/artikel-post.service";
 import Kategoryservice from "../../service/artikel-kategori.service";
 import { required } from "vuelidate/lib/validators";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 export default {
   components: {
     Sidebar,
@@ -178,6 +184,9 @@ export default {
   },
   data() {
     return {
+      editor: ClassicEditor,
+      editorData: "<p>Content of the editor.</p>",
+      editorConfig: {},
       postartikel: {
         article_category_id: "",
         title: "",

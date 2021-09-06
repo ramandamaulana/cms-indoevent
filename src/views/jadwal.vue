@@ -39,6 +39,12 @@
                         }"
                       >
                         <template slot="table-row" slot-scope="props">
+                          
+                          <span v-if="props.column.field == 'tanggal_kegiatan'">
+                            {{
+                              props.row.tgl_kegiatan | moment("DD MMMM YYYY")
+                            }}
+                          </span>
                           <span v-if="props.column.field == 'action'">
                             <button
                               class="btn btn-universal"
@@ -93,7 +99,7 @@ export default {
         },
         {
           label: "Tanggal",
-          field: "tgl_kegiatan",
+          field: "tanggal_kegiatan",
         },
         {
           label: "Jam Mulai",
@@ -137,24 +143,26 @@ export default {
   methods: {
     handledelete(id) {
       this.$swal({
-          title: "Hapus data ini?",
-          text: "Data ini akan terhapus selamanya",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonText: "Hapus",
-          cancelButtonText: "Batal"
-      }).then((result) => { // <--
-          if (result.value) { // <-- if confirmed
-            Jadwalservice.getDelete(id)
-              .then((response) => {
-                console.log(response, "Berhasil Terhapus");
-                router.go();
-              })
-              .catch((error) => {
-                console.log("Gagal Terhapus", error.response);
-              });
-          }
-      }); 
+        title: "Hapus data ini?",
+        text: "Data ini akan terhapus selamanya",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Hapus",
+        cancelButtonText: "Batal",
+      }).then((result) => {
+        // <--
+        if (result.value) {
+          // <-- if confirmed
+          Jadwalservice.getDelete(id)
+            .then((response) => {
+              console.log(response, "Berhasil Terhapus");
+              router.go();
+            })
+            .catch((error) => {
+              console.log("Gagal Terhapus", error.response);
+            });
+        }
+      });
     },
     handleCreate() {
       router.push("/jadwal/create");

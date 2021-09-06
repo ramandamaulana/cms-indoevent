@@ -67,21 +67,22 @@
                             <div class="col-lg-12">
                               <div class="form-group">
                                 <label for="exampleInputEmail1">Harga</label>
-                                <input
-                                  type="text"
-                                  class="form-control"
-                                  id="exampleInputEmail1"
-                                  aria-describedby="emailHelp"
+                                <money
                                   v-model="tiket.harga"
-                                  required
-                                />
+                                  v-bind="money"
+                                  @blur="$v.tiket.harga.$touch()"
+                                  class="form-control"
+                                ></money>
                               </div>
                             </div>
                           </div>
                         </div>
                         <div class="form-group text-center">
-                          <a class="btn btn-warning mr-3" @click="$router.go(-1)">
-                              Batal
+                          <a
+                            class="btn btn-warning mr-3"
+                            @click="$router.go(-1)"
+                          >
+                            Batal
                           </a>
                           <button type="submit" class="btn btn-primary">
                             Submit
@@ -112,11 +113,13 @@ import Navbar from "../layout/navbar.vue";
 import Sidebar from "../layout/sidebar.vue";
 import Footer from "../layout/footer";
 import Tiketservice from "../../service/tiket.service";
+import { Money } from "v-money";
 export default {
   components: {
     Sidebar,
     Navbar,
     Footer,
+    Money,
   },
   data() {
     return {
@@ -127,14 +130,21 @@ export default {
         kuota: "",
         harga: "",
       },
+      money: {
+        decimal: ",",
+        thousands: ".",
+        prefix: "Rp. ",
+        precision: 0,
+        masked: false,
+      },
     };
   },
   methods: {
     getDetail() {
       Tiketservice.getShow(this.$route.params.id).then((response) => {
         if (response.code === 200) {
-          this.tiket.nama = response.rows.nama,
-          this.tiket.keterangan = response.rows.keterangan;
+          (this.tiket.nama = response.rows.nama),
+            (this.tiket.keterangan = response.rows.keterangan);
           this.tiket.kuota = response.rows.kuota;
           this.tiket.harga = response.rows.harga;
         }

@@ -68,7 +68,7 @@ export default {
     },
     
     postUpdate(id,params){
-      return axios.post(`${process.env.VUE_APP_URL}/api/admin/article/post/`+id ,params,{
+      return axios.post(`${process.env.VUE_APP_URL}/api/admin/article/post/`+id,params,{
           headers: {
               'Authorization': "Bearer " + user.data.access_token,
               'X_USER_ID': user.data.id,

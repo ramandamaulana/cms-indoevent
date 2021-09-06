@@ -138,7 +138,7 @@ export default {
           showCancelButton: true,
           confirmButtonText: "Hapus",
           cancelButtonText: "Batal"
-      }).then((result) => { // <--
+          }).then((result) => { // <--
           if (result.value) { // <-- if confirmed
             Postservice.getDelete(id)
             .then((response) => {
@@ -155,7 +155,7 @@ export default {
       router.push("/artikel/post/create");
     },
     handleupdate(id) {
-      router.push("/artikel/post/update/" + id);
+      router.push("/artikel/post/update/"+id);
     },
   },
 };

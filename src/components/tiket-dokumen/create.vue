@@ -36,7 +36,7 @@
                                 <option
                                   v-for="tiketdokumen in DokumenID"
                                   :key="tiketdokumen.id"
-                                  >{{ tiketdokumen.id }}</option
+                                  >{{ tiketdokumen.nama }}</option
                                 >
                               </select>
                             </div>
@@ -66,8 +66,11 @@
                           </div>
                         </div>
                         <div class="form-group text-center">
-                          <a class="btn btn-warning mr-3" @click="$router.go(-1)">
-                              Batal
+                          <a
+                            class="btn btn-warning mr-3"
+                            @click="$router.go(-1)"
+                          >
+                            Batal
                           </a>
                           <button type="submit" class="btn btn-primary">
                             Submit

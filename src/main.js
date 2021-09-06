@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+
 import Vuelidate from 'vuelidate'
 Vue.use(Vuelidate);
 import VueSweetalert2 from 'vue-sweetalert2';
@@ -16,9 +17,7 @@ const plugin = {
     Vue.prototype.$helpers = helpers;
   }
 };
-
 Vue.use(plugin);
-
 import CKEditor from '@ckeditor/ckeditor5-vue2'; 
 Vue.use( CKEditor );
 Vue.use(Loading,{
@@ -29,10 +28,16 @@ Vue.use(Loading,{
 import VueGoodTablePlugin from 'vue-good-table';
 // import the styles
 import 'vue-good-table/dist/vue-good-table.css';
-
+import money from 'v-money'
+Vue.use(money, {precision: 4})
 Vue.use(VueGoodTablePlugin);
 Vue.config.productionTip = false;
-
+import VueMoment from 'vue-moment';
+import moment from 'moment-timezone';
+Vue.use(VueMoment, {
+  moment,
+})
+moment.locale('id');
 new Vue({
   router,
   store,
