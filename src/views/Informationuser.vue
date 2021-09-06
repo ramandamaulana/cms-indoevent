@@ -112,20 +112,31 @@ export default {
   },
   methods: {
     handledelete(id) {
-      InformationUserservice.getDelete(id)
-        .then((response) => {
-          console.log(response, "Berhasil Terhapus");
-          router.go();
-        })
-        .catch((error) => {
-          console.log("Gagal Terhapus", error.response);
-        });
+      this.$swal({
+          title: "Hapus data ini?",
+          text: "Data ini akan terhapus selamanya",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Hapus",
+          cancelButtonText: "Batal"
+      }).then((result) => { // <--
+          if (result.value) { // <-- if confirmed
+            InformationUserservice.getDelete(id)
+              .then((response) => {
+                console.log(response, "Berhasil Terhapus");
+                router.go();
+              })
+              .catch((error) => {
+                console.log("Gagal Terhapus", error.response);
+              });
+          }
+      }); 
     },
     handleCreate() {
-      router.push("/Information-Detail-create");
+      router.push("/info/user/create");
     },
     handleupdate(id) {
-      router.push("/information-Detail-update/" + id);
+      router.push("/info/user/update/" + id);
     },
   },
 };

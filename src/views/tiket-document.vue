@@ -126,17 +126,28 @@ export default {
   },
   methods: {
     handledelete(id) {
-      TiketDokumenservice.getDelete(id)
-        .then((response) => {
-          console.log(response, "Berhasil Terhapus");
-          router.go();
-        })
-        .catch((error) => {
-          console.log("Gagal Terhapus", error.response);
-        });
+      this.$swal({
+          title: "Hapus data ini?",
+          text: "Data ini akan terhapus selamanya",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Hapus",
+          cancelButtonText: "Batal"
+      }).then((result) => { // <--
+          if (result.value) { // <-- if confirmed
+            TiketDokumenservice.getDelete(id)
+              .then((response) => {
+                console.log(response, "Berhasil Terhapus");
+                router.go();
+              })
+              .catch((error) => {
+                console.log("Gagal Terhapus", error.response);
+              });
+          }
+      }); 
     },
     handleCreate() {
-      router.push("/tiket-document/create");
+      router.push("/tiket/document/create");
     },
   },
 };

@@ -16,7 +16,7 @@
                   <div class="card">
                     <div class="card-header">
                       <h3 style="font-size:Nunito; font-size:18px;">
-                        Tambah Admin
+                        Tambah Komen Artikel
                       </h3>
                     </div>
                     <div class="card-body">
@@ -63,6 +63,9 @@
                           </div>
                         </div>
                         <div class="form-group text-center">
+                          <a class="btn btn-warning mr-3" @click="$router.go(-1)">
+                                Batal
+                          </a>
                           <button
                             type="submit"
                             :disabled="$v.$anyError"
@@ -125,6 +128,7 @@ export default {
   methods: {
     submit(event) {
       event.preventDefault();
+      let loading = this.$loading.show();
       var formData = new FormData();
       formData.append("article_post_id", this.komenartikel.article_post_id);
       formData.append("comment", this.komenartikel.comment);
@@ -132,10 +136,12 @@ export default {
       if (!this.$v.$invalid) {
         Komenservice.postCrated(formData)
           .then((response) => {
+            loading.hide();
             console.log(response.data, "Berhasil Di tambahkan");
             router.back();
           })
           .catch((error) => {
+            loading.hide();
             console.log("Gagal Di tambahkan", error.response);
           });
       }

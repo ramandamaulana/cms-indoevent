@@ -28,14 +28,14 @@ Vue.use(Loading,{
 });
 import VueGoodTablePlugin from 'vue-good-table';
 // import the styles
-import 'vue-good-table/dist/vue-good-table.css'
+import 'vue-good-table/dist/vue-good-table.css';
 
 Vue.use(VueGoodTablePlugin);
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 new Vue({
   router,
   store,
   render: h => h(App)
-}).$mount('#app')
+}).$mount('#app');
 

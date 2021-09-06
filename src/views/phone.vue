@@ -125,25 +125,36 @@ export default {
   },
   methods: {
     handledelete(id) {
-      Phoneservice.getDelete(id)
-        .then((response) => {
-          console.log(response, "Berhasil Terhapus");
-          this.$swal.fire({
-            icon: "success",
-            title: "Success",
-            text: "Berhasil Dihapus!",
-          });
-          router.go();
-        })
-        .catch((error) => {
-          console.log("Gagal Terhapus", error.response);
-        });
+      this.$swal({
+          title: "Hapus data ini?",
+          text: "Data ini akan terhapus selamanya",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Hapus",
+          cancelButtonText: "Batal"
+      }).then((result) => { // <--
+          if (result.value) { // <-- if confirmed
+            Phoneservice.getDelete(id)
+              .then((response) => {
+                console.log(response, "Berhasil Terhapus");
+                this.$swal.fire({
+                  icon: "success",
+                  title: "Success",
+                  text: "Berhasil Dihapus!",
+                });
+                router.go();
+              })
+              .catch((error) => {
+                console.log("Gagal Terhapus", error.response);
+              });
+          }
+      }); 
     },
     handleCreate() {
-      router.push("/phone-create");
+      router.push("/phone/create");
     },
     handleupdate(id) {
-      router.push("/phone-update/" + id);
+      router.push("/phone/update/" + id);
     },
   },
 };

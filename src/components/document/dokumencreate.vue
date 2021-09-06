@@ -89,6 +89,9 @@
                           </div>
                         </div>
                         <div class="form-group text-center">
+                          <a class="btn btn-warning mr-3" @click="$router.go(-1)">
+                              Batal
+                          </a>
                           <button type="submit"  :disabled="$v.$anyError" class="btn btn-primary">
                             Submit
                           </button>
@@ -147,6 +150,7 @@ export default {
   methods: {
     submit(event) {
       event.preventDefault();
+      let loading = this.$loading.show();
       var imageInput = document.getElementById("inputFile").files[0];
       var formData = new FormData();
       formData.append("nama", this.dokumen.nama);
@@ -156,10 +160,12 @@ export default {
       if (!this.$v.$invalid) {
         Dokumenservice.postCrated(formData)
           .then((response) => {
+            loading.hide();
             console.log(response.data, "Berhasil Di tambahkan");
             router.back();
           })
           .catch((error) => {
+            loading.hide();
             console.log("Gagal Di tambahkan", error.response);
           });
       }

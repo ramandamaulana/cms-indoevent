@@ -16,7 +16,7 @@
                   <div class="card">
                     <div class="card-header">
                       <h3 style="font-size:Nunito; font-size:18px;">
-                        Tambah Admin
+                        Edit Post Artikel
                       </h3>
                     </div>
                     <div class="card-body">
@@ -134,6 +134,9 @@
                           </div>
                         </div>
                         <div class="form-group text-center">
+                          <a class="btn btn-warning mr-3" @click="$router.go(-1)">
+                              Batal
+                          </a>
                           <button
                             type="submit"
                             :disabled="$v.$anyError"
@@ -165,7 +168,7 @@
 }
 </style>
 <script>
-// import router from "@/router";
+import router from "@/router";
 import Navbar from "../layout/navbar.vue";
 import Sidebar from "../layout/sidebar.vue";
 import Footer from "../layout/footer";
@@ -214,6 +217,7 @@ export default {
     },
     submit(event) {
       event.preventDefault();
+      let loading = this.$loading.show();
       var imageInput = document.getElementById("inputFile").files[0];
       var formData = new FormData();
       formData.append(
@@ -228,10 +232,12 @@ export default {
       if (!this.$v.$invalid) {
         Postservice.postUpdate(this.$route.params.id, formData)
           .then((response) => {
+            loading.hide();
             console.log(response.data, "Berhasil Di tambahkan");
-            // router.back();
+            router.back();
           })
           .catch((error) => {
+            loading.hide();
             console.log("Gagal Di tambahkan", error.response);
           });
       }

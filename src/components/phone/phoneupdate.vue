@@ -57,6 +57,9 @@
                         </div>
                        <div class="container">
                           <div class="form-group text-right mt-4">
+                            <a class="btn btn-warning mr-3" @click="$router.go(-1)">
+                              Batal
+                            </a>
                             <button type="submit" class="btn btn-primary btn-lg">
                               Submit
                             </button>
@@ -113,16 +116,19 @@ export default {
     },
     submit(event) {
       event.preventDefault();
+      let loading = this.$loading.show();
       let params = {
         nama: this.handphone.nama,
         no_telp: this.handphone.no_telp,
       };
       Phoneservice.postUpdate(this.$route.params.id, params)
         .then((response) => {
+          loading.hide();
           console.log(response.data, "Berhasil Di tambahkan");
             router.back();
         })
         .catch((error) => {
+          loading.hide();
           console.log("Gagal Di tambahkan", error.response);
         });
     },

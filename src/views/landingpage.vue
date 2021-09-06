@@ -247,7 +247,7 @@ export default {
   },
   methods: {
     handleCreate() {
-      router.push("/Page-create");
+      router.push("/landing/create");
     },
   },
 };

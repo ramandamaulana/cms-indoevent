@@ -142,27 +142,49 @@ export default {
       let params = {
         id: id
       };
-      Transcationservice.postSuccess(params)
-        .then((response) => {
-          console.log(response, "Berhasil Status");
-          router.go();
-        })
-        .catch((error) => {
-          console.log("Gagal", error.response);
-        });
+      this.$swal({
+          title: "Sukseskan data transaksi ini?",
+          text: "Data ini akan terproses menjadi sukses",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Yakin",
+          cancelButtonText: "Batal"
+      }).then((result) => { // <--
+          if (result.value) { // <-- if confirmed
+            Transcationservice.postSuccess(params)
+              .then((response) => {
+                console.log(response, "Berhasil Status");
+                router.go();
+              })
+              .catch((error) => {
+                console.log("Gagal", error.response);
+              });
+          }
+      }); 
     },
     handleFailed(id) {
       let params = {
         id: id
       };
-      Transcationservice.postFailed(params)
-        .then((response) => {
-          console.log(response, "Berhasil Status");
-          // router.go();
-        })
-        .catch((error) => {
-          console.log("Gagal Terhapus", error.response);
-        });
+      this.$swal({
+          title: "Gagalkan data transaksi ini?",
+          text: "Data ini akan terproses menjadi gagal",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Yakin",
+          cancelButtonText: "Batal"
+      }).then((result) => { // <--
+          if (result.value) { // <-- if confirmed
+            Transcationservice.postFailed(params)
+              .then((response) => {
+                console.log(response, "Berhasil Status");
+                // router.go();
+              })
+              .catch((error) => {
+                console.log("Gagal Terhapus", error.response);
+              });
+          }
+      }); 
     },
   },
 };

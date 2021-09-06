@@ -16,7 +16,7 @@
                   <div class="card">
                     <div class="card-header">
                       <h3 style="font-size:Nunito; font-size:18px;">
-                        Update Faq
+                        Edit Faq
                       </h3>
                     </div>
                     <div class="card-body">
@@ -52,6 +52,9 @@
                           </div>
                         </div>
                         <div class="form-group text-center">
+                          <a class="btn btn-warning mr-3" @click="$router.go(-1)">
+                              Batal
+                          </a>
                           <button type="submit" class="btn btn-primary">
                             Submit
                           </button>
@@ -107,16 +110,19 @@ export default {
     },
     submit(event) {
       event.preventDefault();
+      let loading = this.$loading.show();
       let params = {
         title: this.faq.title,
         contents: this.faq.contents,
       };
       Faqservice.postUpdate(this.$route.params.id, params)
         .then((response) => {
+          loading.hide();
           console.log(response.data, "Berhasil Di tambahkan");
           router.back();
         })
         .catch((error) => {
+          loading.hide();
           console.log("Gagal Di tambahkan", error.response);
         });
     },

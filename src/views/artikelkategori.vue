@@ -127,20 +127,31 @@ export default {
   },
   methods: {
     handledelete(id) {
-      Kategoriservice.getDelete(id)
-        .then((response) => {
-          console.log(response, "Berhasil Terhapus");
-          router.go();
-        })
-        .catch((error) => {
-          console.log("Gagal Terhapus", error.response);
-        });
+      this.$swal({
+          title: "Hapus data ini?",
+          text: "Data ini akan terhapus selamanya",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Hapus",
+          cancelButtonText: "Batal"
+      }).then((result) => { // <--
+          if (result.value) { // <-- if confirmed              
+            Kategoriservice.getDelete(id)
+              .then((response) => {
+                console.log(response, "Berhasil Terhapus");
+                router.go();
+              })
+              .catch((error) => {
+                console.log("Gagal Terhapus", error.response);
+              });
+          }
+      });
     },
     handleCreate() {
-      router.push("/artikelkategori-create");
+      router.push("/artikel/kategori/create");
     },
     handleupdate(id) {
-      router.push("/artikelkategori-update/" + id);
+      router.push("/artikel/kategori/update/" + id);
     },
   },
 };

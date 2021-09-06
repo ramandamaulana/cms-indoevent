@@ -122,20 +122,31 @@ export default {
   },
   methods: {
     handledelete(id) {
-      Faqservice.getDelete(id)
-        .then((response) => {
-          console.log(response, "Berhasil Terhapus");
-          router.go();
-        })
-        .catch((error) => {
-          console.log("Gagal Terhapus", error.response);
-        });
+      this.$swal({
+          title: "Hapus data ini?",
+          text: "Data ini akan terhapus selamanya",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Hapus",
+          cancelButtonText: "Batal"
+      }).then((result) => { // <--
+          if (result.value) { // <-- if confirmed
+              Faqservice.getDelete(id)
+              .then((response) => {
+                console.log(response, "Berhasil Terhapus");
+                router.go();
+              })
+              .catch((error) => {
+                console.log("Gagal Terhapus", error.response);
+              });
+          }
+      });      
     },
     handleCreate() {
-      router.push("/faq-create");
+      router.push("/faq/create");
     },
     handleupdate(id) {
-      router.push("/faq-update/" + id);
+      router.push("/faq/update/" + id);
     },
   },
 };

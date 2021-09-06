@@ -118,17 +118,28 @@ export default {
   },
   methods: {
     handledelete(id) {
-      TiketScheduleservice.getDelete(id)
-        .then((response) => {
-          console.log(response, "Berhasil Terhapus");
-          router.go();
-        })
-        .catch((error) => {
-          console.log("Gagal Terhapus", error.response);
-        });
+      this.$swal({
+          title: "Hapus data ini?",
+          text: "Data ini akan terhapus selamanya",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Hapus",
+          cancelButtonText: "Batal"
+      }).then((result) => { // <--
+          if (result.value) { // <-- if confirmed
+            TiketScheduleservice.getDelete(id)
+              .then((response) => {
+                console.log(response, "Berhasil Terhapus");
+                router.go();
+              })
+              .catch((error) => {
+                console.log("Gagal Terhapus", error.response);
+              });
+          }
+      }); 
     },
     handleCreate() {
-      router.push("/tiket-schedule/create");
+      router.push("/tiket/schedule/create");
     },
    
   },

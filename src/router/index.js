@@ -29,22 +29,25 @@ const routes = [
   {
     path: '/',
     name: 'login',
-    component: Login 
+    component: Login,
+    meta: {
+      hideForAuth: true
+    }
   },
   {
     path: '/admin',
     name: 'admin',
     component: () => import('../views/admin.vue'),
-    meta:{requiresAuth:true}
+    meta:{requiresAuth:true},
   },
   {
-    path: '/admin-create',
+    path: '/admin/create',
     name: 'admincreate',
     component: admincreate,
     meta:{requiresAuth:true}
   },
   {
-    path: '/admin-update/:id',
+    path: '/admin/update/:id',
     name: 'adminupdate',
     component: adminupdate,
     meta:{requiresAuth:true}
@@ -56,13 +59,13 @@ const routes = [
     meta:{requiresAuth:true}
   },
   {
-    path: '/dokumen-create',
+    path: '/dokumen/create',
     name: 'dokumencreate',
     component: dokumencreate,
     meta:{requiresAuth:true}
   },
   {
-    path: '/dokumen-update/:id',
+    path: '/dokumen/update/:id',
     name: 'dokumenupdate',
     component: dokumenupdate,
     meta:{requiresAuth:true}
@@ -74,32 +77,39 @@ const routes = [
     meta:{requiresAuth:true}
   },
   {
-    path: '/bank-create',
+    path: '/bank/create',
     name: 'bankcreate',
     component: bankcreate,
     meta:{requiresAuth:true}
   },
   {
-    path: '/bank-update/:id',
+    path: '/bank/update/:id',
     name: 'bankupdate',
     component: bankupdate,
     meta:{requiresAuth:true}
   },
   {
     
-    path: '/Dashboard',
+    path: '/dashboard',
     name: 'Home',
     component: Home,
     meta:{requiresAuth:true}
   },
   {
-    path: '/member-create',
+    
+    path: '/member',
+    name: 'member',
+    component: () => import('../views/member.vue'),
+    meta:{requiresAuth:true}
+  },
+  {
+    path: '/member/create',
     name: 'membercreate',
     component: membercreate,
     meta:{requiresAuth:true}
   },
   {
-    path: '/member-update/:id',
+    path: '/member/update/:id',
     name: 'memberupdate',
     component: memberupdate,
     meta:{requiresAuth:true}
@@ -111,13 +121,13 @@ const routes = [
     meta:{requiresAuth:true}
   },
   {
-    path: '/phone-create',
+    path: '/phone/create',
     name: 'phonecreate',
     component: phonecreate,
     meta:{requiresAuth:true}
   },
   {
-    path: '/phone-update/:id',
+    path: '/phone/update/:id',
     name: 'phoneupdate',
     component: phoneupdate,
     meta:{requiresAuth:true}
@@ -130,38 +140,38 @@ const routes = [
     meta:{requiresAuth:true}
   },
   {
-    path: '/tiket-create',
+    path: '/tiket/create',
     name: 'tiketcreate',
     component: tiketcreate,
     meta:{requiresAuth:true}
   },
   {
-    path: '/tiket-update/:id',
+    path: '/tiket/update/:id',
     name: 'tiketupdate',
     component: tiketupdate,
     meta:{requiresAuth:true}
   },
   {
-    path: '/tiket-document',
+    path: '/tiket/document',
     name: 'tiket',
     component: () => import('../views/tiket-document.vue'),
     meta:{requiresAuth:true}
   },
   {
-    path: '/tiket-document/create',
+    path: '/tiket/document/create',
     name: 'tiketdokumencreate',
     component: () => import('../components/tiket-dokumen/create.vue'),
     meta:{requiresAuth:true}
   },
  
   {
-    path: '/tiket-schedule',
+    path: '/tiket/schedule',
     name: 'tiketschedule',
     component: () => import('../views/tiket-schedule.vue'),
     meta:{requiresAuth:true}
   },
   {
-    path: '/tiket-schedule/create',
+    path: '/tiket/schedule/create',
     name: 'tiketschedulecreate',
     component: () => import('../components/tiket-schedule/create.vue'),
     meta:{requiresAuth:true}
@@ -173,13 +183,13 @@ const routes = [
     meta:{requiresAuth:true}
   },
   {
-    path: '/jadwal-create',
+    path: '/jadwal/create',
     name: 'jadwalcreate',
     component: jadwalcreate,
     meta:{requiresAuth:true}
   },
   {
-    path: '/jadwal-update/:id',
+    path: '/jadwal/update/:id',
     name: 'jadwalupdate',
     component: jadwalupdate,
     meta:{requiresAuth:true}
@@ -191,19 +201,19 @@ const routes = [
     meta:{requiresAuth:true}
   }, 
   {
-    path: '/faq-create',
+    path: '/faq/create',
     name: 'faqcreate',
     component: faqcreate,
     meta:{requiresAuth:true}
   },
   {
-    path: '/faq-update/:id',
+    path: '/faq/update/:id',
     name: 'faqupdate',
     component: faqupdate,
     meta:{requiresAuth:true}
   },
   {
-    path: '/Transaction',
+    path: '/transaction',
     name: 'Transaction',
     component: () => import('../views/transaction.vue'),
     meta:{requiresAuth:true}
@@ -215,67 +225,67 @@ const routes = [
     meta:{requiresAuth:true}
   },
   {
-    path: '/feedback-create',
+    path: '/feedback/create',
     name: 'feedbackcreate',
     component: feedbackcreate,
     meta:{requiresAuth:true}
   },
   {
-    path: '/feedback-update/:id',
+    path: '/feedback/update/:id',
     name: 'feedbackupdate',
     component: feedbackupdate,
     meta:{requiresAuth:true}
   },
   {
-    path: '/artikel-kategori',
+    path: '/artikel/kategori',
     name: 'artikelkategori',
     component: () => import('../views/artikelkategori.vue'),
     meta:{requiresAuth:true}
   },
   {
-    path: '/artikelkategori-create',
+    path: '/artikel/kategori/create',
     name: 'artikelkategoricreate',
     component: artikelkategoricreate,
     meta:{requiresAuth:true}
   },
   {
-    path: '/artikelkategori-update/:id',
+    path: '/artikel/kategori/update/:id',
     name: 'artikelkategoriupdate',
     component: artikelkategoriupdate,
     meta:{requiresAuth:true}
   },
   {
-    path: '/artikel-comment',
+    path: '/artikel/komen',
     name: 'artikelcomment',
     component: () => import('../views/artikelkomen.vue'),
     meta:{requiresAuth:true}
   },
   {
-    path: '/artikelkomen-create',
+    path: '/artikel/komen/create',
     name: 'artikelkomencreate',
     component: artikelcommentcreate,
     meta:{requiresAuth:true}
   },
   {
-    path: '/artikelkomen-update/:id',
+    path: '/artikel/komen/update/:id',
     name: 'artikelkomentupdate',
     component: artikelcommentupdate,
     meta:{requiresAuth:true}
   },
   {
-    path: '/artikel-post',
+    path: '/artikel/post',
     name: 'artikelpost',
     component: () => import('../views/artikelpost.vue'),
     meta:{requiresAuth:true}
   },
     {
-      path: '/artikel-post-create',
+      path: '/artikel/post/create',
       name: 'artikelpostcreate',
       component: () => import('../components/artikel-post/postcreate.vue'),
       meta:{requiresAuth:true}
     },
     {
-      path: '/artikel-post-update/:id',
+      path: '/artikel/post/update/:id',
       name: 'artikel-post-update',
       component: () => import('../components/artikel-post/postupdate.vue'),
       meta:{requiresAuth:true}
@@ -287,32 +297,32 @@ const routes = [
     meta:{requiresAuth:true}
   },
   {
-    path: '/gallery-create',
+    path: '/gallery/create',
     name: 'gallerycreate',
     component: () => import('../components/gallery/gallerycreate.vue'),
     meta:{requiresAuth:true}
   },
   {
-    path: '/gallery-update/:id',
+    path: '/gallery/update/:id',
     name: 'galleryupdate',
     component: () => import('../components/gallery/galeryupdate.vue'),
     meta:{requiresAuth:true}
   },
   {
-    path: '/Team',
+    path: '/team',
     name: 'Team',
     component: () => import('../views/team.vue'),
     meta:{requiresAuth:true}
   },
 
   {
-    path: '/team-create',
+    path: '/team/create',
     name: 'teamcreate',
     component: () => import('../components/team/teamcreate.vue'),
     meta:{requiresAuth:true}
   },
   {
-    path: '/team-update/:id',
+    path: '/team/update/:id',
     name: 'Teamupdate',
     component: () => import('../components/team/teamupdate.vue'),
     meta:{requiresAuth:true}
@@ -324,55 +334,55 @@ const routes = [
     meta:{requiresAuth:true}
   },
   {
-    path: '/Information',
+    path: '/info',
     name: 'Information',
     component: () => import('../views/Information.vue'),
     meta:{requiresAuth:true}
   },
   {
-    path: '/info-create',
+    path: '/info/create',
     name: 'Informationcreate',
     component: () => import('../components/info/infocreate.vue'),
     meta:{requiresAuth:true}
   },
   {
-    path: '/info-update/:id',
+    path: '/info/update/:id',
     name: 'Informationupdate',
     component: () => import('../components/info/infoupdate.vue'),
     meta:{requiresAuth:true}
   },
   {
-    path: '/Information-Detail',
+    path: '/Info/detail',
     name: 'Information-Detail',
     component: () => import('../views/Informationdetail.vue'),
     meta:{requiresAuth:true}
   },
   {
-    path: '/Information-Detail-create',
+    path: '/info/detail/create',
     name: 'InformationDetailcreate',
     component: () => import('../components/info-detail/infodetailcreate.vue'),
     meta:{requiresAuth:true}
   },
   {
-    path: '/information-Detail-update/:id',
+    path: '/info/detail/update/:id',
     name: 'InformationDetailupdate',
     component: () => import('../components/info-detail/infodetailupdate.vue'),
     meta:{requiresAuth:true}
   },
   {
-    path: '/Information-user',
+    path: '/info/user',
     name: 'Information-user',
     component: () => import('../views/Informationuser.vue'),
     meta:{requiresAuth:true}
   },
   {
-    path: '/User-attendance',
+    path: '/user-attendance',
     name: 'userattendance',
     component: () => import('../views/userattendance.vue'),
     meta:{requiresAuth:true}
   },
   {
-    path: '/Page-create',
+    path: '/landing/create',
     name: 'Page-create',
     component: () => import('../components/landing/create.vue'),
     meta:{requiresAuth:true}
@@ -381,16 +391,26 @@ const routes = [
 
 const router = new VueRouter({
   mode: 'history',
-  routes
+  routes,
+  linkActiveClass: "active",
+  linkExactActiveClass: "active"
 })
 
 
 router.beforeEach((to, from, next) => {
   const loggedIn = localStorage.getItem("user");
-  if (to.matched.some(record => record.meta.requiresAuth) && !loggedIn) {
-      next("/")
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    // this route requires auth, check if logged in
+    // if not, redirect to login page.
+    if (!loggedIn) {
+      next({ name: 'Login' })
+    } else {
+      next() // go to wherever I'm going
     }
-  next();
+  } else {
+    next() // does not require auth, make sure to always call next()!
+  }
 });
 
 export default router
+

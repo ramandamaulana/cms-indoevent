@@ -17,7 +17,7 @@
                     <div class="card-body">
                       <div class="row ">
                         <div class="col-lg-6 text-left">
-                          <h4 class="mb-3">Tabel Adminn</h4>
+                          <h4 class="mb-3">Tabel Member</h4>
                         </div>
                         <div class="col-lg-6 text-right mb-3">
                           <a
@@ -77,7 +77,7 @@ import router from "@/router";
 import Navbar from "../components/layout/navbar.vue";
 import Sidebar from "../components/layout/sidebar.vue";
 import Footer from "../components/layout/footer";
-import Adminservice from "../service/admin.service";
+import Memberservice from "../service/member.service";
 export default {
   components: {
     Sidebar,
@@ -88,18 +88,25 @@ export default {
     return {
       columns: [
         {
-          label: "nama",
+          label: "Nama",
           field: "name",
         },
         {
-          label: "email",
+          label: "Perusahaan",
+          field: "perusahaan",
+        },
+        {
+          label: "Posisi",
+          field: "posisi",
+        },
+        {
+          label: "Email",
           field: "email",
         },
         {
-          label: "username",
-          field: "username",
+          label: "No handphone",
+          field: "no_telp",
         },
-
         {
           label: "Action",
           field: "action",
@@ -107,16 +114,19 @@ export default {
       ],
       rows: [
         {
-          title: "",
-          slug: "",
-          konten: "",
+          name: "",
+          perusahaan: "",
+          posisi: "",
+          email: "",
+          no_telp: "",
           action: "",
         },
       ],
+
     };
   },
   created() {
-    Adminservice.getAll()
+    Memberservice.getAll()
       .then((response) => {
         this.rows = response.rows;
         console.log("Data Di Temukan", response.rows);
@@ -127,7 +137,7 @@ export default {
   },
   methods: {
     handledelete(id) {
-       this.$swal({
+      this.$swal({
           title: "Hapus data ini?",
           text: "Data ini akan terhapus selamanya",
           icon: "warning",
@@ -135,8 +145,8 @@ export default {
           confirmButtonText: "Hapus",
           cancelButtonText: "Batal"
       }).then((result) => { // <--
-          if (result.value) { // <-- if confirmed              
-            Adminservice.getDelete(id)
+          if (result.value) { // <-- if confirmed
+            Memberservice.getDelete(id)
               .then((response) => {
                 console.log(response, "Berhasil Terhapus");
                 router.go();
@@ -145,13 +155,13 @@ export default {
                 console.log("Gagal Terhapus", error.response);
               });
           }
-      });
+      }); 
     },
     handleCreate() {
-      router.push("/admin/create");
+      router.push("/member/create");
     },
     handleupdate(id) {
-      router.push("/admin/update/" + id);
+      router.push("/member/update/" + id);
     },
   },
 };

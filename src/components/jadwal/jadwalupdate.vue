@@ -16,7 +16,7 @@
                   <div class="card">
                     <div class="card-header">
                       <h3 style="font-size:Nunito; font-size:18px;">
-                        Edit Schedule
+                        Edit Jadwal
                       </h3>
                     </div>
                     <div class="card-body">
@@ -99,6 +99,9 @@
                           </div>
                         </div>
                         <div class="form-group text-center">
+                          <a class="btn btn-warning mr-3" @click="$router.go(-1)">
+                              Batal
+                          </a>
                           <button type="submit" class="btn btn-primary">
                             Submit
                           </button>
@@ -160,6 +163,7 @@ export default {
     },
     submit(event) {
       event.preventDefault();
+      let loading = this.$loading.show();
       let params = {
         nama_kegiatan: this.schedule.nama_kegiatan,
         tgl_kegiatan: this.schedule.tgl_kegiatan,
@@ -169,15 +173,12 @@ export default {
       };
       Scheduleservice.postUpdate(this.$route.params.id, params)
         .then((response) => {
+          loading.hide();
           console.log(response.data, "Berhasil Di tambahkan");
-          this.$swal.fire({
-            icon: "success",
-            title: "Success",
-            text: "Berhasil Di Update!",
-          });
           router.back();
         })
         .catch((error) => {
+          loading.hide();
           console.log("Gagal Di tambahkan", error.response);
         });
     },
