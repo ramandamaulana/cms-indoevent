@@ -36,6 +36,7 @@
                                 <option
                                   v-for="tiketdokumen in DokumenID"
                                   :key="tiketdokumen.id"
+                                  :value="tiketdokumen.id"
                                   >{{ tiketdokumen.nama }}</option
                                 >
                               </select>
@@ -46,10 +47,11 @@
                                   <div class="form-check">
                                     <div
                                       v-for="(dokumen, index) in Dokumens"
-                                      v-bind:index="index"
+                                      :index="index"
                                       :key="dokumen.id"
                                     >
                                       <input
+                                      
                                         class="form-check-input"
                                         type="checkbox"
                                         v-model="tiketdokumen.documents"
@@ -113,7 +115,7 @@ export default {
     return {
       tiketdokumen: {
         ticket_id: "",
-        documents: "",
+        documents: [],
       },
       DokumenID: [],
       Dokumens: [],
