@@ -34,9 +34,12 @@ Vue.use(VueGoodTablePlugin);
 Vue.config.productionTip = false;
 import VueMoment from 'vue-moment';
 import moment from 'moment-timezone';
-Vue.use(VueMoment, {
-  moment,
-})
+Vue.use(
+  VueMoment, 
+  {
+    moment,
+  }
+)
 moment.locale('id');
 new Vue({
   router,
