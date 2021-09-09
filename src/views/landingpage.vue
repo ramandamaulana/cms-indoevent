@@ -61,6 +61,7 @@
                                   <label> Banner Image</label>
                                   <br />
                                   <img
+                                    :if="banner_img != null"
                                     :src="banner_img.url"
                                     width="500px"
                                     alt=""

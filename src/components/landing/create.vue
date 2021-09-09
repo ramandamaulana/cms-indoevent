@@ -233,8 +233,6 @@ export default {
   created() {
     Landingservice.getAll()
       .then((response) => {
-        this.landing.launching_date = response.rows.launching_date.split(" ")[0];
-        this.landing.launching_time = response.rows.launching_date.split(" ")[1];
         this.landing.header_title = response.rows.header_title;
         this.landing.header_desc = response.rows.header_desc;
         this.landing.banner_img = response.rows.banner_img;
@@ -247,7 +245,6 @@ export default {
         this.landing.footer_title = response.rows.footer_title;
         this.landing.footer_desc = response.rows.footer_desc;
         this.landing.google_map = response.rows.google_map;
-        console.log(response.rows);
       })
       .catch((error) => {
         console.log(error.response);
@@ -275,7 +272,7 @@ export default {
       Landingservice.postCrated(formData)
         .then((response) => {
           loading.hide();
-          console.log(response.data, "Berhasil Di tambahkan");
+          console.log(response, "Berhasil Di tambahkan");
           router.back();
         })
         .catch((error) => {
