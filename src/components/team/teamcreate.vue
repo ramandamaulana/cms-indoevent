@@ -182,7 +182,7 @@ export default {
       var formData = new FormData();
       formData.append("nama", this.team.nama);
       formData.append("jabatan", this.team.jabatan);
-      formData.append("tentang", this.team.tentang);
+      formData.append("keterangan", this.team.tentang);
       formData.append("image", imageInput);
       this.$v.$touch();
       if (!this.$v.$invalid) {

@@ -225,7 +225,7 @@ export default {
   },
   created() {
     Landingservice.getAll()
-      .then((response) => {
+      .then((response) => {        
         this.header_title = response.rows.header_title;
         this.header_desc = response.rows.header_desc;
         this.banner_img = response.rows.banner_img;

@@ -24,23 +24,33 @@
                         <div class="container">
                           <div class="row">
                             <div class="col-lg-12">
-                              <div class="form-group">
-                                <label>Landing Date</label>
-                                <input
+                              <div class="form-group row">
+                                <label class="col-12">Landing Date</label>
+                                <date-picker 
+                                  v-model="landing.launching_date" 
+                                  class="col-12"
                                   type="date"
-                                  class="form-control"
-                                  v-model="landing.launching_date"
-                                />
+                                  format="YYYY-MM-DD"
+                                  value-type="format"
+                                  placeholder="YYYY-MM-DD"
+                                  :append-to-body="false" 
+                                  :popup-style="{ left: '20px'}">
+                                </date-picker>
                               </div>
                             </div>
                             <div class="col-lg-12">
-                              <div class="form-group">
-                                <label>Landing Time</label>
-                                <input
+                              <div class="form-group row">
+                                <label class="col-12">Landing Time</label>
+                                <date-picker 
+                                  v-model="landing.launching_time" 
+                                  class="col-12"
+                                  format="HH:mm"
+                                  value-type="format"
                                   type="time"
-                                  class="form-control"
-                                  v-model="landing.launching_time"
-                                />
+                                  placeholder="HH:mm"
+                                  :append-to-body="false" 
+                                  :popup-style="{ left: '20px'}">
+                                </date-picker>
                               </div>
                             </div>
                             <div class="col-lg-12  mb-3">
@@ -187,16 +197,18 @@
 }
 </style>
 <script>
-// import router from "@/router";
+import router from "@/router";
 import Navbar from "../layout/navbar.vue";
 import Sidebar from "../layout/sidebar.vue";
 import Footer from "../layout/footer";
 import Landingservice from "../../service/landing.service";
+import DatePicker from 'vue2-datepicker';
 export default {
   components: {
     Sidebar,
     Navbar,
     Footer,
+    DatePicker,
   },
   data() {
     return {
@@ -221,6 +233,8 @@ export default {
   created() {
     Landingservice.getAll()
       .then((response) => {
+        this.landing.launching_date = response.rows.launching_date.split(" ")[0];
+        this.landing.launching_time = response.rows.launching_date.split(" ")[1];
         this.landing.header_title = response.rows.header_title;
         this.landing.header_desc = response.rows.header_desc;
         this.landing.banner_img = response.rows.banner_img;
@@ -262,7 +276,7 @@ export default {
         .then((response) => {
           loading.hide();
           console.log(response.data, "Berhasil Di tambahkan");
-          // router.back();
+          router.back();
         })
         .catch((error) => {
           loading.hide();

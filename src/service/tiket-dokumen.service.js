@@ -1,9 +1,10 @@
 import axios from "axios";
 const user = JSON.parse(localStorage.getItem("user"));
 export default {
-    getAll() {
+    getAll(params) {
         return axios({method: 'get',
         url:`${process.env.VUE_APP_URL}/api/admin/ticket/document`,
+        params:params,
         headers: {
             'Authorization': "Bearer " + user.data.access_token,
             'X_USER_ID': user.data.id,
