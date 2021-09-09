@@ -15,7 +15,7 @@ export default new Vuex.Store({
     },
     CLEAR_USER_DATA() {
       localStorage.removeItem("user");
-      location.reload();
+      location.go();
     },
     SET_PROFILE(state){
       state.user = JSON.parse(localStorage.getItem("user"));

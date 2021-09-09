@@ -110,7 +110,7 @@ export default {
     return {
       tiketschedule: {
         ticket_id: "",
-        schedules: "",
+        schedules: [],
       },
       tiketscheduleID: [],
       Jadwals: [],
