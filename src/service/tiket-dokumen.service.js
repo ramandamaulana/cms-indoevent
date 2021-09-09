@@ -19,7 +19,8 @@ export default {
       },       
 
   postCrated(data) {
-    return axios({method: 'post',
+    return axios({
+    method: 'post',
     url:`${process.env.VUE_APP_URL}/api/admin/ticket/document`,
     headers: {
         'Authorization': "Bearer " + user.data.access_token,
@@ -30,7 +31,7 @@ export default {
   },{
   })
     .then((response) => {
-      return response.data;
+      return response;
     })
     .catch((error) => {
       return error.response.data;

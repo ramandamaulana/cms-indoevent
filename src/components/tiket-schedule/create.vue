@@ -36,6 +36,7 @@
                                 <option
                                   v-for="tiketschedule in tiketscheduleID"
                                   :key="tiketschedule.id"
+                                  :value="tiketschedule.id"
                                   >{{ tiketschedule.nama }}</option
                                 >
                               </select>
@@ -99,7 +100,7 @@ import Sidebar from "../layout/sidebar.vue";
 import Footer from "../layout/footer";
 import Tiketservice from "../../service/tiket.service";
 import Jadwal from "../../service/jadwal.service";
-import Tiketdokumenservice from "../../service/tiket-dokumen.service";
+import Tiketscheduleservice from "../../service/tiket-schedule.service";
 export default {
   components: {
     Sidebar,
@@ -110,7 +111,7 @@ export default {
     return {
       tiketschedule: {
         ticket_id: "",
-        schedules: "",
+        schedules: [],
       },
       tiketscheduleID: [],
       Jadwals: [],
@@ -130,10 +131,12 @@ export default {
     submit(event) {
       event.preventDefault();
       let loading = this.$loading.show();
-      var formData = new FormData();
-      formData.append("ticket_id", this.tiketschedule.ticket_id);
-      formData.append("schedules", this.tiketschedule.schedules);
-      Tiketdokumenservice.postCrated(formData)
+      console.log(this.tiketschedule);
+      let params = {
+        ticket_id: this.tiketschedule.ticket_id,
+        schedules: this.tiketschedule.schedules
+      };
+      Tiketscheduleservice.postCrated(params)
         .then((response) => {
           loading.hide();
           console.log(response.data, "Berhasil Di tambahkan");
