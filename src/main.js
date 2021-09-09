@@ -27,6 +27,7 @@ Vue.use(Loading,{
 });
 import VueGoodTablePlugin from 'vue-good-table';
 // import the styles
+import 'vue2-datepicker/index.css';
 import 'vue-good-table/dist/vue-good-table.css';
 import money from 'v-money'
 Vue.use(money, {precision: 4})
@@ -34,9 +35,12 @@ Vue.use(VueGoodTablePlugin);
 Vue.config.productionTip = false;
 import VueMoment from 'vue-moment';
 import moment from 'moment-timezone';
-Vue.use(VueMoment, {
-  moment,
-})
+Vue.use(
+  VueMoment, 
+  {
+    moment,
+  }
+)
 moment.locale('id');
 new Vue({
   router,

@@ -34,6 +34,7 @@
                         <template slot="table-row" slot-scope="props">
                           <span v-if="props.column.field == 'gambar'">
                             <a :href="props.row.image.url"
+                                v-if="props.row.image != null"
                                 target="_blank">
                               <img 
                                   v-if="props.row.image != null"
@@ -128,7 +129,11 @@ export default {
     };
   },
   created() {
-    Transcationservice.getAll()
+    let params = {
+      "sort[by]": "id",
+      "sort[order]": "desc"
+    };
+    Transcationservice.getAll(params)
       .then((response) => {
         this.rows = response.rows;
         console.log("Data Di Temukan", response.rows);
@@ -178,7 +183,7 @@ export default {
             Transcationservice.postFailed(params)
               .then((response) => {
                 console.log(response, "Berhasil Status");
-                // router.go();
+                router.go();
               })
               .catch((error) => {
                 console.log("Gagal Terhapus", error.response);

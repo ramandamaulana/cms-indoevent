@@ -25,7 +25,7 @@ export default {
           headers: {
               'Authorization': "Bearer " + user.data.access_token,
               'X_USER_ID': user.data.id,
-              'Content-Type': "application/json",
+              'Content-Type': "multipart/form-data",
             }, 
             data:data,
         })

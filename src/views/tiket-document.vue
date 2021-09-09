@@ -42,7 +42,7 @@
                           <span v-if="props.column.field == 'dokumen'">
                             <a :href="props.row.document.document.url"
                                 target="_blank"
-                              >view dokumen</a
+                              >{{ props.row.document.document.name }}</a
                             >
                           </span>
                           <span v-if="props.column.field == 'action'">
@@ -88,6 +88,10 @@ export default {
     return {
       columns: [
         {
+          label: "Nama Tiket",
+          field: "ticket_name",
+        },
+        {
           label: "Nama Dokumen",
           field: "document.nama",
         },
@@ -115,7 +119,11 @@ export default {
     };
   },
   created() {
-    TiketDokumenservice.getAll()
+    let params = {
+      "sort[by]": "ticket_name",
+      "sort[order]": "desc"
+    };
+    TiketDokumenservice.getAll(params)
       .then((response) => {
         this.rows = response.rows;
         console.log("Data Di Temukan", response.rows);

@@ -31,6 +31,22 @@
                           enabled: true,
                         }"
                       >
+                      <template slot="table-row" slot-scope="props">
+                          <span v-if="props.column.field == 'persentase'">
+                            {{ props.row.percentage }} %
+                          </span>
+                          <span v-if="props.column.field == 'action'">
+                            <button
+                              class="btn btn-universal"
+                              @click.prevent="handleupdate(props.row.id)"
+                            >
+                              <i class="far fa-eye text-primary"></i>
+                            </button>
+                          </span>
+                          <span v-else>
+                            {{ props.formattedRow[props.column.field] }}
+                          </span>
+                        </template>
                       </vue-good-table>
                     </div>
                   </div>
@@ -60,20 +76,28 @@ export default {
     return {
       columns: [
         {
-          label: "Nama",
-          field: "name",
+          label: "Nama Schedule",
+          field: "nama_kegiatan",
         },
         {
-          label: "Ticket",
-          field: "ticket",
+          label: "Jumlah Peserta",
+          field: "jumlah_peserta",
         },
         {
-          label: "Schedule",
-          field: "schedule",
+          label: "Jumlah Hadir",
+          field: "jumlah_hadir",
         },
         {
-          label: "Status",
-          field: "status",
+          label: "Jumlah Tidak Hadir",
+          field: "tidak_hadir",
+        },
+        {
+          label: "Persentase",
+          field: "persentase"
+        },
+        {
+          label: "Action",
+          field: "action"
         },
       ],
       rows: [],

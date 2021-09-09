@@ -47,18 +47,22 @@
                               </div>
                             </div>
                             <div class="col-lg-12">
-                              <div class="form-group">
+                              <div class="form-group row">
                                 <label for="exampleInputEmail1"
+                                    class="col-12"
                                   >Tanggal Kegiatan</label
                                 >
-                                <input
+                                <date-picker 
+                                  v-model="schedule.tgl_kegiatan" 
+                                  class="col-12"
                                   type="date"
-                                  class="form-control"
-                                  id="exampleInputEmail1"
-                                  aria-describedby="emailHelp"
-                                  v-model="schedule.tgl_kegiatan"
-                                  @blur="$v.schedule.tgl_kegiatan.$touch()"
-                                />
+                                  format="YYYY-MM-DD"
+                                  value-type="format"
+                                  placeholder="YYYY-MM-DD"
+                                  :append-to-body="false" 
+                                  :popup-style="{ left: '20px'}"
+                                  @blur="$v.schedule.tgl_kegiatan.$touch()">
+                                </date-picker>
                               </div>
                               <div v-if="$v.schedule.tgl_kegiatan.$error">
                                 <p
@@ -70,49 +74,57 @@
                               </div>
                             </div>
                             <div class="col-lg-12">
-                              <div class="form-group">
+                              <div class="form-group row">
                                 <label for="exampleInputEmail1"
+                                  class="col-12"
                                   >Jam Mulai</label
                                 >
-                                <input
+                                <date-picker 
+                                  v-model="schedule.jam_mulai" 
+                                  class="col-12"
+                                  format="HH:mm"
+                                  value-type="format"
                                   type="time"
-                                  class="form-control"
-                                  id="exampleInputEmail1"
-                                  aria-describedby="emailHelp"
-                                  v-model="schedule.jam_mulai"
-                                  @blur="$v.schedule.jam_mulai.$touch()"
-                                />
-                                <div v-if="$v.schedule.jam_mulai.$error">
-                                  <p
-                                    v-if="!$v.schedule.jam_mulai.required"
-                                    class="text-danger mt-1"
-                                  >
-                                    Jam Mulai Harus Di Isi
-                                  </p>
-                                </div>
+                                  placeholder="HH:mm"
+                                  :append-to-body="false" 
+                                  :popup-style="{ left: '20px'}"
+                                  @blur="$v.schedule.jam_mulai.$touch()">
+                                </date-picker>
+                              </div>
+                              <div v-if="$v.schedule.jam_mulai.$error">
+                                <p
+                                  v-if="!$v.schedule.jam_mulai.required"
+                                  class="text-danger mt-1"
+                                >
+                                  Jam Mulai Harus Di Isi
+                                </p>
                               </div>
                             </div>
                             <div class="col-lg-12">
-                              <div class="form-group">
+                              <div class="form-group row">
                                 <label for="exampleInputEmail1"
+                                  class="col-12"
                                   >Jam Berakhir</label
                                 >
-                                <input
+                                 <date-picker 
+                                  v-model="schedule.jam_berakhir" 
+                                  class="col-12"
+                                  format="HH:mm"
+                                  value-type="format"
                                   type="time"
-                                  class="form-control"
-                                  id="exampleInputEmail1"
-                                  aria-describedby="emailHelp"
-                                  v-model="schedule.jam_berakhir"
-                                  @blur="$v.schedule.jam_berakhir.$touch()"
-                                />
-                                <div v-if="$v.schedule.jam_berakhir.$error">
-                                  <p
-                                    v-if="!$v.schedule.jam_berakhir.required"
-                                    class="text-danger mt-1"
-                                  >
-                                    Jam Berakhir Harus Di Isi
-                                  </p>
-                                </div>
+                                  placeholder="HH:mm"
+                                  :append-to-body="false" 
+                                  :popup-style="{ left: '20px'}"
+                                  @blur="$v.schedule.jam_berakhir.$touch()">
+                                </date-picker>
+                              </div>
+                              <div v-if="$v.schedule.jam_berakhir.$error">
+                                <p
+                                  v-if="!$v.schedule.jam_berakhir.required"
+                                  class="text-danger mt-1"
+                                >
+                                  Jam Berakhir Harus Di Isi
+                                </p>
                               </div>
                             </div>
                             <div class="col-lg-12">
@@ -179,11 +191,14 @@ import Sidebar from "../layout/sidebar.vue";
 import Footer from "../layout/footer";
 import Scheduleservice from "../../service/jadwal.service";
 import { required } from "vuelidate/lib/validators";
+import DatePicker from 'vue2-datepicker';
+
 export default {
   components: {
     Sidebar,
     Navbar,
     Footer,
+    DatePicker
   },
   data() {
     return {
@@ -208,7 +223,6 @@ export default {
   methods: {
     submit(event) {
       event.preventDefault();
-      let loading = this.$loading.show();
       let params = {
         nama_kegiatan: this.schedule.nama_kegiatan,
         tgl_kegiatan: this.schedule.tgl_kegiatan,
@@ -218,6 +232,7 @@ export default {
       };
       this.$v.$touch();
       if (!this.$v.$invalid) {
+      let loading = this.$loading.show();
         Scheduleservice.postCrated(params)
           .then((response) => {
             loading.hide();
@@ -225,7 +240,6 @@ export default {
             router.back();
           })
           .catch((error) => {
-            loading.hide();
             console.log("Gagal Di tambahkan", error.response);
           });
       }

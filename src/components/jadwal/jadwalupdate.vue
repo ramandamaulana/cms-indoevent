@@ -39,48 +39,57 @@
                               </div>
                             </div>
                             <div class="col-lg-12">
-                              <div class="form-group">
+                              <div class="form-group row">
                                 <label for="exampleInputEmail1"
+                                  class="col-12"
                                   >Tanggal Kegiatan</label
                                 >
-                                <input
-                                  type="date"
-                                  class="form-control"
-                                  id="exampleInputEmail1"
-                                  aria-describedby="emailHelp"
-                                  v-model="schedule.tgl_kegiatan"
-                                  required
-                                />
+                                <date-picker 
+                                  v-model="schedule.jam_mulai" 
+                                  class="col-12"
+                                  format="HH:mm"
+                                  value-type="format"
+                                  type="time"
+                                  placeholder="HH:mm"
+                                  :append-to-body="false" 
+                                  :popup-style="{ left: '20px'}">
+                                </date-picker>
                               </div>
                             </div>
                             <div class="col-lg-12">
-                              <div class="form-group">
+                             <div class="form-group row">
                                 <label for="exampleInputEmail1"
+                                  class="col-12"
                                   >Jam Mulai</label
                                 >
-                                <input
+                                 <date-picker 
+                                  v-model="schedule.jam_mulai" 
+                                  class="col-12"
+                                  format="HH:mm"
+                                  value-type="format"
                                   type="time"
-                                  class="form-control"
-                                  id="exampleInputEmail1"
-                                  aria-describedby="emailHelp"
-                                  v-model="schedule.jam_mulai"
-                                  required
-                                />
+                                  placeholder="HH:mm"
+                                  :append-to-body="false" 
+                                  :popup-style="{ left: '20px'}">
+                                </date-picker>
                               </div>
                             </div>
                             <div class="col-lg-12">
-                              <div class="form-group">
+                              <div class="form-group row">
                                 <label for="exampleInputEmail1"
+                                  class="col-12"
                                   >Jam Berakhir</label
                                 >
-                                <input
+                                 <date-picker 
+                                  v-model="schedule.jam_berakhir" 
+                                  class="col-12"
+                                  format="HH:mm"
+                                  value-type="format"
                                   type="time"
-                                  class="form-control"
-                                  id="exampleInputEmail1"
-                                  aria-describedby="emailHelp"
-                                  v-model="schedule.jam_berakhir"
-                                  required
-                                />
+                                  placeholder="HH:mm"
+                                  :append-to-body="false" 
+                                  :popup-style="{ left: '20px'}">
+                                </date-picker>
                               </div>
                             </div>
                             <div class="col-lg-12">
@@ -131,11 +140,13 @@ import Navbar from "../layout/navbar.vue";
 import Sidebar from "../layout/sidebar.vue";
 import Footer from "../layout/footer";
 import Scheduleservice from "../../service/jadwal.service";
+import DatePicker from 'vue2-datepicker';
 export default {
   components: {
     Sidebar,
     Navbar,
     Footer,
+    DatePicker,
   },
   data() {
     return {

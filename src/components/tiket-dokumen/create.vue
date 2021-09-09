@@ -46,8 +46,7 @@
                                 <div class="col-sm-12">
                                   <div class="form-check">
                                     <div
-                                      v-for="(dokumen, index) in Dokumens"
-                                      :index="index"
+                                      v-for="(dokumen) in Dokumens"
                                       :key="dokumen.id"
                                     >
                                       <input
@@ -135,10 +134,11 @@ export default {
     submit(event) {
       event.preventDefault();
       let loading = this.$loading.show();
-      var formData = new FormData();
-      formData.append("ticket_id", this.tiketdokumen.ticket_id);
-      formData.append("documents", this.tiketdokumen.documents);
-      Tiketdokumenservice.postCrated(formData)
+      let params = {
+        ticket_id: this.tiketdokumen.ticket_id,
+        documents: this.tiketdokumen.documents
+      };
+      Tiketdokumenservice.postCrated(params)
         .then((response) => {
           loading.hide();
           console.log(response.data, "Berhasil Di tambahkan");

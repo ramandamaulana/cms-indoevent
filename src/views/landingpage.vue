@@ -61,6 +61,7 @@
                                   <label> Banner Image</label>
                                   <br />
                                   <img
+                                    :if="banner_img != null"
                                     :src="banner_img.url"
                                     width="500px"
                                     alt=""
@@ -225,7 +226,7 @@ export default {
   },
   created() {
     Landingservice.getAll()
-      .then((response) => {
+      .then((response) => {        
         this.header_title = response.rows.header_title;
         this.header_desc = response.rows.header_desc;
         this.banner_img = response.rows.banner_img;

@@ -1,9 +1,10 @@
 import axios from "axios";
 const user = JSON.parse(localStorage.getItem("user"));
 export default {
-    getAll() {
+    getAll(params) {
         return axios({method: 'get',
         url:`${process.env.VUE_APP_URL}/api/admin/ticket/document`,
+        params:params,
         headers: {
             'Authorization': "Bearer " + user.data.access_token,
             'X_USER_ID': user.data.id,
@@ -19,7 +20,8 @@ export default {
       },       
 
   postCrated(data) {
-    return axios({method: 'post',
+    return axios({
+    method: 'post',
     url:`${process.env.VUE_APP_URL}/api/admin/ticket/document`,
     headers: {
         'Authorization': "Bearer " + user.data.access_token,
@@ -30,7 +32,7 @@ export default {
   },{
   })
     .then((response) => {
-      return response.data;
+      return response;
     })
     .catch((error) => {
       return error.response.data;

@@ -24,23 +24,33 @@
                         <div class="container">
                           <div class="row">
                             <div class="col-lg-12">
-                              <div class="form-group">
-                                <label>Landing Date</label>
-                                <input
+                              <div class="form-group row">
+                                <label class="col-12">Landing Date</label>
+                                <date-picker 
+                                  v-model="landing.launching_date" 
+                                  class="col-12"
                                   type="date"
-                                  class="form-control"
-                                  v-model="landing.launching_date"
-                                />
+                                  format="YYYY-MM-DD"
+                                  value-type="format"
+                                  placeholder="YYYY-MM-DD"
+                                  :append-to-body="false" 
+                                  :popup-style="{ left: '20px'}">
+                                </date-picker>
                               </div>
                             </div>
                             <div class="col-lg-12">
-                              <div class="form-group">
-                                <label>Landing Time</label>
-                                <input
+                              <div class="form-group row">
+                                <label class="col-12">Landing Time</label>
+                                <date-picker 
+                                  v-model="landing.launching_time" 
+                                  class="col-12"
+                                  format="HH:mm"
+                                  value-type="format"
                                   type="time"
-                                  class="form-control"
-                                  v-model="landing.launching_time"
-                                />
+                                  placeholder="HH:mm"
+                                  :append-to-body="false" 
+                                  :popup-style="{ left: '20px'}">
+                                </date-picker>
                               </div>
                             </div>
                             <div class="col-lg-12  mb-3">
@@ -54,6 +64,13 @@
                                 class="form-control"
                                 id="inputFile"
                               />
+                              <img 
+                                  v-if="landing.banner_img != null"
+                                  :src="landing.banner_img.url" 
+                                  class="img-thumbnail mt-3" 
+                                  style="max-width: 200px;"
+                                  :alt="landing.banner_img.name"
+                                  >
                             </div>
                             <div class="col-lg-12">
                               <div class="form-group">
@@ -67,10 +84,10 @@
                             </div>
                             <div class="col-lg-12 mb-4">
                               <label>Header Deskripsi</label>
-                              <ckeditor
-                                :editor="editor"
+                              <textarea
+                                class="form-control"                                
                                 v-model="landing.header_desc"
-                              ></ckeditor>
+                              ></textarea>
                             </div>
                             <div class="col-lg-12">
                               <div class="form-group">
@@ -84,10 +101,10 @@
                             </div>
                             <div class="col-lg-12 mb-4">
                               <label>Team Deskripsi</label>
-                              <ckeditor
-                                :editor="editor"
+                              <textarea
+                                class="form-control"                                
                                 v-model="landing.team_desc"
-                              ></ckeditor>
+                              ></textarea>
                             </div>
                             <div class="col-lg-12">
                               <div class="form-group">
@@ -101,10 +118,10 @@
                             </div>
                             <div class="col-lg-12 mb-4">
                               <label>About Deskripsi</label>
-                              <ckeditor
-                                :editor="editor"
+                              <textarea
+                                class="form-control"                                
                                 v-model="landing.about_desc"
-                              ></ckeditor>
+                              ></textarea>
                             </div>
                             <div class="col-lg-12">
                               <div class="form-group">
@@ -118,10 +135,10 @@
                             </div>
                             <div class="col-lg-12 mb-4">
                               <label>Article Deskripsi</label>
-                              <ckeditor
-                                :editor="editor"
+                              <textarea
+                                class="form-control"                                
                                 v-model="landing.article_desc"
-                              ></ckeditor>
+                              ></textarea>
                             </div>
                             <div class="col-lg-12">
                               <div class="form-group">
@@ -135,10 +152,10 @@
                             </div>
                             <div class="col-lg-12 mb-4">
                               <label>Footer Deskripsi</label>
-                              <ckeditor
-                                :editor="editor"
+                              <textarea
+                                class="form-control"                                
                                 v-model="landing.footer_desc"
-                              ></ckeditor>
+                              ></textarea>
                             </div>
                             <div class="col-lg-12">
                               <div class="form-group">
@@ -185,18 +202,16 @@ import Navbar from "../layout/navbar.vue";
 import Sidebar from "../layout/sidebar.vue";
 import Footer from "../layout/footer";
 import Landingservice from "../../service/landing.service";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import DatePicker from 'vue2-datepicker';
 export default {
   components: {
     Sidebar,
     Navbar,
     Footer,
+    DatePicker,
   },
   data() {
     return {
-      editor: ClassicEditor,
-      editorData: "<p>Content of the editor.</p>",
-      editorConfig: {},
       landing: {
         launching_date: "",
         launching_time: "",
@@ -215,7 +230,26 @@ export default {
       },
     };
   },
-
+  created() {
+    Landingservice.getAll()
+      .then((response) => {
+        this.landing.header_title = response.rows.header_title;
+        this.landing.header_desc = response.rows.header_desc;
+        this.landing.banner_img = response.rows.banner_img;
+        this.landing.team_title = response.rows.team_title;
+        this.landing.team_desc = response.rows.team_desc;
+        this.landing.about_title = response.rows.about_title;
+        this.landing.about_desc = response.rows.about_desc;
+        this.landing.article_title = response.rows.article_title;
+        this.landing.article_desc = response.rows.article_desc;
+        this.landing.footer_title = response.rows.footer_title;
+        this.landing.footer_desc = response.rows.footer_desc;
+        this.landing.google_map = response.rows.google_map;
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+  },
   methods: {
     submit(event) {
       event.preventDefault();
@@ -238,7 +272,7 @@ export default {
       Landingservice.postCrated(formData)
         .then((response) => {
           loading.hide();
-          console.log(response.data, "Berhasil Di tambahkan");
+          console.log(response, "Berhasil Di tambahkan");
           router.back();
         })
         .catch((error) => {

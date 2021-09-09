@@ -57,7 +57,7 @@
                                   class="form-control"
                                   id="exampleInputEmail1"
                                   aria-describedby="emailHelp"
-                                  v-model="team.keterangan"
+                                  v-model="team.tentang"
                                   required
                                 />
                               </div>
@@ -138,7 +138,7 @@ export default {
           console.log(response);
           this.team.nama = response.rows.nama,
           this.team.jabatan = response.rows.jabatan;
-          this.team.keterangan = response.rows.keterangan;
+          this.team.tentang = response.rows.keterangan;
           this.team.image = response.rows.image.url;
         }
       });
@@ -150,7 +150,7 @@ export default {
       var formData = new FormData();
       formData.append("nama", this.team.nama);
       formData.append("jabatan", this.team.jabatan);
-      formData.append("tentang", this.team.tentang);
+      formData.append("keterangan", this.team.tentang);
       formData.append("image", imageInput);
       Teamservice.postUpdate(this.$route.params.id, formData)
         .then((response) => {

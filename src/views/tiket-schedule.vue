@@ -83,6 +83,10 @@ export default {
     return {
       columns: [
         {
+          label: "Nama Tiket",
+          field: "ticket_name",
+        },
+        {
           label: "Nama Kegiatan",
           field: "schedule.nama_kegiatan",
         },
@@ -107,7 +111,11 @@ export default {
     };
   },
   created() {
-    TiketScheduleservice.getAll()
+    let params = {
+      "sort[by]": "ticket_name",
+      "sort[order]": "desc"
+    };
+    TiketScheduleservice.getAll(params)
       .then((response) => {
         this.rows = response.rows;
         console.log("Data Di Temukan", response.rows);
