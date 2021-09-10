@@ -25,24 +25,6 @@
                           <div class="row">
                             <div class="col-lg-12 mb-3 text-left">
                               <label for="exampleFormControlSelect1"
-                                >Nama Member</label
-                              >
-                              <select
-                                class="form-control"
-                                id="exampleFormControlSelect1"
-                                v-model="transaksi.user_id"
-                                @click="changeProductID()"
-                              >
-                                <option
-                                  v-for="user in users"
-                                  :key="user.id"
-                                  :value="user.user_id"
-                                  >{{ user.name }}</option
-                                >
-                              </select>
-                            </div>
-                            <div class="col-lg-12 mb-3 text-left">
-                              <label for="exampleFormControlSelect1"
                                 >Tiket</label
                               >
                               <select
@@ -127,7 +109,6 @@ import Navbar from "../layout/navbar.vue";
 import Sidebar from "../layout/sidebar.vue";
 import Footer from "../layout/footer";
 import Transaksiservice from "../../service/transaction.service";
-import Memberservice from "../../service/member.service";
 import Tiketservice from "../../service/tiket.service";
 import Bankservice from "../../service/bank.service";
 export default {
@@ -138,13 +119,12 @@ export default {
   },
   data() {
     return {
+      transaksiId: this.$route.params.id,
       transaksi: {
-        user_id: "",
         ticket_id: "",
         bank_account_id: "",
         image: "",
       },
-      users: [],
       tikets: [],
       banks: [],
     };
@@ -155,11 +135,10 @@ export default {
       let loading = this.$loading.show();
       var imageInput = document.getElementById("inputFile").files[0];
       var formData = new FormData();
-      formData.append("user_id", this.transaksi.user_id);
       formData.append("ticket_id", this.transaksi.ticket_id);
       formData.append("bank_account_id", this.transaksi.bank_account_id);
       formData.append("image", imageInput);
-      Transaksiservice.postCrated(formData)
+      Transaksiservice.postCrated(this.$route.params.id,formData)
         .then((response) => {
           loading.hide();
           console.log(response.data);
@@ -181,12 +160,6 @@ export default {
         this.transaksi.image = e.target.result;
       };
       reader.readAsDataURL(file);
-    },
-    changeProductID() {
-      Memberservice.getAll().then((response) => {
-        this.users = response.rows;
-        console.log(response.rows);
-      });
     },
     changeTiketID() {
       Tiketservice.getAll().then((response) => {

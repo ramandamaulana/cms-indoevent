@@ -41,6 +41,12 @@
                         <template slot="table-row" slot-scope="props">
                           <span v-if="props.column.field == 'action'">
                             <button
+                              class="btn btn-success"
+                              @click.prevent="handletransaksi(props.row.user_id)"
+                            >
+                              Transaksi
+                            </button>
+                            <button
                               class="btn btn-universal"
                               @click.prevent="handleupdate(props.row.id)"
                             >
@@ -122,7 +128,6 @@ export default {
           action: "",
         },
       ],
-
     };
   },
   created() {
@@ -138,30 +143,35 @@ export default {
   methods: {
     handledelete(id) {
       this.$swal({
-          title: "Hapus data ini?",
-          text: "Data ini akan terhapus selamanya",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonText: "Hapus",
-          cancelButtonText: "Batal"
-      }).then((result) => { // <--
-          if (result.value) { // <-- if confirmed
-            Memberservice.getDelete(id)
-              .then((response) => {
-                console.log(response, "Berhasil Terhapus");
-                router.go();
-              })
-              .catch((error) => {
-                console.log("Gagal Terhapus", error.response);
-              });
-          }
-      }); 
+        title: "Hapus data ini?",
+        text: "Data ini akan terhapus selamanya",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Hapus",
+        cancelButtonText: "Batal",
+      }).then((result) => {
+        // <--
+        if (result.value) {
+          // <-- if confirmed
+          Memberservice.getDelete(id)
+            .then((response) => {
+              console.log(response, "Berhasil Terhapus");
+              router.go();
+            })
+            .catch((error) => {
+              console.log("Gagal Terhapus", error.response);
+            });
+        }
+      });
     },
     handleCreate() {
       router.push("/member/create");
     },
     handleupdate(id) {
       router.push("/member/update/" + id);
+    },
+    handletransaksi(id) {
+      router.push("/member/transaction/create/" + id);
     },
   },
 };

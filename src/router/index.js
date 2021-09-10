@@ -216,7 +216,7 @@ const routes = [
     meta:{requiresAuth:true}
   },
   {
-    path: '/transaction/create',
+    path: '/member/transaction/create/:id',
     name: 'Transactioncreate',
     component: () => import('../components/transaksi/create.vue'),
     meta:{requiresAuth:true}

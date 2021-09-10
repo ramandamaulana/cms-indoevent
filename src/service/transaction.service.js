@@ -18,25 +18,21 @@ export default {
           return error.response.data;
         }); 
       },      
-
-      postCrated(data) {
-        return axios({
-        method: 'post',
-        url:`${process.env.VUE_APP_URL}/api/admin/transaction`,
-        headers: {
-            'Authorization': "Bearer " + user.data.access_token,
-            'X_USER_ID': user.data.id,
-            'Content-Type': "application/json",
-          }, 
-          data:data,
-      },{
-      })
-        .then((response) => {
-          return response;
-        })
-        .catch((error) => {
-          return error.response.data;
-        }); },
+      postCrated(id,params){
+        return axios.post(`${process.env.VUE_APP_URL}/api/admin/transaction/`+id,params,{
+            headers: {
+                'Authorization': "Bearer " + user.data.access_token,
+                'X_USER_ID': user.data.id,
+                'Content-Type': "application/json",
+              }
+          }
+        ).then((response) => {
+              return response.data;
+            })
+            .catch((error) => {
+              return error.response.data;
+            });
+      },
    getDelete(id) {
     return axios.delete(
       `${process.env.VUE_APP_URL}/api/admin/transaction/`+id,
