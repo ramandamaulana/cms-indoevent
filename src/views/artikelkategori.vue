@@ -23,7 +23,7 @@
                           <a
                             class="btn btn-primary text-left"
                             @click.prevent="handleCreate"
-                            ><i class="fa fa-plus mr-3"></i> Tambah</a
+                            ><i class="fa fa-plus mr-3"></i>Tambah</a
                           >
                         </div>
                       </div>

@@ -12,7 +12,6 @@
         <i class="fa fa-bars"></i>
       </button>
 
-
       <!-- Topbar Navbar -->
       <ul class="navbar-nav ml-auto">
         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
@@ -65,12 +64,12 @@
             aria-haspopup="true"
             aria-expanded="false"
           >
-            <span class="mr-2 d-none d-lg-inline text-gray-600 small"
-              > {{users.data.user.name}}</span
+            <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+              {{ users.data.user.name }}</span
             >
             <img
               class="img-profile rounded-circle"
-             :src="users.data.user.image"
+              :src="users.data.user.image"
             />
           </a>
           <!-- Dropdown - User Information -->
@@ -101,6 +100,7 @@
 </template>
 
 <script>
+import router from "@/router";
 import { authComputed } from "../../store/helper.js";
 export default {
   computed: {
@@ -112,6 +112,7 @@ export default {
   methods: {
     logout() {
       this.$store.dispatch("logout");
+      router.go();
     },
   },
   mounted() {
