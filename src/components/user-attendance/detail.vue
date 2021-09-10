@@ -17,7 +17,7 @@
                     <div class="card-body">
                       <div class="row ">
                         <div class="col-lg-6 text-left">
-                          <h4 class="mb-3">Tabel User Attendance</h4>
+                          <h4 class="mb-3">Tabel User Attendance Detail : {{ this.schedule }}</h4>
                         </div>
                       </div>
                       <vue-good-table
@@ -32,17 +32,10 @@
                         }"
                       >
                       <template slot="table-row" slot-scope="props">
-                          <span v-if="props.column.field == 'persentase'">
-                            {{ props.row.percentage }} %
-                          </span>
-                          <span v-if="props.column.field == 'action'">
-                            <button
-                              class="btn btn-universal"
-                              @click.prevent="handleShow(props.row.id)"
-                            >
-                              <i class="far fa-eye text-primary"></i>
-                            </button>
-                          </span>
+                          <div v-if="props.column.field == 'kehadiran'">
+                            <span v-if="props.row.waktu_hadir != null">{{ props.row.waktu_hadir }}</span>
+                            <span v-else>Belum Hadir</span>
+                          </div>
                           <span v-else>
                             {{ props.formattedRow[props.column.field] }}
                           </span>
@@ -62,11 +55,10 @@
   </div>
 </template>
 <script>
-import router from "@/router";
-import Navbar from "../components/layout/navbar.vue";
-import Sidebar from "../components/layout/sidebar.vue";
-import Footer from "../components/layout/footer";
-import Userattendance from "../service/userattendance.service";
+import Navbar from "../layout/navbar.vue";
+import Sidebar from "../layout/sidebar.vue";
+import Footer from "../layout/footer";
+import Userattendance from "../../service/userattendance.service";
 export default {
   components: {
     Sidebar,
@@ -77,47 +69,27 @@ export default {
     return {
       columns: [
         {
-          label: "Nama Schedule",
-          field: "nama_kegiatan",
+          label: "Nama User",
+          field: "name",
         },
         {
-          label: "Jumlah Peserta",
-          field: "jumlah_peserta",
-        },
-        {
-          label: "Jumlah Hadir",
-          field: "jumlah_hadir",
-        },
-        {
-          label: "Jumlah Tidak Hadir",
-          field: "tidak_hadir",
-        },
-        {
-          label: "Persentase",
-          field: "persentase"
-        },
-        {
-          label: "Action",
-          field: "action"
-        },
+          label: "Kehadiran",
+          field: "kehadiran",
+        }
       ],
       rows: [],
     };
   },
   created() {
-    Userattendance.getAll()
+    Userattendance.getDetail(this.$route.params.id)
       .then((response) => {
+        this.schedule = response.schedule;
         this.rows = response.rows;
         console.log("Data Di Temukan", response.rows);
       })
       .catch((error) => {
         console.log("Eror Data Tidak Di Temukan", error.response);
       });
-  },
-  methods: {
-    handleShow(id) {
-      router.push("/user-attendance/" + id);
-    },
   },
 };
 </script>

@@ -85,6 +85,10 @@ export default {
     return {
       columns: [
         {
+          label: "Information Name",
+          field: "information_name",
+        },
+        {
           label: "Detail",
           field: "detail",
         },
@@ -105,7 +109,11 @@ export default {
     };
   },
   created() {
-    InformationDetailservice.getAll()
+    let params = {
+      "sort[by]": "information_name",
+      "sort[order]": "desc",
+    }
+    InformationDetailservice.getAll(params)
       .then((response) => {
         this.rows = response.rows;
         console.log("Data Di Temukan", response.rows);

@@ -361,21 +361,27 @@ const routes = [
     meta:{requiresAuth:true}
   },
   {
-    path: '/info/detail/update/:id',
-    name: 'InformationDetailupdate',
-    component: () => import('../components/info-detail/infodetailupdate.vue'),
-    meta:{requiresAuth:true}
-  },
-  {
     path: '/info/user',
     name: 'Information-user',
     component: () => import('../views/Informationuser.vue'),
     meta:{requiresAuth:true}
   },
   {
+    path: '/info/user/create',
+    name: 'InformationUsercreate',
+    component: () => import('../components/info-user/infousercreate.vue'),
+    meta:{requiresAuth:true}
+  },
+  {
     path: '/user-attendance',
     name: 'userattendance',
     component: () => import('../views/userattendance.vue'),
+    meta:{requiresAuth:true}
+  },
+  {
+    path: '/user-attendance/:id',
+    name: 'userattendance-detail',
+    component: () => import('../components/user-attendance/detail.vue'),
     meta:{requiresAuth:true}
   },
   {

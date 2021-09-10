@@ -39,13 +39,7 @@
                         }"
                       >
                         <template slot="table-row" slot-scope="props">
-                          <span v-if="props.column.field == 'action'">
-                            <button
-                              class="btn btn-universal"
-                              @click.prevent="handleupdate(props.row.id)"
-                            >
-                              <i class="far fa-edit text-primary"></i>
-                            </button>
+                          <span v-if="props.column.field == 'action'">                            
                             <button
                               class="btn btn-universal"
                               type="submit"
@@ -85,12 +79,12 @@ export default {
     return {
       columns: [
         {
-          label: "Nama",
-          field: "name",
-        },
-        {
           label: "Informasi Detail",
           field: "informasi_detail",
+        },
+        {
+          label: "Nama",
+          field: "name",
         },
         {
           label: "Action",
@@ -101,7 +95,11 @@ export default {
     };
   },
   created() {
-    InformationUserservice.getAll()
+    let params = {
+      "sort[by]": "information_name",
+      "sort[order]": "desc",
+    }
+    InformationUserservice.getAll(params)
       .then((response) => {
         this.rows = response.rows;
         console.log("Data Di Temukan", response.rows);
@@ -134,9 +132,6 @@ export default {
     },
     handleCreate() {
       router.push("/info/user/create");
-    },
-    handleupdate(id) {
-      router.push("/info/user/update/" + id);
     },
   },
 };

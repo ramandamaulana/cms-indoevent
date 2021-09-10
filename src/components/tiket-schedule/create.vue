@@ -25,7 +25,7 @@
                           <div class="row">
                             <div class="col-lg-12 mb-3 text-left">
                               <label for="exampleFormControlSelect1"
-                                >Information ID</label
+                                >Tiket</label
                               >
                               <select
                                 class="form-control"
@@ -44,6 +44,9 @@
                             <div class="col-lg-12">
                               <div class="form-group row">
                                 <div class="col-sm-12">
+                                  <label for="exampleFormControlSelect1"
+                                    >Pilih Jadwal</label
+                                  >
                                   <div class="form-check">
                                     <div
                                       v-for="(jadwal, index) in Jadwals"

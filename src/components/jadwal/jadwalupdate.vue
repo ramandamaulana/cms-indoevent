@@ -45,12 +45,12 @@
                                   >Tanggal Kegiatan</label
                                 >
                                 <date-picker 
-                                  v-model="schedule.jam_mulai" 
+                                  v-model="schedule.tgl_kegiatan" 
                                   class="col-12"
-                                  format="HH:mm"
+                                  type="date"
+                                  format="YYYY-MM-DD"
                                   value-type="format"
-                                  type="time"
-                                  placeholder="HH:mm"
+                                  placeholder="YYYY-MM-DD"
                                   :append-to-body="false" 
                                   :popup-style="{ left: '20px'}">
                                 </date-picker>
