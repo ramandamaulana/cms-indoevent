@@ -12,8 +12,53 @@
             <div class="container-fluid">
               <!-- Page Heading -->
               <div class="row">
-                <div class="col-lg-12">
-                  
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        Transaksi Sukses</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ this.row.total_transaksi_success }}</div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-warning shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                        Jumlah Peserta</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ this.row.total_member }}</div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-users fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-success shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                        Jumlah Admin</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ this.row.total_admin }}</div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-user-tie fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
               </div>
             </div>
@@ -29,11 +74,22 @@
 import Navbar from "../components/layout/navbar.vue";
 import Sidebar from "../components/layout/sidebar.vue";
 import Footer from "../components/layout/footer";
+import Dashboardservice from "../service/dashboard.service";
 export default {
   components: {
     Sidebar,
     Navbar,
     Footer,
-  }
+  },
+  created() {
+    Dashboardservice.getAll()
+      .then((response) => {
+        this.row = response.row;
+        console.log("Data Di Temukan", response.row);
+      })
+      .catch((error) => {
+        console.log("Eror Data Tidak Di Temukan", error.response);
+      });
+  },
 }
 </script>
