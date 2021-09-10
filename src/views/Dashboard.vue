@@ -19,7 +19,7 @@
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                         Transaksi Sukses</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ this.row.total_transaksi_success }}</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ this.transaksi_sukses }}</div>
                                 </div>
                                 <div class="col-auto">
                                     <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -35,7 +35,7 @@
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                         Jumlah Peserta</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ this.row.total_member }}</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ this.total_member }}</div>
                                 </div>
                                 <div class="col-auto">
                                     <i class="fas fa-users fa-2x text-gray-300"></i>
@@ -51,7 +51,7 @@
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                         Jumlah Admin</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ this.row.total_admin }}</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ this.total_admin }}</div>
                                 </div>
                                 <div class="col-auto">
                                     <i class="fas fa-user-tie fa-2x text-gray-300"></i>
@@ -81,10 +81,19 @@ export default {
     Navbar,
     Footer,
   },
+  data() {
+    return {
+      transaksi_sukses: "",
+      total_member: "",
+      total_admin: "",
+    };
+  },
   created() {
     Dashboardservice.getAll()
       .then((response) => {
-        this.row = response.row;
+        this.transaksi_sukses = response.row.transaksi_sukses;
+        this.total_member = response.row.total_member;
+        this.total_admin = response.row.total_admin;
         console.log("Data Di Temukan", response.row);
       })
       .catch((error) => {
