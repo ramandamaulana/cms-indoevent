@@ -216,6 +216,12 @@ const routes = [
     meta:{requiresAuth:true}
   },
   {
+    path: '/transaction/create',
+    name: 'Transactioncreate',
+    component: () => import('../components/transaksi/create.vue'),
+    meta:{requiresAuth:true}
+  },
+  {
     path: '/feedback',
     name: 'feedback',
     component: () => import('../views/feedback.vue'),
