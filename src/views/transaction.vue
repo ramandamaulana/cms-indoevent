@@ -62,13 +62,13 @@
                           </span>
                           <span
                             v-if="
-                              props.column.field == 'action' &&
-                                props.row.status == 'pending'
+                              props.column.field == 'action'
                             "
                           >
                             <button
                               class="btn btn-success mr-2"
                               type="submit"
+                              v-if="props.row.status == 'pending'"
                               @click.prevent="handlesuccess(props.row.id)"
                             >
                               Success
@@ -76,9 +76,17 @@
                             <button
                               class="btn btn-danger"
                               type="submit"
+                              v-if="props.row.status == 'pending'"
                               @click.prevent="handleFailed(props.row.id)"
                             >
                               Failed
+                            </button>
+                            <button
+                              class="btn btn-universal"
+                              type="submit"
+                              @click.prevent="handledelete(props.row.id)"
+                            >
+                              <i class="far fa-trash-alt text-primary"></i>
                             </button>
                           </span>
                           <span v-else>
@@ -208,6 +216,27 @@ export default {
             });
         }
       });
+    },
+    handledelete(id) {
+      this.$swal({
+          title: "Hapus data ini?",
+          text: "Data ini akan terhapus selamanya",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Hapus",
+          cancelButtonText: "Batal"
+      }).then((result) => { // <--
+          if (result.value) { // <-- if confirmed
+            Transcationservice.getDelete(id)
+              .then((response) => {
+                console.log(response, "Berhasil Terhapus");
+                router.go();
+              })
+              .catch((error) => {
+                console.log("Gagal Terhapus", error.response);
+              });
+          }
+      }); 
     },
     handleCreate() {
       router.push("/transaction/create");
