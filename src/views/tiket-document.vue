@@ -119,12 +119,14 @@ export default {
     };
   },
   created() {
+      let loading = this.$loading.show();
     let params = {
       "sort[by]": "ticket_name",
       "sort[order]": "desc"
     };
     TiketDokumenservice.getAll(params)
       .then((response) => {
+              loading.hide();
         this.rows = response.rows;
         console.log("Data Di Temukan", response.rows);
       })

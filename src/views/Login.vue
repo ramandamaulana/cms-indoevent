@@ -61,6 +61,7 @@
   </div>
 </template>
 <script>
+import router from "@/router"
 export default {
   data() {
     return {
@@ -82,6 +83,7 @@ export default {
             this.$router.push({
               name: "Dashboard",
             });
+            router.go();
     
           },
           (error) => {

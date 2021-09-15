@@ -109,12 +109,14 @@ export default {
     };
   },
   created() {
+    let loading = this.$loading.show();
     let params = {
       "sort[by]": "information_name",
       "sort[order]": "desc",
-    }
+    };
     InformationDetailservice.getAll(params)
       .then((response) => {
+        loading.hide();
         this.rows = response.rows;
         console.log("Data Di Temukan", response.rows);
       })
@@ -125,24 +127,26 @@ export default {
   methods: {
     handledelete(id) {
       this.$swal({
-          title: "Hapus data ini?",
-          text: "Data ini akan terhapus selamanya",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonText: "Hapus",
-          cancelButtonText: "Batal"
-      }).then((result) => { // <--
-          if (result.value) { // <-- if confirmed
-            InformationDetailservice.getDelete(id)
-              .then((response) => {
-                console.log(response, "Berhasil Terhapus");
-                router.go();
-              })
-              .catch((error) => {
-                console.log("Gagal Terhapus", error.response);
-              });
-          }
-      }); 
+        title: "Hapus data ini?",
+        text: "Data ini akan terhapus selamanya",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Hapus",
+        cancelButtonText: "Batal",
+      }).then((result) => {
+        // <--
+        if (result.value) {
+          // <-- if confirmed
+          InformationDetailservice.getDelete(id)
+            .then((response) => {
+              console.log(response, "Berhasil Terhapus");
+              router.go();
+            })
+            .catch((error) => {
+              console.log("Gagal Terhapus", error.response);
+            });
+        }
+      });
     },
     handleCreate() {
       router.push("/info/detail/create");

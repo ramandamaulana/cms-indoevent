@@ -37,6 +37,23 @@ export default {
     .catch((error) => {
       return error.response.data;
     }); },
+
+    getDelete(id) {
+      return axios.delete(
+        `${process.env.VUE_APP_URL}/api/admin/ticket/document/`+id,
+          {   headers: {
+              'Authorization': "Bearer " + user.data.access_token,
+              'X_USER_ID': user.data.id,
+              'Content-Type': "application/json",
+            }}  
+        )
+          .then((response) => {
+            return response.data;
+          })
+          .catch((error) => {
+            return error.response.data;
+          });
+    },
     
  
     

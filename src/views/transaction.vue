@@ -19,13 +19,6 @@
                         <div class="col-lg-6 text-left">
                           <h4 class="mb-3">Tabel Transaksi</h4>
                         </div>
-                        <div class="col-lg-6 text-right mb-3">
-                          <a
-                            class="btn btn-primary text-left"
-                            @click.prevent="handleCreate"
-                            ><i class="fa fa-plus mr-3"></i> Tambah</a
-                          >
-                        </div>
                       </div>
                       <vue-good-table
                         :columns="columns"
@@ -60,11 +53,7 @@
                           <span v-if="props.column.field == 'total_transaksi'">
                             {{ $helpers.formattingRupiah(props.row.total) }}
                           </span>
-                          <span
-                            v-if="
-                              props.column.field == 'action'
-                            "
-                          >
+                          <span v-if="props.column.field == 'action'">
                             <button
                               class="btn btn-success mr-2"
                               type="submit"
@@ -151,12 +140,14 @@ export default {
     };
   },
   created() {
+    let loading = this.$loading.show();
     let params = {
       "sort[by]": "id",
       "sort[order]": "desc",
     };
     Transcationservice.getAll(params)
       .then((response) => {
+        loading.hide();
         this.rows = response.rows;
         console.log("Data Di Temukan", response.rows);
       })
@@ -219,24 +210,26 @@ export default {
     },
     handledelete(id) {
       this.$swal({
-          title: "Hapus data ini?",
-          text: "Data ini akan terhapus selamanya",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonText: "Hapus",
-          cancelButtonText: "Batal"
-      }).then((result) => { // <--
-          if (result.value) { // <-- if confirmed
-            Transcationservice.getDelete(id)
-              .then((response) => {
-                console.log(response, "Berhasil Terhapus");
-                router.go();
-              })
-              .catch((error) => {
-                console.log("Gagal Terhapus", error.response);
-              });
-          }
-      }); 
+        title: "Hapus data ini?",
+        text: "Data ini akan terhapus selamanya",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Hapus",
+        cancelButtonText: "Batal",
+      }).then((result) => {
+        // <--
+        if (result.value) {
+          // <-- if confirmed
+          Transcationservice.getDelete(id)
+            .then((response) => {
+              console.log(response, "Berhasil Terhapus");
+              router.go();
+            })
+            .catch((error) => {
+              console.log("Gagal Terhapus", error.response);
+            });
+        }
+      });
     },
     handleCreate() {
       router.push("/transaction/create");

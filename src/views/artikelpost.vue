@@ -40,12 +40,13 @@
                       >
                         <template slot="table-row" slot-scope="props">
                           <span v-if="props.column.field == 'gambar'">
-                            <img 
-                                v-if="props.row.image != null"
-                                :src="props.row.image.url" 
-                                class="img-thumbnail mt-3" 
-                                style="max-width: 200px;"
-                                :alt="props.row.image.name">
+                            <img
+                              v-if="props.row.image != null"
+                              :src="props.row.image.url"
+                              class="img-thumbnail mt-3"
+                              style="max-width: 200px;"
+                              :alt="props.row.image.name"
+                            />
                           </span>
                           <span v-if="props.column.field == 'action'">
                             <button
@@ -120,8 +121,10 @@ export default {
     };
   },
   created() {
+    let loading = this.$loading.show();
     Postservice.getAll()
       .then((response) => {
+        loading.hide();
         this.rows = response.rows;
         console.log("Data Di Temukan", response.rows);
       })
@@ -132,15 +135,17 @@ export default {
   methods: {
     handledelete(id) {
       this.$swal({
-          title: "Hapus data ini?",
-          text: "Data ini akan terhapus selamanya",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonText: "Hapus",
-          cancelButtonText: "Batal"
-          }).then((result) => { // <--
-          if (result.value) { // <-- if confirmed
-            Postservice.getDelete(id)
+        title: "Hapus data ini?",
+        text: "Data ini akan terhapus selamanya",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Hapus",
+        cancelButtonText: "Batal",
+      }).then((result) => {
+        // <--
+        if (result.value) {
+          // <-- if confirmed
+          Postservice.getDelete(id)
             .then((response) => {
               console.log(response, "Berhasil Terhapus");
               router.go();
@@ -148,14 +153,14 @@ export default {
             .catch((error) => {
               console.log("Gagal Terhapus", error.response);
             });
-          }
-      }); 
+        }
+      });
     },
     handleCreate() {
       router.push("/artikel/post/create");
     },
     handleupdate(id) {
-      router.push("/artikel/post/update/"+id);
+      router.push("/artikel/post/update/" + id);
     },
   },
 };

@@ -31,7 +31,7 @@
                           enabled: true,
                         }"
                       >
-                      <template slot="table-row" slot-scope="props">
+                        <template slot="table-row" slot-scope="props">
                           <span v-if="props.column.field == 'persentase'">
                             {{ props.row.percentage }} %
                           </span>
@@ -94,19 +94,21 @@ export default {
         },
         {
           label: "Persentase",
-          field: "persentase"
+          field: "persentase",
         },
         {
           label: "Action",
-          field: "action"
+          field: "action",
         },
       ],
       rows: [],
     };
   },
   created() {
+    let loading = this.$loading.show();
     Userattendance.getAll()
       .then((response) => {
+        loading.hide();
         this.rows = response.rows;
         console.log("Data Di Temukan", response.rows);
       })

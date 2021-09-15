@@ -95,7 +95,7 @@ export default {
           label: "Komen",
           field: "comment",
         },
-      
+
         {
           label: "Action",
           field: "action",
@@ -114,8 +114,10 @@ export default {
     };
   },
   created() {
+    let loading = this.$loading.show();
     Komenservice.getAll()
       .then((response) => {
+        loading.hide();
         this.rows = response.rows;
         console.log("Data Di Temukan", response.rows);
       })
@@ -126,15 +128,17 @@ export default {
   methods: {
     handledelete(id) {
       this.$swal({
-          title: "Hapus data ini?",
-          text: "Data ini akan terhapus selamanya",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonText: "Hapus",
-          cancelButtonText: "Batal"
-      }).then((result) => { // <--
-          if (result.value) { // <-- if confirmed
-            Komenservice.getDelete(id)
+        title: "Hapus data ini?",
+        text: "Data ini akan terhapus selamanya",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Hapus",
+        cancelButtonText: "Batal",
+      }).then((result) => {
+        // <--
+        if (result.value) {
+          // <-- if confirmed
+          Komenservice.getDelete(id)
             .then((response) => {
               console.log(response, "Berhasil Terhapus");
               router.go();
@@ -142,8 +146,8 @@ export default {
             .catch((error) => {
               console.log("Gagal Terhapus", error.response);
             });
-          }
-      });       
+        }
+      });
     },
     handleCreate() {
       router.push("/artikel/komen/create");

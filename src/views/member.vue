@@ -42,7 +42,9 @@
                           <span v-if="props.column.field == 'action'">
                             <button
                               class="btn btn-success"
-                              @click.prevent="handletransaksi(props.row.user_id)"
+                              @click.prevent="
+                                handletransaksi(props.row.user_id)
+                              "
                             >
                               Transaksi
                             </button>
@@ -131,8 +133,10 @@ export default {
     };
   },
   created() {
+    let loading = this.$loading.show();
     Memberservice.getAll()
       .then((response) => {
+        loading.hide();
         this.rows = response.rows;
         console.log("Data Di Temukan", response.rows);
       })

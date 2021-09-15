@@ -39,7 +39,6 @@
                         }"
                       >
                         <template slot="table-row" slot-scope="props">
-                          
                           <span v-if="props.column.field == 'tanggal_kegiatan'">
                             {{
                               props.row.tgl_kegiatan | moment("DD MMMM YYYY")
@@ -131,8 +130,10 @@ export default {
     };
   },
   created() {
+    let loading = this.$loading.show();
     Jadwalservice.getAll()
       .then((response) => {
+        loading.hide();
         this.rows = response.rows;
         console.log("Data Di Temukan", response.rows);
       })
