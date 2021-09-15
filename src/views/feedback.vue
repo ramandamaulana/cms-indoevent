@@ -92,6 +92,14 @@ export default {
           field: "stars",
         },
         {
+          label: "Tiket",
+          field: "ticket_name",
+        },
+        {
+          label: "Name",
+          field: "user_name",
+        },
+        {
           label: "Komen",
           field: "comment",
         },

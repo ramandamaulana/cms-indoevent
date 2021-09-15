@@ -25,21 +25,52 @@
                           <div class="row">
                             <div class="col-lg-12">
                               <div class="form-group">
-                                <label for="exampleInputEmail1">User Id</label>
-                                <input
-                                  type="text"
+                                <label for="exampleFormControlSelect1"
+                                >Pilih User</label>
+                                <select
                                   class="form-control"
-                                  id="exampleInputEmail1"
-                                  aria-describedby="emailHelp"
+                                  id="exampleFormControlSelect1"
                                   v-model="feedback.user_id"
-                                  @blur="$v.feedback.user_id.$touch()"
-                                />
+                                >
+                                  <option
+                                    v-for="user in Users"
+                                    :key="user.user_id"
+                                    :value="user.user_id"
+                                    >{{ user.name }}</option
+                                  >
+                                </select>
                                 <div v-if="$v.feedback.user_id.$error">
                                   <p
                                     v-if="!$v.feedback.user_id.required"
                                     class="text-danger mt-1"
                                   >
                                     User Id Harus Di Isi
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-lg-12">
+                              <div class="form-group">
+                                <label for="exampleFormControlSelect1"
+                                >Pilih Ticket</label>
+                                <select
+                                  class="form-control"
+                                  id="exampleFormControlSelect1"
+                                  v-model="feedback.ticket_id"
+                                >
+                                  <option
+                                    v-for="ticket in Tickets"
+                                    :key="ticket.id"
+                                    :value="ticket.id"
+                                    >{{ ticket.nama }}</option
+                                  >
+                                </select>
+                                <div v-if="$v.feedback.ticket_id.$error">
+                                  <p
+                                    v-if="!$v.feedback.ticket_id.required"
+                                    class="text-danger mt-1"
+                                  >
+                                    Ticket Id Harus Di Isi
                                   </p>
                                 </div>
                               </div>
@@ -130,6 +161,8 @@ import Navbar from "../layout/navbar.vue";
 import Sidebar from "../layout/sidebar.vue";
 import Footer from "../layout/footer";
 import Feedbackservice from "../../service/feedback.service";
+import MemberService from "../../service/member.service";
+import Tiketservice from "../../service/tiket.service";
 import { required } from "vuelidate/lib/validators";
 export default {
   components: {
@@ -141,23 +174,46 @@ export default {
     return {
       feedback: {
         user_id: "",
+        ticket_id: "",
         stars: "",
         comment: "",
       },
+      Users: [],
+      Tickets: [],
     };
   },
   validations: {
     feedback: {
+      ticket_id: { required },
       user_id: { required },
       stars: { required },
       comment: { required },
     },
+  },
+  created() {
+    MemberService.getAll()
+      .then((response) => {
+        this.Users = response.rows;
+        console.log("Data Di Temukan", response.rows);
+      })
+      .catch((error) => {
+        console.log("Eror Data Tidak Di Temukan", error.response);
+      });
+    Tiketservice.getAll()
+      .then((response) => {
+        this.Tickets = response.rows;
+        console.log("Data Di Temukan", response.rows);
+      })
+      .catch((error) => {
+        console.log("Eror Data Tidak Di Temukan", error.response);
+      });
   },
   methods: {
     submit(event) {
       event.preventDefault();
       let loading = this.$loading.show();
       let params = {
+        ticket_id: this.feedback.ticket_id,
         user_id: this.feedback.user_id,
         stars: this.feedback.stars,
         comment: this.feedback.comment,
