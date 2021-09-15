@@ -47,14 +47,14 @@
                             <div class="col-lg-12">
                               <div class="form-group">
                                 <label for="exampleInputEmail1">Konten</label>
-                                <input
-                                  type="text"
+                                <textarea
                                   class="form-control"
-                                  id="exampleInputEmail1"
-                                  aria-describedby="emailHelp"
+                                  id="exampleFormControlTextarea1"
                                   v-model="faq.contents"
                                   @blur="$v.faq.contents.$touch()"
-                                />
+                                  rows="3"
+                                ></textarea>
+
                                 <div v-if="$v.faq.contents.$error">
                                   <p
                                     v-if="!$v.faq.contents.required"
@@ -68,8 +68,11 @@
                           </div>
                         </div>
                         <div class="form-group text-center">
-                          <a class="btn btn-warning mr-3" @click="$router.go(-1)">
-                              Batal
+                          <a
+                            class="btn btn-warning mr-3"
+                            @click="$router.go(-1)"
+                          >
+                            Batal
                           </a>
                           <button
                             type="submit"

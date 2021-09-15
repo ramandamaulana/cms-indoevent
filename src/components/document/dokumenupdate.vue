@@ -63,8 +63,11 @@
                           </div>
                         </div>
                         <div class="form-group text-center">
-                          <a class="btn btn-warning mr-3" @click="$router.go(-1)">
-                              Batal
+                          <a
+                            class="btn btn-warning mr-3"
+                            @click="$router.go(-1)"
+                          >
+                            Batal
                           </a>
                           <button type="submit" class="btn btn-primary">
                             Submit
@@ -124,7 +127,7 @@ export default {
         .then((response) => {
           loading.hide();
           console.log(response.data, "Berhasil Di tambahkan");
-            router.back();
+          router.back();
         })
         .catch((error) => {
           loading.hide();

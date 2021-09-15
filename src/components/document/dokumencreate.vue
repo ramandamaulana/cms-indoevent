@@ -76,6 +76,8 @@
                                 <option value="1">PDF</option>
                                 <option value="2">Excel</option>
                                 <option value="3">Word</option>
+                                <option value="4">PPT</option>
+                                <option value="5">JPEG,PNG</option>
                               </select>
                               <div v-if="$v.dokumen.tipe.$error">
                                 <p
@@ -89,13 +91,20 @@
                           </div>
                         </div>
                         <div class="form-group text-center">
-                          <a class="btn btn-warning mr-3" @click="$router.go(-1)">
-                              Batal
+                          <a
+                            class="btn btn-warning mr-3"
+                            @click="$router.go(-1)"
+                          >
+                            Batal
                           </a>
-                          <button type="submit"  :disabled="$v.$anyError" class="btn btn-primary">
+                          <button
+                            type="submit"
+                            :disabled="$v.$anyError"
+                            class="btn btn-primary"
+                          >
                             Submit
                           </button>
-                            <p v-if="$v.$anyError" class="text-danger mt-3">
+                          <p v-if="$v.$anyError" class="text-danger mt-3">
                             Tolong isi fill yang kosong
                           </p>
                         </div>
