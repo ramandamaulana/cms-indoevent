@@ -33,6 +33,23 @@ export default {
           return error.response.data;
         }); },
             
+    getTransaksi(id) {
+      return axios.get(
+        `${process.env.VUE_APP_URL}/api/admin/member/transaction/`+id,
+          {   headers: {
+              'Authorization': "Bearer " + user.data.access_token,
+              'X_USER_ID': user.data.id,
+              'Content-Type': "application/json",
+            }}  
+         )
+          .then((response) => {
+            return response.data;
+          })
+          .catch((error) => {
+            return error.response.data;
+          });
+    },
+     
     getShow(id) {
       return axios.get(
         `${process.env.VUE_APP_URL}/api/admin/member/`+id,

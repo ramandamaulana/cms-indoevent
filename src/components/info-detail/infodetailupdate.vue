@@ -88,9 +88,12 @@
                             </div>
                           </div>
                         </div>
-                        <div class="form-group text-center">  
-                          <a class="btn btn-warning mr-3" @click="$router.go(-1)">
-                              Batal
+                        <div class="form-group text-center">
+                          <a
+                            class="btn btn-warning mr-3"
+                            @click="$router.go(-1)"
+                          >
+                            Batal
                           </a>
                           <button
                             type="submit"
@@ -138,6 +141,7 @@ export default {
   },
   data() {
     return {
+      InfodetailID: this.$route.params.id,
       Infodetail: {
         information_id: "",
         detail: "",

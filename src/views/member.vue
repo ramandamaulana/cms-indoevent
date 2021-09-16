@@ -41,12 +41,12 @@
                         <template slot="table-row" slot-scope="props">
                           <span v-if="props.column.field == 'action'">
                             <button
-                              class="btn btn-success"
+                              class="btn btn-universal"
                               @click.prevent="
                                 handletransaksi(props.row.user_id)
                               "
                             >
-                              Transaksi
+                              <i class="fas fa-money-check-alt  text-primary"></i>
                             </button>
                             <button
                               class="btn btn-universal"
@@ -175,7 +175,7 @@ export default {
       router.push("/member/update/" + id);
     },
     handletransaksi(id) {
-      router.push("/member/transaction/create/" + id);
+      router.push("/member/detail/transaction/"+id);
     },
   },
 };
