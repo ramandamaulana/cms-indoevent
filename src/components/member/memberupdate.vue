@@ -62,12 +62,13 @@
                                 id="inputFile"
                               />
 
-                              <img :src="members.image" 
-                                class="img-thumbnail mt-3" 
+                              <img
+                                :src="members.image"
+                                class="img-thumbnail mt-3"
                                 style="max-width: 200px;"
-                                :alt="members.name">
+                                :alt="members.name"
+                              />
                             </div>
-
                             <div class="col-lg-6 mt-2">
                               <div class="form-group">
                                 <label for="exampleInputEmail1"
@@ -125,13 +126,13 @@
                         </div>
                         <div class="container">
                           <div class="form-group text-center">
-                            <a class="btn btn-warning mr-3" @click="$router.go(-1)">
-                              Batal
-                          </a>
-                            <button
-                              type="submit"
-                              class="btn btn-primary"
+                            <a
+                              class="btn btn-warning mr-3"
+                              @click="$router.go(-1)"
                             >
+                              Batal
+                            </a>
+                            <button type="submit" class="btn btn-primary">
                               Submit
                             </button>
                           </div>
@@ -174,7 +175,6 @@ export default {
         name: "",
         username: "",
         image: "",
-
         posisi: "",
         no_telp: "",
         kota: "",
@@ -183,11 +183,11 @@ export default {
   },
   methods: {
     getDetail() {
-      Memberservice.getDetail(this.$route.params.id).then((response) => {
+      Memberservice.getShow(this.$route.params.id).then((response) => {
         if (response.code === 200) {
-          (this.members.name = response.rows.user.name),
-            (this.members.username = response.rows.user.username),
-            (this.members.image = response.rows.user.image.url);
+          this.members.name = response.rows.user.name;
+          this.members.username = response.rows.user.username;
+          this.members.image = response.rows.user.image.url;
           this.members.posisi = response.rows.posisi;
           this.members.perusahaan = response.rows.perusahaan;
           this.members.no_telp = response.rows.no_telp;
@@ -202,7 +202,6 @@ export default {
       var formData = new FormData();
       formData.append("name", this.members.name);
       formData.append("username", this.members.username);
-
       formData.append("perusahaan", this.members.perusahaan);
       formData.append("posisi", this.members.posisi);
       formData.append("no_telp", this.members.no_telp);
@@ -231,9 +230,9 @@ export default {
       };
       reader.readAsDataURL(file);
     },
-    mounted() {
-      this.getDetail();
-    },
+  },
+  mounted() {
+    this.getDetail();
   },
 };
 </script>

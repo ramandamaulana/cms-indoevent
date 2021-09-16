@@ -262,11 +262,26 @@
                                 </div>
                               </div>
                             </div>
+                            <div class="col-lg-12 mt-3 text-left">
+                              <label for="NIK" style="text-align: left"
+                                >Jenis Kelamin</label
+                              >
+                              <select
+                                class="form-control"
+                                v-model="members.gender"
+                              >
+                                <option value="L">Laki-Laki</option>
+                                <option value="P">Perempuan</option>
+                              </select>
+                            </div>
                           </div>
                         </div>
                         <div class="form-group text-center">
-                          <a class="btn btn-warning mr-3" @click="$router.go(-1)">
-                              Batal
+                          <a
+                            class="btn btn-warning mr-3"
+                            @click="$router.go(-1)"
+                          >
+                            Batal
                           </a>
                           <button
                             type="submit"
@@ -324,6 +339,7 @@ export default {
         posisi: "",
         no_telp: "",
         kota: "",
+        gender: "",
       },
     };
   },
@@ -360,6 +376,7 @@ export default {
       formData.append("no_telp", this.members.no_telp);
       formData.append("kota", this.members.kota);
       formData.append("image", imageInput);
+      formData.append("gender", this.members.gender);
       this.$v.$touch();
       if (!this.$v.$invalid) {
         Memberservice.postCrated(formData)

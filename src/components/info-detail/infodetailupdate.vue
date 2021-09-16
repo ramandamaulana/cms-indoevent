@@ -36,7 +36,8 @@
                                 <option
                                   v-for="Infodetail in Infodetails"
                                   :key="Infodetail.information_id"
-                                  >{{ Infodetail.id }}</option
+                                  :value="Infodetail.id"
+                                  >{{ Infodetail.information }}</option
                                 >
                               </select>
                             </div>
@@ -87,9 +88,12 @@
                             </div>
                           </div>
                         </div>
-                        <div class="form-group text-center">  
-                          <a class="btn btn-warning mr-3" @click="$router.go(-1)">
-                              Batal
+                        <div class="form-group text-center">
+                          <a
+                            class="btn btn-warning mr-3"
+                            @click="$router.go(-1)"
+                          >
+                            Batal
                           </a>
                           <button
                             type="submit"
@@ -137,6 +141,7 @@ export default {
   },
   data() {
     return {
+      InfodetailID: this.$route.params.id,
       Infodetail: {
         information_id: "",
         detail: "",
@@ -153,6 +158,15 @@ export default {
     },
   },
   methods: {
+    getDetail() {
+      InfoDetailservice.getShow(this.$route.params.id).then((response) => {
+        if (response.code === 200) {
+          this.Infodetail.information_id = response.rows.information_id;
+          this.Infodetail.detail = response.rows.detail;
+          this.Infodetail.qty = response.rows.qty;
+        }
+      });
+    },
     submit(event) {
       event.preventDefault();
       let loading = this.$loading.show();
@@ -162,7 +176,7 @@ export default {
       formData.append("qty", this.Infodetail.qty);
       this.$v.$touch();
       if (!this.$v.$invalid) {
-        InfoDetailservice.postCrated(formData)
+        InfoDetailservice.postUpdate(this.$route.params.id, formData)
           .then((response) => {
             loading.hide();
             console.log(response.data, "Berhasil Di tambahkan");
@@ -179,6 +193,9 @@ export default {
         this.Infodetails = response.rows;
       });
     },
+  },
+  mounted() {
+    this.getDetail();
   },
 };
 </script>
