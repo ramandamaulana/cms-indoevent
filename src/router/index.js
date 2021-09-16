@@ -367,6 +367,12 @@ const routes = [
     meta:{requiresAuth:true}
   },
   {
+    path: '/info/detail/update/:id',
+    name: 'InformationDetailcreate',
+    component: () => import('../components/info-detail/infodetailupdate.vue'),
+    meta:{requiresAuth:true}
+  },
+  {
     path: '/info/user',
     name: 'Information-user',
     component: () => import('../views/Informationuser.vue'),

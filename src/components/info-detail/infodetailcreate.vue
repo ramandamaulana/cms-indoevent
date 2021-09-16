@@ -25,7 +25,7 @@
                           <div class="row">
                             <div class="col-lg-12 mb-3 text-left">
                               <label for="exampleFormControlSelect1"
-                                >Information ID</label
+                                >Information</label
                               >
                               <select
                                 class="form-control"
@@ -37,7 +37,7 @@
                                   v-for="Infodetail in Infodetails"
                                   :key="Infodetail.information_id"
                                   :value="Infodetail.id"
-                                  >{{ Infodetail.id }} - {{ Infodetail.information }}</option
+                                  >{{ Infodetail.information }}</option
                                 >
                               </select>
                             </div>

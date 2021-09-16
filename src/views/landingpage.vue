@@ -60,12 +60,13 @@
                                 <div class="form-group">
                                   <label> Banner Image</label>
                                   <br />
-                                  <img
-                                    :if="banner_img != null"
-                                    :src="banner_img.url"
-                                    width="500px"
-                                    alt=""
-                                  />
+                                  <span :if="banner_img != null">                                      
+                                    <img
+                                      :src="banner_img.url"
+                                      width="500px"
+                                      alt=""
+                                    />
+                                  </span>
                                 </div>
                               </div>
                               <div class="col-lg-12 mt-3">

@@ -25,7 +25,7 @@
                           <div class="row">
                             <div class="col-lg-12 mb-3 text-left">
                               <label for="exampleFormControlSelect1"
-                                >Information ID</label
+                                >Information</label
                               >
                               <select
                                 class="form-control"
@@ -36,7 +36,8 @@
                                 <option
                                   v-for="Infodetail in Infodetails"
                                   :key="Infodetail.information_id"
-                                  >{{ Infodetail.id }}</option
+                                  :value="Infodetail.id"
+                                  >{{ Infodetail.information }}</option
                                 >
                               </select>
                             </div>
@@ -153,6 +154,15 @@ export default {
     },
   },
   methods: {
+    getDetail() {
+      InfoDetailservice.getShow(this.$route.params.id).then((response) => {
+        if (response.code === 200) {
+          (this.Infodetail.information_id = response.rows.information_id),
+          (this.Infodetail.detail = response.rows.detail),
+            (this.Infodetail.qty = response.rows.qty);
+        }
+      });
+    },
     submit(event) {
       event.preventDefault();
       let loading = this.$loading.show();
@@ -162,10 +172,10 @@ export default {
       formData.append("qty", this.Infodetail.qty);
       this.$v.$touch();
       if (!this.$v.$invalid) {
-        InfoDetailservice.postCrated(formData)
+        InfoDetailservice.postUpdate(this.$route.params.id, formData)
           .then((response) => {
             loading.hide();
-            console.log(response.data, "Berhasil Di tambahkan");
+            console.log(response, "Berhasil Di tambahkan");
             router.back();
           })
           .catch((error) => {
@@ -179,6 +189,9 @@ export default {
         this.Infodetails = response.rows;
       });
     },
+  },
+  mounted() {
+    this.getDetail();
   },
 };
 </script>
