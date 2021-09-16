@@ -216,6 +216,12 @@ const routes = [
     meta:{requiresAuth:true}
   },
   {
+    path: '/member/detail/transaction/:id',
+    name: 'Transaksaidetails',
+    component: () => import('../components/transaksi-member/detail.vue'),
+    meta:{requiresAuth:true}
+  },
+  {
     path: '/member/transaction/create/:id',
     name: 'Transactioncreate',
     component: () => import('../components/transaksi/create.vue'),
