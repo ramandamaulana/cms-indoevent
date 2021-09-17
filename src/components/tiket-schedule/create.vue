@@ -32,6 +32,7 @@
                                 id="exampleFormControlSelect1"
                                 v-model="tiketschedule.ticket_id"
                                 @click="changeProductID()"
+                                @change="changeSelect(tiketschedule.ticket_id)"
                               >
                                 <option
                                   v-for="tiketschedule in tiketscheduleID"
@@ -155,6 +156,19 @@ export default {
         this.tiketscheduleID = response.rows;
       });
     },
+    changeSelect(id){
+      let params = {
+        "ticket_id": id
+      };
+      Tiketscheduleservice.getAll(params)
+        .then((response) => {
+          console.log("Data ticket", response);
+          this.tiketschedule.schedules = response.rows.map(o=>o.schedule_id)
+        })
+        .catch((error) => {
+          console.log("Eror Data Tidak ticket", error);
+        });
+    }
   },
 };
 </script>

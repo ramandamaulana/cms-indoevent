@@ -32,6 +32,7 @@
                                 id="exampleFormControlSelect1"
                                 v-model="tiketdokumen.ticket_id"
                                 @click="changeProductID()"
+                                @change="changeSelect(tiketdokumen.ticket_id)"
                               >
                                 <option
                                   v-for="tiketdokumen in DokumenID"
@@ -121,6 +122,7 @@ export default {
       },
       DokumenID: [],
       Dokumens: [],
+      Checked: []
     };
   },
   created() {
@@ -157,6 +159,19 @@ export default {
         this.DokumenID = response.rows;
       });
     },
+    changeSelect(id){
+      let params = {
+        "ticket_id": id
+      };
+      Tiketdokumenservice.getAll(params)
+        .then((response) => {
+          console.log("Data ticket", response);
+          this.tiketdokumen.documents = response.rows.map(o=>o.document_id)
+        })
+        .catch((error) => {
+          console.log("Eror Data Tidak ticket", error);
+        });
+    }
   },
 };
 </script>
