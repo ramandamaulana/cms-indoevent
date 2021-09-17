@@ -61,13 +61,6 @@
                                 class="form-control"
                                 id="inputFile"
                               />
-
-                              <img
-                                :src="members.image"
-                                class="img-thumbnail mt-3"
-                                style="max-width: 200px;"
-                                :alt="members.name"
-                              />
                             </div>
                             <div class="col-lg-6 mt-2">
                               <div class="form-group">
@@ -122,6 +115,18 @@
                                 />
                               </div>
                             </div>
+                            <div class="col-lg-12 mt-3 text-left">
+                              <label for="NIK" style="text-align: left"
+                                >Jenis Kelamin</label
+                              >
+                              <select
+                                class="form-control"
+                                v-model="members.gender"
+                              >
+                                <option value="L">Laki-Laki</option>
+                                <option value="P">Perempuan</option>
+                              </select>
+                            </div>
                           </div>
                         </div>
                         <div class="container">
@@ -157,7 +162,7 @@
 }
 </style>
 <script>
-import router from "@/router";
+// import router from "@/router";
 import Navbar from "../layout/navbar.vue";
 import Sidebar from "../layout/sidebar.vue";
 import Footer from "../layout/footer";
@@ -178,6 +183,7 @@ export default {
         posisi: "",
         no_telp: "",
         kota: "",
+        gender: "",
       },
     };
   },
@@ -187,19 +193,23 @@ export default {
         if (response.code === 200) {
           this.members.name = response.rows.user.name;
           this.members.username = response.rows.user.username;
-          this.members.image = response.rows.user.image.url;
+          if(response.rows.user.image != null){
+            this.members.image = response.rows.user.image.url;
+          }
           this.members.posisi = response.rows.posisi;
           this.members.perusahaan = response.rows.perusahaan;
           this.members.no_telp = response.rows.no_telp;
           this.members.kota = response.rows.kota;
+          this.members.gender = response.rows.gender;
         }
       });
     },
     submit(event) {
       event.preventDefault();
-      let loading = this.$loading.show();
+      // let loading = this.$loading.show();
       var imageInput = document.getElementById("inputFile").files[0];
       var formData = new FormData();
+      console.log(this.members.gender);
       formData.append("name", this.members.name);
       formData.append("username", this.members.username);
       formData.append("perusahaan", this.members.perusahaan);
@@ -207,14 +217,15 @@ export default {
       formData.append("no_telp", this.members.no_telp);
       formData.append("kota", this.members.kota);
       formData.append("image", imageInput);
+      formData.append("gender", this.members.gender);
       Memberservice.postUpdate(this.$route.params.id, formData)
         .then((response) => {
-          loading.hide();
-          console.log(response.data, "Berhasil Di tambahkan");
-          router.back();
+          // loading.hide();
+          console.log(response, "Berhasil Di tambahkan");
+          // router.back();
         })
         .catch((error) => {
-          loading.hide();
+          // loading.hide();
           console.log("Gagal Di tambahkan", error.response);
         });
     },

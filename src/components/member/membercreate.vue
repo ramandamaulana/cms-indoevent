@@ -273,6 +273,14 @@
                                 <option value="L">Laki-Laki</option>
                                 <option value="P">Perempuan</option>
                               </select>
+                              <div v-if="$v.members.gender.$error">
+                                  <p
+                                    v-if="!$v.members.gender.required"
+                                    class="text-danger mt-1"
+                                  >
+                                    Harus Di Isi
+                                  </p>
+                                </div>
                             </div>
                           </div>
                         </div>
@@ -355,6 +363,7 @@ export default {
       posisi: { required },
       no_telp: { required },
       kota: { required },
+      gender: { required },
     },
   },
   methods: {

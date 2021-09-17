@@ -39,6 +39,17 @@
                         }"
                       >
                         <template slot="table-row" slot-scope="props">
+                          <span v-if="props.column.field == 'jenkel'">
+                            {{ props.row.gender }}
+                          </span>
+                          <span v-if="props.column.field == 'transaksi'">
+                            <span v-if="props.row.transaction_status == true">
+                              Ada Transaksi
+                            </span>
+                            <span v-else>
+                              Belum Transaksi
+                            </span>
+                          </span>
                           <span v-if="props.column.field == 'action'">
                             <button
                               class="btn btn-universal"
@@ -114,6 +125,14 @@ export default {
         {
           label: "No handphone",
           field: "no_telp",
+        },
+        {
+          label: "Jenis Kelamin",
+          field: "jenkel",
+        },
+        {
+          label: "Transaksi",
+          field: "transaksi",
         },
         {
           label: "Action",
