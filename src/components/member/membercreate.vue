@@ -284,7 +284,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="form-group text-center">
+                        <div class="form-group text-center mt-3">
                           <a
                             class="btn btn-warning mr-3"
                             @click="$router.go(-1)"

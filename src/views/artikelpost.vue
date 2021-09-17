@@ -101,6 +101,10 @@ export default {
           field: "title",
         },
         {
+          label: "Category",
+          field: "category",
+        },
+        {
           label: "Konten",
           field: "content",
         },

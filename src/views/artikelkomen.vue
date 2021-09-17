@@ -89,7 +89,7 @@ export default {
       columns: [
         {
           label: "Artikel Post",
-          field: "article_post_id",
+          field: "article",
         },
         {
           label: "Komen",

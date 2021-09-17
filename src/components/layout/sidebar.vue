@@ -221,13 +221,13 @@
       >
         <div class="bg-white py-2 collapse-inner rounded">
           <router-link to="/artikel/kategori" class="collapse-item">
-            Artikel Kategori
-          </router-link>
-          <router-link to="/artikel/komen" class="collapse-item">
-            Artikel komen
+            Kategori
           </router-link>
           <router-link to="/artikel/post" class="collapse-item">
-            Artikel post
+            Post
+          </router-link>
+          <router-link to="/artikel/komen" class="collapse-item">
+            Komentar
           </router-link>
         </div>
       </div>
