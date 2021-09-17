@@ -7,7 +7,7 @@
     <!-- Sidebar - Brand -->
     <a
       class="sidebar-brand d-flex align-items-center justify-content-center"
-      href="index.html"
+      href="/dashboard"
     >
       <div class="sidebar-brand-icon">
         <i class="far fa-calendar-alt"></i>
