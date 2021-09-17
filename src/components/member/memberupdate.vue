@@ -162,7 +162,7 @@
 }
 </style>
 <script>
-// import router from "@/router";
+import router from "@/router";
 import Navbar from "../layout/navbar.vue";
 import Sidebar from "../layout/sidebar.vue";
 import Footer from "../layout/footer";
@@ -206,7 +206,7 @@ export default {
     },
     submit(event) {
       event.preventDefault();
-      // let loading = this.$loading.show();
+      let loading = this.$loading.show();
       var imageInput = document.getElementById("inputFile").files[0];
       var formData = new FormData();
       console.log(this.members.gender);
@@ -220,12 +220,12 @@ export default {
       formData.append("gender", this.members.gender);
       Memberservice.postUpdate(this.$route.params.id, formData)
         .then((response) => {
-          // loading.hide();
+          loading.hide();
           console.log(response, "Berhasil Di tambahkan");
-          // router.back();
+          router.back();
         })
         .catch((error) => {
-          // loading.hide();
+          loading.hide();
           console.log("Gagal Di tambahkan", error.response);
         });
     },
