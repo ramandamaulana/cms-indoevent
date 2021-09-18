@@ -22,7 +22,7 @@
                         <div class="col-lg-6 text-right mb-3">
                           <a
                             class="btn btn-primary text-left"
-                            @click.prevent="handleCreate(rows[0].user_id)"
+                            @click.prevent="handleCreate(colum)"
                             ><i class="fa fa-plus mr-3"></i> Tambah</a
                           >
                         </div>
@@ -39,13 +39,15 @@
                         }"
                       >
                         <template slot="table-row" slot-scope="props">
-                          <span v-if="props.column.field == 'gambar'">
-                            <img
-                              :src="props.row.image.url"
-                              class="img-thumbnail mt-3"
-                              style="max-width: 200px;"
-                              :alt="props.row.image.name"
-                            />
+                          <span v-if="props.column.field == 'gambar' && props.row.image != null">
+                            <a :href="props.row.image.url" target="_blank">
+                              <img
+                                :src="props.row.image.url"
+                                class="img-thumbnail mt-3"
+                                style="max-width: 200px;"
+                                :alt="props.row.image.name"
+                              />
+                            </a>
                           </span>
                           <span v-if="props.column.field == 'order_id'">
                             <span v-html="props.row.order_id"></span>

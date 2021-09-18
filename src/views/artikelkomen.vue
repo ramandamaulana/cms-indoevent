@@ -19,13 +19,6 @@
                         <div class="col-lg-6 text-left">
                           <h4 class="mb-3">Tabel Komen Artikel</h4>
                         </div>
-                        <div class="col-lg-6 text-right mb-3">
-                          <a
-                            class="btn btn-primary text-left"
-                            @click.prevent="handleCreate"
-                            ><i class="fa fa-plus mr-3"></i> Tambah</a
-                          >
-                        </div>
                       </div>
                       <vue-good-table
                         :columns="columns"
@@ -40,12 +33,6 @@
                       >
                         <template slot="table-row" slot-scope="props">
                           <span v-if="props.column.field == 'action'">
-                            <button
-                              class="btn btn-universal"
-                              @click.prevent="handleupdate(props.row.id)"
-                            >
-                              <i class="far fa-edit text-primary"></i>
-                            </button>
                             <button
                               class="btn btn-universal"
                               type="submit"
@@ -148,12 +135,6 @@ export default {
             });
         }
       });
-    },
-    handleCreate() {
-      router.push("/artikel/komen/create");
-    },
-    handleupdate(id) {
-      router.push("/artikel/komen/update/" + id);
     },
   },
 };
