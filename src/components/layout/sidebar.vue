@@ -9,10 +9,10 @@
       class="sidebar-brand d-flex align-items-center justify-content-center"
       href="/dashboard"
     >
-      <div class="sidebar-brand-icon">
+      <!-- <div class="sidebar-brand-icon">
         <i class="far fa-calendar-alt"></i>
-      </div>
-      <div class="sidebar-brand-text mx-3">Indo Event</div>
+      </div> -->
+      <div class="sidebar-brand-text mx-3" style="font-size:10px;"> Admin Panel - Indoevent </div>
     </a>
     <!-- Divider -->
     <hr class="sidebar-divider my-0" />
