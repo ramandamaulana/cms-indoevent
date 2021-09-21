@@ -98,7 +98,6 @@ import router from "@/router";
 import Navbar from "../layout/navbar.vue";
 import Sidebar from "../layout/sidebar.vue";
 import Footer from "../layout/footer";
-import MemberService from "../../service/member.service";
 import InfoDetailService from "../../service/info-detail.service";
 import InfoUserService from "../../service/info-user.service";
 export default {
@@ -118,7 +117,7 @@ export default {
     };
   },
   created() {
-    MemberService.getAll()
+    InfoUserService.getAllNoInfo()
       .then((response) => {
         this.Users = response.rows;
         console.log("Data Di Temukan", response.rows);
