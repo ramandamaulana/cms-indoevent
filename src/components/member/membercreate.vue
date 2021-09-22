@@ -96,9 +96,11 @@
                                   class="form-control"
                                   id="exampleInputEmail1"
                                   aria-describedby="emailHelp"
-                                  @blur="$v.members.email.$touch()"
                                 />
-                                <div v-if="$v.members.email.$error">
+                                <div class="error" v-if="errors.email">
+                                  {{ errors.email[0] }}
+                                </div>
+                                <!-- <div v-if="$v.members.email.$error">
                                   <p
                                     v-if="!$v.members.email.email"
                                     class="text-danger mt-1"
@@ -111,7 +113,7 @@
                                   >
                                     Email Harus Di isi
                                   </p>
-                                </div>
+                                </div> -->
                               </div>
                             </div>
                             <div class="col-lg-6">
@@ -274,13 +276,13 @@
                                 <option value="P">Perempuan</option>
                               </select>
                               <div v-if="$v.members.gender.$error">
-                                  <p
-                                    v-if="!$v.members.gender.required"
-                                    class="text-danger mt-1"
-                                  >
-                                    Harus Di Isi
-                                  </p>
-                                </div>
+                                <p
+                                  v-if="!$v.members.gender.required"
+                                  class="text-danger mt-1"
+                                >
+                                  Harus Di Isi
+                                </p>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -322,7 +324,7 @@
 }
 </style>
 <script>
-import router from "@/router";
+// import router from "@/router";
 import { required, email, sameAs } from "vuelidate/lib/validators";
 import Navbar from "../layout/navbar.vue";
 import Sidebar from "../layout/sidebar.vue";
@@ -349,6 +351,7 @@ export default {
         kota: "",
         gender: "",
       },
+      errors: {},
     };
   },
   validations: {
@@ -391,12 +394,15 @@ export default {
         Memberservice.postCrated(formData)
           .then((response) => {
             loading.hide();
-            console.log(response.data, "Berhasil Di tambahkan");
-            router.back();
+            console.log(response.data);
+            // router.back();
           })
           .catch((error) => {
-            loading.hide();
-            console.log("Gagal Di tambahkan", error.response);
+            // loading.hide();
+            console.log(error.response);
+            if (error.response.status == 422) {
+              this.errors = error.response.errors;
+            }
           });
       }
     },

@@ -93,6 +93,10 @@ export default {
       colum: this.$route.params.id,
       columns: [
         {
+          label: "Nama Tiket",
+          field: "ticket",
+        },
+        {
           label: "Order Id",
           field: "order_id",
         },
