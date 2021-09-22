@@ -18,6 +18,22 @@ export default {
           return error.response.data;
         }); 
       },       
+    getAllNoInfo() {
+        return axios({method: 'get',
+        url:`${process.env.VUE_APP_URL}/api/admin/information/user/user-no-info`,
+        headers: {
+            'Authorization': "Bearer " + user.data.access_token,
+            'X_USER_ID': user.data.id,
+            'Content-Type': "application/json",
+          }
+          })
+        .then((response) => {
+          return response.data;
+        })
+        .catch((error) => {
+          return error.response.data;
+        }); 
+      },       
    getDelete(id) {
     return axios.delete(
       `${process.env.VUE_APP_URL}/api/admin/information/user/`+id,
