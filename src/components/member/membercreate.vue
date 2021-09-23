@@ -97,9 +97,9 @@
                                   id="exampleInputEmail1"
                                   aria-describedby="emailHelp"
                                 />
-                                <div class="error" v-if="errors.email">
-                                  {{ errors.email[0] }}
-                                </div>
+                                <p class="text-danger mt-1" v-if="errors.email">
+                                  {{ this.errors.email[0] }}
+                                </p>
                                 <!-- <div v-if="$v.members.email.$error">
                                   <p
                                     v-if="!$v.members.email.email"
@@ -324,7 +324,7 @@
 }
 </style>
 <script>
-// import router from "@/router";
+import router from "@/router";
 import { required, email, sameAs } from "vuelidate/lib/validators";
 import Navbar from "../layout/navbar.vue";
 import Sidebar from "../layout/sidebar.vue";
@@ -372,7 +372,6 @@ export default {
   methods: {
     submit(event) {
       event.preventDefault();
-      let loading = this.$loading.show();
       var imageInput = document.getElementById("inputFile").files[0];
       var formData = new FormData();
       formData.append("name", this.members.name);
@@ -391,18 +390,19 @@ export default {
       formData.append("gender", this.members.gender);
       this.$v.$touch();
       if (!this.$v.$invalid) {
+        let loading = this.$loading.show();
         Memberservice.postCrated(formData)
           .then((response) => {
             loading.hide();
             console.log(response.data);
-            // router.back();
+            router.back();
           })
           .catch((error) => {
-            // loading.hide();
-            console.log(error.response);
+            console.log(error.response.data.errors.email);
             if (error.response.status == 422) {
-              this.errors = error.response.errors;
+              this.errors = error.response.data.errors;
             }
+            loading.hide();
           });
       }
     },

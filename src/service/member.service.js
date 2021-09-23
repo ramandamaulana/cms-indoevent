@@ -83,41 +83,41 @@ export default {
           return error.response.data;
         });
   },
-
+  
   postCrated(data) {
-    return axios({method: 'post',
-    url:`${process.env.VUE_APP_URL}/api/admin/member`,
-    data:data,
-    headers: {
-        'Authorization': "Bearer " + user.data.access_token,
-        'X_USER_ID': user.data.id,
-        'Content-Type': 'multipart/form-data'
-      }, 
-      
-  },{
-  })
-    .then((response) => {
-      return response.data;
-    })
-    .catch((error) => {
-      return error.response.data;
-    }); },
-
-    postUpdate(id,params){
-      return axios.post(`${process.env.VUE_APP_URL}/api/admin/member/`+id ,params,{
-          headers: {
-              'Authorization': "Bearer " + user.data.access_token,
-              'X_USER_ID': user.data.id,
-              'Content-Type': "application/json",
-            }
+    return new Promise((resolve, reject) => {
+      axios.post(`${process.env.VUE_APP_URL}/api/admin/member`, data, {
+        headers: {
+          'Authorization': "Bearer " + user.data.access_token,
+          'X_USER_ID': user.data.id,
+          'Content-Type': 'multipart/form-data'
+        }, 
+      }).then(
+        res => {
+          resolve(res);
+        },
+        error => {
+          reject(error);
         }
-      ).then((response) => {
-            return response.data;
-          })
-          .catch((error) => {
-            return error.response.data;
-          });
-    }
+      );
+    }); 
+  },
+
+  postUpdate(id,params){
+    return axios.post(`${process.env.VUE_APP_URL}/api/admin/member/`+id ,params,{
+        headers: {
+            'Authorization': "Bearer " + user.data.access_token,
+            'X_USER_ID': user.data.id,
+            'Content-Type': "application/json",
+          }
+      }
+    ).then((response) => {
+          return response.data;
+        })
+        .catch((error) => {
+          return error.response.data;
+        });
+  }
         
-      };
+};
  
