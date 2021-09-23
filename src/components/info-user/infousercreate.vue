@@ -36,7 +36,9 @@
                                   v-for="information_user in Users"
                                   :key="information_user.user_id"
                                   :value="information_user.user_id"
-                                  >{{ information_user.name }}</option
+                                  >{{ information_user.name }} - 
+                                   {{ information_user.gender }} - 
+                                   {{ information_user.no_telp }} </option
                                 >
                               </select>
                             </div>

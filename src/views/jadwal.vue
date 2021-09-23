@@ -130,11 +130,16 @@ export default {
     };
   },
   created() {
+    let params = {
+      "sort[by]": ['nama_kegiatan','tanggal_kegiatan', 'jam_mulai'],
+      "order[by]":['asc','asc','asc'],
+    };
+    let paramsString = JSON.stringify(params);
     let loading = this.$loading.show();
-    Jadwalservice.getAll()
+    Jadwalservice.getAll(paramsString)
       .then((response) => {
         loading.hide();
-        this.rows = response.rows;
+        this.rows = response.rows;  
         console.log("Data Di Temukan", response.rows);
       })
       .catch((error) => {

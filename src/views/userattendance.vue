@@ -32,6 +32,11 @@
                         }"
                       >
                         <template slot="table-row" slot-scope="props">
+                          <span v-if="props.column.field == 'tanggal_kegiatan'">
+                            {{
+                              props.row.tgl_kegiatan | moment("DD MMMM YYYY")
+                            }}
+                          </span>
                           <span v-if="props.column.field == 'persentase'">
                             {{ props.row.percentage }} %
                           </span>
@@ -79,6 +84,18 @@ export default {
         {
           label: "Nama Schedule",
           field: "nama_kegiatan",
+        },
+        {
+          label: "Tanggal",
+          field: "tanggal_kegiatan",
+        },
+        {
+          label: "Jam Mulai",
+          field: "jam_mulai",
+        },
+        {
+          label: "Jam Berakhir",
+          field: "jam_berakhir",
         },
         {
           label: "Jumlah Peserta",
