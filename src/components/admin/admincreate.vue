@@ -95,10 +95,12 @@
                                   v-model="admin.email"
                                   class="form-control"
                                   id="exampleInputEmail1"
-                                  @blur="$v.admin.email.$touch()"
                                   aria-describedby="emailHelp"
                                 />
-                                <div v-if="$v.admin.email.$error">
+                                <p class="text-danger mt-1" v-if="errors.email">
+                                  {{ this.errors.email[0] }}
+                                </p>
+                                <!-- <div v-if="$v.admin.email.$error">
                                   <p
                                     v-if="!$v.admin.email.email"
                                     class="text-danger mt-1"
@@ -111,7 +113,7 @@
                                   >
                                     Email Harus Di isi
                                   </p>
-                                </div>
+                                </div> -->
                               </div>
                             </div>
                             <div class="col-lg-6">
@@ -255,6 +257,7 @@ export default {
         password_confirmation: "",
         status: "",
       },
+      errors: {},
     };
   },
   validations: {
@@ -293,8 +296,11 @@ export default {
             router.back();
           })
           .catch((error) => {
+            if (error.response.status == 422) {
+              console.log(error.response.data.errors);
+              this.errors = error.response.data.errors;
+            }
             loading.hide();
-            console.log("Gagal Di tambahkan", error.response);
           });
       }
     },
