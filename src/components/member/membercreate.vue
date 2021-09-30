@@ -272,6 +272,7 @@
                                 class="form-control"
                                 v-model="members.gender"
                               >
+                                <option selected >Pilih Gender</option>
                                 <option value="L">Laki-Laki</option>
                                 <option value="P">Perempuan</option>
                               </select>

@@ -23,24 +23,27 @@
                       <form @submit.prevent="submit($event)">
                         <div class="container">
                           <div class="row">
-                            <div class="col-lg-12 mb-3 text-left">
-                              <label for="exampleFormControlSelect1"
-                                >Pilih User</label
-                              >
-                              <select
-                                class="form-control"
-                                id="exampleFormControlSelect1"
-                                v-model="information_user.user_id"
-                              >
-                                <option
-                                  v-for="information_user in Users"
-                                  :key="information_user.user_id"
-                                  :value="information_user.user_id"
-                                  >{{ information_user.name }} - 
-                                   {{ information_user.gender }} - 
-                                   {{ information_user.no_telp }} </option
-                                >
-                              </select>
+                            <div class="col-lg-12">
+                              <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <label for="exampleFormControlSelect1"
+                                        >Pilih Informasi</label
+                                    >
+                                    <select
+                                        class="form-control"
+                                        id="exampleFormControlSelect1"
+                                        v-model="information.id"
+                                        @change="changeSelectInfo(information.id)"
+                                    >
+                                    <option
+                                        v-for="information in Infos"
+                                        :key="information.id"
+                                        :value="information.id"
+                                        >{{ information.information }}</option
+                                    >
+                                </select>
+                                </div>
+                              </div>
                             </div>
                             <div class="col-lg-12">
                               <div class="form-group row">
@@ -54,15 +57,34 @@
                                         v-model="information_user.information_detail_id"
                                     >
                                     <option
-                                        v-for="information_user in InfoDetails"
-                                        :key="information_user.id"
-                                        :value="information_user.id"
-                                        >{{ information_user.detail }}</option
+                                        v-for="information_detail in InfoDetails"
+                                        :key="information_detail.id"
+                                        :value="information_detail.id"
+                                        >{{ information_detail.detail }}</option
                                     >
                                 </select>
                                 </div>
                               </div>
                             </div>
+                            <div class="col-lg-12 mb-3 text-left">
+                              <label for="exampleFormControlSelect1"
+                                >Pilih User</label
+                              >
+                              <select
+                                class="form-control"
+                                id="exampleFormControlSelect1"
+                                v-model="information_user.user_id"
+                              >
+                                <option
+                                  v-for="information_user in Users"
+                                  :key="information_user.id"
+                                  :value="information_user.id"
+                                  >{{ information_user.name }} - 
+                                   {{ information_user.gender }} - 
+                                   {{ information_user.no_telp }} </option
+                                >
+                              </select>
+                            </div>                            
                           </div>
                         </div>
                         <div class="form-group text-center">
@@ -100,6 +122,7 @@ import router from "@/router";
 import Navbar from "../layout/navbar.vue";
 import Sidebar from "../layout/sidebar.vue";
 import Footer from "../layout/footer";
+import Info from "../../service/info.service";
 import InfoDetailService from "../../service/info-detail.service";
 import InfoUserService from "../../service/info-user.service";
 export default {
@@ -110,12 +133,14 @@ export default {
   },
   data() {
     return {
+      information: {id : ""}, 
       information_user: {
         user_id: "",
         information_detail_id: "",
       },
       Users: [],
       InfoDetails: [],
+      Infos: [],
     };
   },
   created() {
@@ -127,9 +152,9 @@ export default {
       .catch((error) => {
         console.log("Eror Data Tidak Di Temukan", error.response);
       });
-    InfoDetailService.getAll()
+    Info.getAll()
       .then((response) => {
-        this.InfoDetails = response.rows;
+        this.Infos = response.rows;
         console.log("Data Di Temukan", response.rows);
       })
       .catch((error) => {
@@ -154,6 +179,20 @@ export default {
         .catch((error) => {
           loading.hide();
           console.log("Gagal Di tambahkan", error.response);
+        });
+    },
+    changeSelectInfo(id){
+      let params = {
+        "information_id": id
+      };
+      console.log(id);
+      InfoDetailService.getAll(params)
+        .then((response) => {
+          console.log("info detail ", response);
+          this.InfoDetails = response.rows;
+        })
+        .catch((error) => {
+          console.log("Eror Data Tidak ticket", error);
         });
     },
   },

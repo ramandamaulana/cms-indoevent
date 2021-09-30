@@ -79,6 +79,10 @@ export default {
     return {
       columns: [
         {
+          label: "Informasi",
+          field: "informasi",
+        },
+        {
           label: "Informasi Detail",
           field: "informasi_detail",
         },

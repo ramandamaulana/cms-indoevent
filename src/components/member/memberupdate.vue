@@ -32,8 +32,16 @@
                                   id="exampleInputEmail1"
                                   aria-describedby="emailHelp"
                                   v-model="members.name"
-                                  required
+                                  @blur="$v.members.name.$touch()"
                                 />
+                                <div v-if="$v.members.name.$error">
+                                  <p
+                                    v-if="!$v.members.name.required"
+                                    class="text-danger mt-1"
+                                  >
+                                    Nama Harus Di isi
+                                  </p>
+                                </div>
                               </div>
                             </div>
                             <div class="col-lg-6">
@@ -44,10 +52,18 @@
                                 <input
                                   type="text"
                                   v-model="members.username"
-                                  required
                                   class="form-control"
                                   id="exampleInputPassword1"
+                                  @blur="$v.members.username.$touch()"
                                 />
+                                <div v-if="$v.members.username.$error">
+                                  <p
+                                    v-if="!$v.members.username.required"
+                                    class="text-danger mt-1"
+                                  >
+                                    Username Harus Di isi
+                                  </p>
+                                </div>
                               </div>
                             </div>
                             <div class="col-lg-12  mb-3">
@@ -60,7 +76,16 @@
                                 @change="onFileChange"
                                 class="form-control"
                                 id="inputFile"
+                                @blur="$v.members.image.$touch()"
                               />
+                              <div v-if="$v.members.image.$error">
+                                <p
+                                  v-if="!$v.members.image.required"
+                                  class="text-danger mt-1"
+                                >
+                                  Image Upload Wajib Di Isi
+                                </p>
+                              </div>
                             </div>
                             <div class="col-lg-6 mt-2">
                               <div class="form-group">
@@ -73,7 +98,16 @@
                                   v-model="members.perusahaan"
                                   id="exampleInputEmail1"
                                   aria-describedby="emailHelp"
+                                  @blur="$v.members.perusahaan.$touch()"
                                 />
+                                <div v-if="$v.members.perusahaan.$error">
+                                  <p
+                                    v-if="!$v.members.perusahaan.required"
+                                    class="text-danger mt-1"
+                                  >
+                                    Nama Perusahaan Harus Di isi
+                                  </p>
+                                </div>
                               </div>
                             </div>
                             <div class="col-lg-6 mt-2">
@@ -85,7 +119,16 @@
                                   id="exampleInputEmail1"
                                   v-model="members.posisi"
                                   aria-describedby="emailHelp"
+                                  @blur="$v.members.posisi.$touch()"
                                 />
+                                <div v-if="$v.members.posisi.$error">
+                                  <p
+                                    v-if="!$v.members.posisi.required"
+                                    class="text-danger mt-1"
+                                  >
+                                    Posisi Harus Di Isi
+                                  </p>
+                                </div>
                               </div>
                             </div>
                             <div class="col-lg-6 mt-2">
@@ -100,7 +143,16 @@
                                   v-model="members.no_telp"
                                   oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
                                   aria-describedby="emailHelp"
+                                  @blur="$v.members.no_telp.$touch()"
                                 />
+                                <div v-if="$v.members.no_telp.$error">
+                                  <p
+                                    v-if="!$v.members.no_telp.required"
+                                    class="text-danger mt-1"
+                                  >
+                                    Harus Di Isi
+                                  </p>
+                                </div>
                               </div>
                             </div>
                             <div class="col-lg-6 mt-2">
@@ -111,8 +163,17 @@
                                   class="form-control"
                                   id="exampleInputEmail1"
                                   aria-describedby="emailHelp"
+                                  @blur="$v.members.kota.$touch()"
                                   v-model="members.kota"
                                 />
+                                <div v-if="$v.members.kota.$error">
+                                  <p
+                                    v-if="!$v.members.kota.required"
+                                    class="text-danger mt-1"
+                                  >
+                                    Harus Di Isi
+                                  </p>
+                                </div>
                               </div>
                             </div>
                             <div class="col-lg-12 mt-3 text-left">
@@ -123,24 +184,38 @@
                                 class="form-control"
                                 v-model="members.gender"
                               >
+                                <option :selected="true" value="">Pilih Gender</option>
                                 <option value="L">Laki-Laki</option>
                                 <option value="P">Perempuan</option>
                               </select>
+                              <div v-if="$v.members.gender.$error">
+                                <p
+                                  v-if="!$v.members.gender.required"
+                                  class="text-danger mt-1"
+                                >
+                                  Harus Di Isi
+                                </p>
+                              </div>
                             </div>
                           </div>
                         </div>
-                        <div class="container">
-                          <div class="form-group text-center mt-3">
-                            <a
-                              class="btn btn-warning mr-3"
-                              @click="$router.go(-1)"
-                            >
-                              Batal
-                            </a>
-                            <button type="submit" class="btn btn-primary">
-                              Submit
-                            </button>
-                          </div>
+                        <div class="form-group text-center mt-3">
+                          <a
+                            class="btn btn-warning mr-3"
+                            @click="$router.go(-1)"
+                          >
+                            Batal
+                          </a>
+                          <button
+                            type="submit"
+                            :disabled="$v.$anyError"
+                            class="btn btn-primary"
+                          >
+                            Submit
+                          </button>
+                          <p v-if="$v.$anyError" class="text-danger mt-3">
+                            Tolong isi fill yang kosong
+                          </p>
                         </div>
                       </form>
                     </div>
@@ -164,6 +239,7 @@
 <script>
 import router from "@/router";
 import Navbar from "../layout/navbar.vue";
+import { required } from "vuelidate/lib/validators";
 import Sidebar from "../layout/sidebar.vue";
 import Footer from "../layout/footer";
 import Memberservice from "../../service/member.service";
@@ -187,6 +263,18 @@ export default {
       },
     };
   },
+  validations: {
+    members: {
+      name: { required },
+      username: { required },
+      image: { required },
+      perusahaan: { required },
+      posisi: { required },
+      no_telp: { required },
+      kota: { required },
+      gender: { required },
+    },
+  },
   methods: {
     getDetail() {
       Memberservice.getShow(this.$route.params.id).then((response) => {
@@ -200,13 +288,11 @@ export default {
           this.members.perusahaan = response.rows.perusahaan;
           this.members.no_telp = response.rows.no_telp;
           this.members.kota = response.rows.kota;
-          this.members.gender = response.rows.gender;
         }
       });
     },
     submit(event) {
       event.preventDefault();
-      let loading = this.$loading.show();
       var imageInput = document.getElementById("inputFile").files[0];
       var formData = new FormData();
       console.log(this.members.gender);
@@ -218,16 +304,20 @@ export default {
       formData.append("kota", this.members.kota);
       formData.append("image", imageInput);
       formData.append("gender", this.members.gender);
-      Memberservice.postUpdate(this.$route.params.id, formData)
-        .then((response) => {
-          loading.hide();
-          console.log(response, "Berhasil Di tambahkan");
-          router.back();
-        })
-        .catch((error) => {
-          loading.hide();
-          console.log("Gagal Di tambahkan", error.response);
-        });
+      this.$v.$touch();
+      if (!this.$v.$invalid) {
+        let loading = this.$loading.show();
+        Memberservice.postUpdate(this.$route.params.id, formData)
+          .then((response) => {
+            loading.hide();
+            console.log(response, "Berhasil Di tambahkan");
+            router.back();
+          })
+          .catch((error) => {
+            loading.hide();
+            console.log("Gagal Di tambahkan", error.response);
+          });
+      }
     },
     onFileChange(e) {
       let files = e.target.files || e.dataTransfer.files;
