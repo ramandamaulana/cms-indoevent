@@ -285,6 +285,48 @@
                                 </p>
                               </div>
                             </div>
+                            <div class="col-lg-12 mt-3">
+                              <label style="text-align: left"
+                                >Punya Riwayat Penyakit ?</label
+                              >
+                                <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="true" v-model="riwayat_penyakit">
+                                  <label class="form-check-label" for="exampleRadios1">
+                                    Punya
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="false" v-model="riwayat_penyakit">
+                                  <label class="form-check-label" for="exampleRadios2">
+                                    Tidak Punya
+                                  </label>
+                                </div>
+                              <div v-if="$v.riwayat_penyakit.$error">
+                                <p
+                                  v-if="!$v.riwayat_penyakit. required"
+                                  class="text-danger mt-1"
+                                >
+                                  Harus Di Isi
+                                </p>
+                              </div>
+                            </div>
+                            <div class="col-lg-12 mt-3" v-if="riwayat_penyakit == 'true'">
+                              <label style="text-align: left"
+                              >Deskripsikan Riwayat Penyakitnya</label
+                              >
+                                <textarea
+                                  class="form-control"                                
+                                  v-model="members.riwayat_penyakit"
+                                ></textarea>
+                              <div v-if="$v.members.riwayat_penyakit.$error && riwayat_penyakit == 'true'">
+                                <p
+                                  v-if="!$v.members.riwayat_penyakit.required && riwayat_penyakit == 'true'"
+                                  class="text-danger mt-1"
+                                >
+                                  Harus Di Isi
+                                </p>
+                              </div>
+                            </div>
                           </div>
                         </div>
                         <div class="form-group text-center mt-3">
@@ -326,7 +368,7 @@
 </style>
 <script>
 import router from "@/router";
-import { required, email, sameAs } from "vuelidate/lib/validators";
+import { required, email, sameAs, requiredIf } from "vuelidate/lib/validators";
 import Navbar from "../layout/navbar.vue";
 import Sidebar from "../layout/sidebar.vue";
 import Footer from "../layout/footer";
@@ -339,6 +381,7 @@ export default {
   },
   data() {
     return {
+      riwayat_penyakit : "",
       members: {
         name: "",
         username: "",
@@ -351,11 +394,13 @@ export default {
         no_telp: "",
         kota: "",
         gender: "",
+        riwayat_penyakit: "",
       },
       errors: {},
     };
   },
   validations: {
+    riwayat_penyakit : { required },
     members: {
       name: { required },
       username: { required },
@@ -368,6 +413,9 @@ export default {
       no_telp: { required },
       kota: { required },
       gender: { required },
+      riwayat_penyakit: { 
+        required: requiredIf(function () { return this.members.riwayat_penyakit === 'true' }),
+      },
     },
   },
   methods: {
@@ -389,6 +437,7 @@ export default {
       formData.append("kota", this.members.kota);
       formData.append("image", imageInput);
       formData.append("gender", this.members.gender);
+      formData.append("riwayat_penyakit", this.members.riwayat_penyakit);
       this.$v.$touch();
       if (!this.$v.$invalid) {
         let loading = this.$loading.show();

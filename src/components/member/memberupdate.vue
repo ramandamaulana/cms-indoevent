@@ -176,7 +176,7 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="col-lg-12 mt-3 text-left">
+                            <div class="col-lg-12 mt-3">
                               <label for="NIK" style="text-align: left"
                                 >Jenis Kelamin</label
                               >
@@ -191,6 +191,50 @@
                               <div v-if="$v.members.gender.$error">
                                 <p
                                   v-if="!$v.members.gender.required"
+                                  class="text-danger mt-1"
+                                >
+                                  Harus Di Isi
+                                </p>
+                              </div>
+                            </div>
+                            <div class="col-lg-12 mt-3">
+                              <label style="text-align: left"
+                                >Punya Riwayat Penyakit ?</label
+                              >
+                                <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="riwayat_penyakit" id="exampleRadios1" value="true" v-model="riwayat_penyakit"
+                                   >
+                                  <label class="form-check-label" for="exampleRadios1">
+                                    Punya
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="riwayat_penyakit" id="exampleRadios" value="false" v-model="riwayat_penyakit"
+                                    >
+                                  <label class="form-check-label" for="exampleRadios2">
+                                    Tidak Punya
+                                  </label>
+                                </div>
+                              <div v-if="$v.riwayat_penyakit.$error">
+                                <p
+                                  v-if="!$v.riwayat_penyakit. required"
+                                  class="text-danger mt-1"
+                                >
+                                  Harus Di Isi
+                                </p>
+                              </div>
+                            </div>
+                            <div class="col-lg-12 mt-3" v-if="riwayat_penyakit == 'true'">
+                              <label style="text-align: left"
+                              >Deskripsikan Riwayat Penyakitnya</label
+                              >
+                                <textarea
+                                  class="form-control"                                
+                                  v-model="members.riwayat_penyakit"
+                                ></textarea>
+                              <div v-if="$v.members.riwayat_penyakit.$error">
+                                <p
+                                  v-if="!$v.members.riwayat_penyakit.required"
                                   class="text-danger mt-1"
                                 >
                                   Harus Di Isi
@@ -239,7 +283,7 @@
 <script>
 import router from "@/router";
 import Navbar from "../layout/navbar.vue";
-import { required } from "vuelidate/lib/validators";
+import { required, requiredIf } from "vuelidate/lib/validators";
 import Sidebar from "../layout/sidebar.vue";
 import Footer from "../layout/footer";
 import Memberservice from "../../service/member.service";
@@ -252,6 +296,7 @@ export default {
   data() {
     return {
       MemberId: this.$route.params.id,
+      riwayat_penyakit: "",
       members: {
         name: "",
         username: "",
@@ -260,10 +305,17 @@ export default {
         no_telp: "",
         kota: "",
         gender: "",
+        riwayat_penyakit: "",
       },
     };
   },
+  computed: {
+    isRequired() {
+      return true;
+    }
+  },
   validations: {
+    riwayat_penyakit : {required},
     members: {
       name: { required },
       username: { required },
@@ -273,6 +325,9 @@ export default {
       no_telp: { required },
       kota: { required },
       gender: { required },
+      riwayat_penyakit: { 
+        required: requiredIf(function () { return this.members.riwayat_penyakit === 'true' }),
+      },
     },
   },
   methods: {
@@ -288,6 +343,9 @@ export default {
           this.members.perusahaan = response.rows.perusahaan;
           this.members.no_telp = response.rows.no_telp;
           this.members.kota = response.rows.kota;
+          this.members.riwayat_penyakit = response.rows.riwayat_penyakit;
+          this.members.gender = response.rows.gender == 'Perempuan' ? 'P' : 'L';
+          this.riwayat_penyakit = response.rows.riwayat_penyakit == null ? 'false' : 'true';
         }
       });
     },

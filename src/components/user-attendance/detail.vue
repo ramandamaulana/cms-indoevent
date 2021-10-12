@@ -17,7 +17,15 @@
                     <div class="card-body">
                       <div class="row ">
                         <div class="col-lg-6 text-left">
-                          <h4 class="mb-3">Tabel User Attendance Detail : {{ this.schedule }}</h4>
+                          <h4 class="mb-3">Tabel User Attendance Detail : {{ this.schedule  }}</h4>
+                        </div>
+                        <div class="col-lg-6 text-right mb-3">
+                          <a
+                              class="btn btn-success ml-3"
+                              @click.prevent="handleExport()"
+                          >
+                              Export
+                          </a>
                         </div>
                       </div>
                       <vue-good-table
@@ -59,6 +67,8 @@ import Navbar from "../layout/navbar.vue";
 import Sidebar from "../layout/sidebar.vue";
 import Footer from "../layout/footer";
 import Userattendance from "../../service/userattendance.service";
+import axios from "axios";
+const user = JSON.parse(localStorage.getItem("user"));
 export default {
   components: {
     Sidebar,
@@ -78,6 +88,8 @@ export default {
         }
       ],
       rows: [],
+      schedule_id: '',
+      schedule: ''
     };
   },
   created() {
@@ -85,11 +97,34 @@ export default {
       .then((response) => {
         this.schedule = response.schedule;
         this.rows = response.rows;
+        this.schedule_id = response.rows[0].schedule_id;
         console.log("Data Di Temukan", response.rows);
       })
       .catch((error) => {
         console.log("Eror Data Tidak Di Temukan", error.response);
       });
   },
+  methods: {
+    handleExport() {
+        axios({method: 'get',
+          url:`${process.env.VUE_APP_URL}/api/admin/user-attendance/export/${this.schedule_id}`,
+          responseType: "arraybuffer",
+          headers: {
+              'Authorization': "Bearer " + user.data.access_token,
+              'X_USER_ID': user.data.id,
+            },
+        })
+        .then((response) => {
+          var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+          var fileLink = document.createElement('a');
+  
+          fileLink.href = fileURL;
+          fileLink.setAttribute('download', `userattendances-export-${new Date()}.xlsx`);
+          document.body.appendChild(fileLink);
+  
+          fileLink.click();
+        })
+      }
+  }
 };
 </script>

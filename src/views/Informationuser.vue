@@ -25,6 +25,12 @@
                             @click.prevent="handleCreate"
                             ><i class="fa fa-plus mr-3"></i> Tambah</a
                           >
+                          <a
+                              class="btn btn-success ml-3"
+                              @click.prevent="handleExport"
+                          >
+                              Export
+                          </a>
                         </div>
                       </div>
                       <vue-good-table
@@ -69,6 +75,8 @@ import Navbar from "../components/layout/navbar.vue";
 import Sidebar from "../components/layout/sidebar.vue";
 import Footer from "../components/layout/footer";
 import InformationUserservice from "../service/info-user.service";
+import axios from "axios";
+const user = JSON.parse(localStorage.getItem("user"));
 export default {
   components: {
     Sidebar,
@@ -140,6 +148,26 @@ export default {
     },
     handleCreate() {
       router.push("/info/user/create");
+    },
+    handleExport() {
+      axios({method: 'get',
+        url:`${process.env.VUE_APP_URL}/api/admin/information/user/export`,
+        responseType: "arraybuffer",
+        headers: {
+            'Authorization': "Bearer " + user.data.access_token,
+            'X_USER_ID': user.data.id,
+          },
+      })
+      .then((response) => {
+        var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+        var fileLink = document.createElement('a');
+
+        fileLink.href = fileURL;
+        fileLink.setAttribute('download', `information-users-export-${new Date()}.xlsx`);
+        document.body.appendChild(fileLink);
+
+        fileLink.click();
+      })      
     },
   },
 };

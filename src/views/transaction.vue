@@ -19,6 +19,14 @@
                         <div class="col-lg-6 text-left">
                           <h4 class="mb-3">Tabel Transaksi</h4>
                         </div>
+                        <div class="col-lg-6 text-right mb-3">
+                          <a
+                              class="btn btn-success ml-3"
+                              @click.prevent="handleExport"
+                          >
+                              Export
+                          </a>
+                        </div>
                       </div>
                       <vue-good-table
                         :columns="columns"
@@ -102,6 +110,8 @@ import Navbar from "../components/layout/navbar.vue";
 import Sidebar from "../components/layout/sidebar.vue";
 import Footer from "../components/layout/footer";
 import Transcationservice from "../service/transaction.service";
+import axios from "axios";
+const user = JSON.parse(localStorage.getItem("user"));
 export default {
   components: {
     Sidebar,
@@ -234,6 +244,26 @@ export default {
     handleCreate() {
       router.push("/transaction/create");
     },
+    handleExport() {
+      axios({method: 'get',
+        url:`${process.env.VUE_APP_URL}/api/admin/transaction/export`,
+        responseType: "arraybuffer",
+        headers: {
+            'Authorization': "Bearer " + user.data.access_token,
+            'X_USER_ID': user.data.id,
+          },
+      })
+      .then((response) => {
+        var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+        var fileLink = document.createElement('a');
+
+        fileLink.href = fileURL;
+        fileLink.setAttribute('download', `transactions-export-${new Date()}.xlsx`);
+        document.body.appendChild(fileLink);
+
+        fileLink.click();
+      })      
+    }
   },
 };
 </script>
