@@ -362,6 +362,7 @@ export default {
       formData.append("kota", this.members.kota);
       formData.append("image", imageInput);
       formData.append("gender", this.members.gender);
+      formData.append("riwayat_penyakit", this.members.riwayat_penyakit);
       this.$v.$touch();
       if (!this.$v.$invalid) {
         let loading = this.$loading.show();

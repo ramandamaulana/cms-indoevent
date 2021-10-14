@@ -55,6 +55,7 @@
                                         class="form-control"
                                         id="exampleFormControlSelect1"
                                         v-model="information_user.information_detail_id"
+                                        @change="changeSelectInfoDetail(information_user.information_detail_id)"
                                     >
                                     <option
                                         v-for="information_detail in InfoDetails"
@@ -143,15 +144,7 @@ export default {
       Infos: [],
     };
   },
-  created() {
-    InfoUserService.getAllNoInfo()
-      .then((response) => {
-        this.Users = response.rows;
-        console.log("Data Di Temukan", response.rows);
-      })
-      .catch((error) => {
-        console.log("Eror Data Tidak Di Temukan", error.response);
-      });
+  created() {    
     Info.getAll()
       .then((response) => {
         this.Infos = response.rows;
@@ -185,7 +178,6 @@ export default {
       let params = {
         "information_id": id
       };
-      console.log(id);
       InfoDetailService.getAll(params)
         .then((response) => {
           console.log("info detail ", response);
@@ -194,6 +186,16 @@ export default {
         .catch((error) => {
           console.log("Eror Data Tidak ticket", error);
         });
+    },
+    changeSelectInfoDetail(id){
+      InfoUserService.getAllNoInfo(id)
+      .then((response) => {
+        this.Users = response.rows;
+        console.log("Data Di Temukan", response.rows);
+      })
+      .catch((error) => {
+        console.log("Eror Data Tidak Di Temukan", error.response);
+      });
     },
   },
 };

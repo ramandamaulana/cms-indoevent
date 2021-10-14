@@ -18,9 +18,9 @@ export default {
           return error.response.data;
         }); 
       },       
-    getAllNoInfo() {
+    getAllNoInfo(id) {
         return axios({method: 'get',
-        url:`${process.env.VUE_APP_URL}/api/admin/information/user/user-no-info`,
+        url:`${process.env.VUE_APP_URL}/api/admin/information/user/user-no-info/${id}`,
         headers: {
             'Authorization': "Bearer " + user.data.access_token,
             'X_USER_ID': user.data.id,
