@@ -22,6 +22,7 @@
                         <div class="col-lg-6 text-right mb-3">
                           <a
                               class="btn btn-success ml-3"
+                              v-if="$can('user-attendance/export')"
                               @click.prevent="handleExport()"
                           >
                               Export

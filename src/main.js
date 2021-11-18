@@ -11,7 +11,6 @@ Vue.use(VueSweetalert2);
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import helpers from "./helpers/helper";
-console.log(process.env.VUE_APP_URL);
 const plugin = {
   install() {
     Vue.prototype.$helpers = helpers;
@@ -42,11 +41,20 @@ Vue.use(
   }
 )
 moment.locale('id');
+Vue.mixin({
+    methods: {
+      $can(permissionName) {
+        const userPermissions = JSON.parse(localStorage.getItem('user')).data.permissions;
+        return userPermissions.indexOf(permissionName) !== -1;
+      },
+    }
+})
+
 new Vue({
   router,
   store,
+  provide:{
+    $can : true
+  },
   render: h => h(App)
 }).$mount('#app');
-
-
-

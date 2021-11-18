@@ -21,7 +21,7 @@
     <hr class="sidebar-divider" />
     <!-- Heading -->
 
-    <li class="nav-item">
+    <li class="nav-item" v-if="$can('dashboard/read')">
       <router-link to="/dashboard" class="nav-item">
         <div class="nav-link">
           <i class="far fa-calendar-alt mr-2"></i>
@@ -37,6 +37,7 @@
     <li
       class="nav-item"
       :class="this.$route.path.includes('/tiket') ? 'active' : ''"
+      v-if="$can('ticket/read')"
     >
       <a
         class="nav-link collapsed"
@@ -78,7 +79,7 @@
         </div>
       </div>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" v-if="$can('schedule/read')">
       <router-link to="/jadwal" class="nav-item">
         <div class="nav-link">
           <i class="far fa-calendar-alt mr-2"></i>
@@ -86,7 +87,7 @@
         </div>
       </router-link>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" v-if="$can('user-attendance/read')">
       <router-link to="/user-attendance" class="nav-item">
         <div class="nav-link">
           <i class="fas fa-user-tie mr-2"></i>
@@ -94,7 +95,7 @@
         </div>
       </router-link>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" v-if="$can('document/read')">
       <router-link to="/document" class="nav-item">
         <div class="nav-link">
           <i class="fas fa-file-upload mr-2"></i>
@@ -102,7 +103,7 @@
         </div>
       </router-link>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" v-if="$can('feedback/read')">
       <router-link to="/feedback" class="nav-item">
         <div class="nav-link">
           <i class="fas fa-comments mr-2"></i>
@@ -115,7 +116,7 @@
       Peserta
     </div>
 
-    <li class="nav-item">
+    <li class="nav-item" v-if="$can('transaction/read')">
       <router-link to="/Transaction" class="nav-item">
         <div class="nav-link">
           <i class="fas fa-coins mr-2"></i>
@@ -123,7 +124,7 @@
         </div>
       </router-link>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" v-if="$can('member/read')">
       <router-link to="/member" class="nav-item">
         <div class="nav-link">
           <i class="far fa-user mr-2"></i>
@@ -133,6 +134,7 @@
     </li>
     <li
       class="nav-item"
+      v-if="$can('information/read')"
       :class="this.$route.path.includes('/info') ? 'active' : ''"
     >
       <a
@@ -175,7 +177,7 @@
         </div>
       </div>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" v-if="$can('faq/read')">
       <router-link to="/faq" class="nav-item">
         <div class="nav-link">
           <i class="fas fa-question-circle mr-2"></i>
@@ -188,7 +190,7 @@
       Website
     </div>
 
-    <li class="nav-item">
+    <li class="nav-item" v-if="$can('landing-page/read')">
       <router-link to="/landing" class="nav-item">
         <div class="nav-link">
           <i class="fas fa-pager mr-2"></i>
@@ -199,6 +201,7 @@
     <!-- Nav Item - Pages Collapse Menu -->
     <li
       class="nav-item"
+      v-if="$can('article/read')"
       :class="this.$route.path.includes('/artikel') ? 'active' : ''"
     >
       <a
@@ -232,7 +235,7 @@
         </div>
       </div>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" v-if="$can('gallery/read')">
       <router-link to="/gallery" class="nav-item">
         <div class="nav-link">
           <i class="fab fa-envira mr-2"></i>
@@ -240,7 +243,7 @@
         </div>
       </router-link>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" v-if="$can('team/read')">
       <router-link to="/team" class="nav-item">
         <div class="nav-link">
           <i class="fas fa-user-friends mr-2"></i>
@@ -248,7 +251,7 @@
         </div>
       </router-link>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" v-if="$can('phone-number/read')">
       <router-link to="/phone" class="nav-item">
         <div class="nav-link">
           <i class="fas fa-phone mr-2"></i>
@@ -256,7 +259,7 @@
         </div>
       </router-link>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" v-if="$can('bank/read')">
       <router-link to="/bank" class="nav-item">
         <div class="nav-link">
           <i class="fas fa-university mr-2"></i>
@@ -270,11 +273,20 @@
       Administrator
     </div>
 
-    <li class="nav-item">
+    <li class="nav-item" v-if="$can('admin/read')">
       <router-link to="/admin" class="nav-item">
         <div class="nav-link">
-          <i class="far fa-user mr-2"></i>
+          <i class="fas fa-user-tie mr-2"></i>
           <span>Admin</span>
+        </div>
+      </router-link>
+    </li>
+
+    <li class="nav-item" v-if="$can('role/read')">
+      <router-link to="/role" class="nav-item">
+        <div class="nav-link">
+          <i class="fas fa-users-cog mr-2"></i>
+          <span>Role</span>
         </div>
       </router-link>
     </li>
@@ -289,3 +301,4 @@
   </ul>
   <!-- End of Sidebar -->
 </template>
+

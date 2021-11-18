@@ -23,10 +23,12 @@
                           <a
                             class="btn btn-primary text-left"
                             @click.prevent="handleCreate"
+                            v-if="$can('member/create')"
                             ><i class="fa fa-plus mr-3"></i> Tambah</a
                           >
                           <a
                               class="btn btn-success ml-3"
+                              v-if="$can('member/export')"
                               @click.prevent="handleExport"
                           >
                               Export
@@ -59,6 +61,7 @@
                           <span v-if="props.column.field == 'action'">
                             <button
                               class="btn btn-universal"
+                              v-if="$can('member/detail')"
                               @click.prevent="
                                 handletransaksi(props.row.user_id)
                               "
@@ -67,6 +70,7 @@
                             </button>
                             <button
                               class="btn btn-universal"
+                              v-if="$can('member/update')"
                               @click.prevent="handleupdate(props.row.id)"
                             >
                               <i class="far fa-edit text-primary"></i>
@@ -74,6 +78,7 @@
                             <button
                               class="btn btn-universal"
                               type="submit"
+                              v-if="$can('member/delete')"
                               @click.prevent="handledelete(props.row.id)"
                             >
                               <i class="far fa-trash-alt text-primary"></i>

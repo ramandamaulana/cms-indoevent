@@ -17,14 +17,20 @@
                     <div class="card-body">
                       <div class="row ">
                         <div class="col-lg-6 text-left">
-                          <h4 class="mb-3">Tabel Kategori Artikel</h4>
+                          <h4 class="mb-3">Tabel Role</h4>
+                            <a
+                              class="btn btn-success text-left"
+                              v-if="$can('role/set-role')"
+                              @click.prevent="handleSetRoleUser()"
+                              >Set Role User</a
+                            >
                         </div>
                         <div class="col-lg-6 text-right mb-3">
                           <a
                             class="btn btn-primary text-left"
                             @click.prevent="handleCreate"
-                            v-if="$can('article/create')"
-                            ><i class="fa fa-plus mr-3"></i>Tambah</a
+                            v-if="$can('role/create')"
+                            ><i class="fa fa-plus mr-3"></i> Tambah</a
                           >
                         </div>
                       </div>
@@ -38,20 +44,28 @@
                         :pagination-options="{
                           enabled: true,
                         }"
+                        class="mt-3"
                       >
                         <template slot="table-row" slot-scope="props">
                           <span v-if="props.column.field == 'action'">
                             <button
                               class="btn btn-universal"
-                              v-if="$can('article/update')"
+                              @click.prevent="handleSetRolePermission(props.row.id)"
+                              v-if="$can('role/set-permission')"
+                            >
+                              <i class="fas fa-cog text-primary"></i>
+                            </button>
+                            <button
+                              class="btn btn-universal"
+                              v-if="$can('role/update')"
                               @click.prevent="handleupdate(props.row.id)"
                             >
                               <i class="far fa-edit text-primary"></i>
                             </button>
                             <button
                               class="btn btn-universal"
-                              v-if="$can('article/delete')"
                               type="submit"
+                              v-if="$can('role/delete')"
                               @click.prevent="handledelete(props.row.id)"
                             >
                               <i class="far fa-trash-alt text-primary"></i>
@@ -80,7 +94,7 @@ import router from "@/router";
 import Navbar from "../components/layout/navbar.vue";
 import Sidebar from "../components/layout/sidebar.vue";
 import Footer from "../components/layout/footer";
-import Kategoriservice from "../service/artikel-kategori.service";
+import Roleservice from "../service/role.service";
 export default {
   components: {
     Sidebar,
@@ -91,16 +105,12 @@ export default {
     return {
       columns: [
         {
-          label: "title",
-          field: "title",
+          label: "Name",
+          field: "name",
         },
         {
-          label: "Slug",
-          field: "slug",
-        },
-        {
-          label: "Konten",
-          field: "content",
+          label: "Guard Name",
+          field: "guard_name",
         },
 
         {
@@ -111,8 +121,7 @@ export default {
       rows: [
         {
           title: "",
-          slug: "",
-          konten: "",
+          contents: "",
           action: "",
         },
       ],
@@ -120,7 +129,7 @@ export default {
   },
   created() {
     let loading = this.$loading.show();
-    Kategoriservice.getAll()
+    Roleservice.getAll()
       .then((response) => {
         loading.hide();
         this.rows = response.rows;
@@ -143,7 +152,7 @@ export default {
         // <--
         if (result.value) {
           // <-- if confirmed
-          Kategoriservice.getDelete(id)
+          Roleservice.getDelete(id)
             .then((response) => {
               console.log(response, "Berhasil Terhapus");
               router.go();
@@ -155,10 +164,16 @@ export default {
       });
     },
     handleCreate() {
-      router.push("/artikel/kategori/create");
+      router.push("/role/create");
     },
     handleupdate(id) {
-      router.push("/artikel/kategori/update/" + id);
+      router.push("/role/update/" + id);
+    },
+    handleSetRoleUser() {
+      router.push("/role/set-role-user/");
+    },
+    handleSetRolePermission(id) {
+      router.push("/role/set-role-permission/" + id);
     },
   },
 };

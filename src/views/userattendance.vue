@@ -43,6 +43,7 @@
                           <span v-if="props.column.field == 'action'">
                             <button
                               class="btn btn-universal"
+                              v-if="$can('user-attendance/detail')"
                               @click.prevent="handleShow(props.row.id)"
                             >
                               <i class="far fa-eye text-primary"></i>

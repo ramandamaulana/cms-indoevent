@@ -23,11 +23,13 @@
                           <a
                             class="btn btn-primary text-left"
                             @click.prevent="handleCreate"
+                            v-if="$can('information/create')"
                             ><i class="fa fa-plus mr-3"></i> Tambah</a
                           >
                           <a
                               class="btn btn-success ml-3"
                               @click.prevent="handleExport"
+                              v-if="$can('information/export')"
                           >
                               Export
                           </a>
@@ -49,6 +51,7 @@
                             <button
                               class="btn btn-universal"
                               type="submit"
+                              v-if="$can('information/delete')"
                               @click.prevent="handledelete(props.row.id)"
                             >
                               <i class="far fa-trash-alt text-primary"></i>

@@ -23,6 +23,7 @@
                           <a
                             class="btn btn-primary text-left"
                             @click.prevent="handleCreate"
+                            v-if="$can('information/create')"
                             ><i class="fa fa-plus mr-3"></i> Tambah</a
                           >
                         </div>
@@ -42,12 +43,14 @@
                           <span v-if="props.column.field == 'action'">
                             <button
                               class="btn btn-universal"
+                              v-if="$can('information/update')"
                               @click.prevent="handleupdate(props.row.id)"
                             >
                               <i class="far fa-edit text-primary"></i>
                             </button>
                             <button
                               class="btn btn-universal"
+                              v-if="$can('information/delete')"
                               type="submit"
                               @click.prevent="handledelete(props.row.id)"
                             >

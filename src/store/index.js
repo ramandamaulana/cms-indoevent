@@ -22,8 +22,8 @@ export default new Vuex.Store({
     },
   },
   actions: { 
-    login({ commit }, credentials) {
-      return axios.post(`${process.env.VUE_APP_URL}/api/login`, credentials).then(({ data }) => {
+    login({ commit }, credentials) {      
+      return axios.post(`${process.env.VUE_APP_URL}/api/admin/login`, credentials).then(({ data }) => {
         commit("SET_USER_DATA", data);
       });
     },

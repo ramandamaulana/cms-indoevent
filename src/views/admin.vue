@@ -17,11 +17,12 @@
                     <div class="card-body">
                       <div class="row ">
                         <div class="col-lg-6 text-left">
-                          <h4 class="mb-3">Tabel Adminn</h4>
+                          <h4 class="mb-3">Tabel Admin</h4>
                         </div>
                         <div class="col-lg-6 text-right mb-3">
                           <a
                             class="btn btn-primary text-left"
+                            v-if="$can('admin/create')"
                             @click.prevent="handleCreate"
                             ><i class="fa fa-plus mr-3"></i> Tambah</a
                           >
@@ -43,12 +44,14 @@
                             <button
                               class="btn btn-universal"
                               @click.prevent="handleupdate(props.row.id)"
+                              v-if="$can('admin/edit')"
                             >
                               <i class="far fa-edit text-primary"></i>
                             </button>
                             <button
                               class="btn btn-universal"
                               type="submit"
+                              v-if="$can('admin/delete')"
                               @click.prevent="handledelete(props.row.id)"
                             >
                               <i class="far fa-trash-alt text-primary"></i>

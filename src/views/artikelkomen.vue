@@ -35,6 +35,7 @@
                           <span v-if="props.column.field == 'action'">
                             <button
                               class="btn btn-universal"
+                              v-if="$can('article/delete')"
                               type="submit"
                               @click.prevent="handledelete(props.row.id)"
                             >

@@ -23,6 +23,7 @@
                           <a
                               class="btn btn-success ml-3"
                               @click.prevent="handleExport"
+                              v-if="$can('transaction/export')"
                           >
                               Export
                           </a>
@@ -65,7 +66,7 @@
                             <button
                               class="btn btn-success mr-2"
                               type="submit"
-                              v-if="props.row.status == 'pending'"
+                              v-if="props.row.status == 'pending' || $can('transaction/approve')"
                               @click.prevent="handlesuccess(props.row.id)"
                             >
                               Success
@@ -73,7 +74,7 @@
                             <button
                               class="btn btn-danger"
                               type="submit"
-                              v-if="props.row.status == 'pending'"
+                              v-if="props.row.status == 'pending' || $can('transaction/approve')"
                               @click.prevent="handleFailed(props.row.id)"
                             >
                               Failed
@@ -81,6 +82,7 @@
                             <button
                               class="btn btn-universal"
                               type="submit"
+                              v-if="$can('transaction/delete')"
                               @click.prevent="handledelete(props.row.id)"
                             >
                               <i class="far fa-trash-alt text-primary"></i>

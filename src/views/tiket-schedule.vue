@@ -23,6 +23,7 @@
                           <a
                             class="btn btn-primary text-left"
                             @click.prevent="handleCreate"
+                            v-if="$can('ticket/create')"
                             ><i class="fa fa-plus mr-3"></i> Tambah</a
                           >
                         </div>
@@ -43,6 +44,7 @@
                             <button
                               class="btn btn-universal"
                               type="submit"
+                              v-if="$can('ticket/delete')"
                               @click.prevent="handledelete(props.row.id)"
                             >
                               <i class="far fa-trash-alt text-primary"></i>
