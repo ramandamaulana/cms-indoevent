@@ -234,6 +234,7 @@
 }
 </style>
 <script>
+
 import router from "@/router";
 import Navbar from "../layout/navbar.vue";
 import Sidebar from "../layout/sidebar.vue";
